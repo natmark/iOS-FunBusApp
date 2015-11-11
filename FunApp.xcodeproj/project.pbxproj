@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F7048C561BF3032500B2EA72 /* bus_id.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7048C551BF3032500B2EA72 /* bus_id.plist */; };
+		F7048C571BF3032500B2EA72 /* bus_id.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7048C551BF3032500B2EA72 /* bus_id.plist */; };
+		F7048C581BF3032500B2EA72 /* bus_id.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7048C551BF3032500B2EA72 /* bus_id.plist */; };
+		F7C625871BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
+		F7C625881BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
+		F7C625891BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
 		F7E211951B3E8E2F0035AF3A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E211941B3E8E2F0035AF3A /* main.m */; };
 		F7E211981B3E8E2F0035AF3A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E211971B3E8E2F0035AF3A /* AppDelegate.m */; };
 		F7E2119B1B3E8E2F0035AF3A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E2119A1B3E8E2F0035AF3A /* ViewController.m */; };
@@ -18,7 +24,6 @@
 		F7E211C51B3E8FF90035AF3A /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E211C41B3E8FF90035AF3A /* TodayViewController.m */; };
 		F7E211C71B3E8FF90035AF3A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7E211C61B3E8FF90035AF3A /* MainInterface.storyboard */; };
 		F7E211CA1B3E8FF90035AF3A /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F7E211BC1B3E8FF90035AF3A /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		F7E211D01B3EA5780035AF3A /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7E211CF1B3EA5780035AF3A /* bus_data.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +58,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F7048C551BF3032500B2EA72 /* bus_id.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bus_id.plist; sourceTree = "<group>"; };
+		F7C625831BF2F6E60016C86D /* bus_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bus_data.plist; sourceTree = "<group>"; };
 		F7E2118F1B3E8E2E0035AF3A /* FunApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7E211931B3E8E2F0035AF3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F7E211941B3E8E2F0035AF3A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -72,7 +79,6 @@
 		F7E211C31B3E8FF90035AF3A /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
 		F7E211C41B3E8FF90035AF3A /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
 		F7E211C61B3E8FF90035AF3A /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
-		F7E211CF1B3EA5780035AF3A /* bus_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bus_data.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +110,8 @@
 		F7E211861B3E8E2D0035AF3A = {
 			isa = PBXGroup;
 			children = (
+				F7048C551BF3032500B2EA72 /* bus_id.plist */,
+				F7C625831BF2F6E60016C86D /* bus_data.plist */,
 				F7E211911B3E8E2E0035AF3A /* FunApp */,
 				F7E211AB1B3E8E2F0035AF3A /* FunAppTests */,
 				F7E211C01B3E8FF90035AF3A /* Widget */,
@@ -185,7 +193,6 @@
 		F7E211C11B3E8FF90035AF3A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F7E211CF1B3EA5780035AF3A /* bus_data.plist */,
 				F7E211C21B3E8FF90035AF3A /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -259,6 +266,7 @@
 				TargetAttributes = {
 					F7E2118E1B3E8E2E0035AF3A = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = DEQGLB9PU4;
 					};
 					F7E211A71B3E8E2F0035AF3A = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -296,6 +304,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7E2119E1B3E8E2F0035AF3A /* Main.storyboard in Resources */,
+				F7C625871BF2F6E60016C86D /* bus_data.plist in Resources */,
+				F7048C561BF3032500B2EA72 /* bus_id.plist in Resources */,
 				F7E211A31B3E8E2F0035AF3A /* LaunchScreen.xib in Resources */,
 				F7E211A01B3E8E2F0035AF3A /* Images.xcassets in Resources */,
 			);
@@ -305,6 +315,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7C625881BF2F6E60016C86D /* bus_data.plist in Resources */,
+				F7048C571BF3032500B2EA72 /* bus_id.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,8 +324,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7048C581BF3032500B2EA72 /* bus_id.plist in Resources */,
 				F7E211C71B3E8FF90035AF3A /* MainInterface.storyboard in Resources */,
-				F7E211D01B3EA5780035AF3A /* bus_data.plist in Resources */,
+				F7C625891BF2F6E60016C86D /* bus_data.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +478,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = FunApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -475,6 +489,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = FunApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -562,6 +577,7 @@
 				F7E211B41B3E8E2F0035AF3A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F7E211B51B3E8E2F0035AF3A /* Build configuration list for PBXNativeTarget "FunAppTests" */ = {
 			isa = XCConfigurationList;
@@ -570,6 +586,7 @@
 				F7E211B71B3E8E2F0035AF3A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F7E211CB1B3E8FF90035AF3A /* Build configuration list for PBXNativeTarget "Widget" */ = {
 			isa = XCConfigurationList;
@@ -578,6 +595,7 @@
 				F7E211CD1B3E8FF90035AF3A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

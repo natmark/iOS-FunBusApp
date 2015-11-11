@@ -17,6 +17,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    //読み込むファイルパスを指定
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"bus_id" ofType:@"plist"];
+    NSArray* array = [NSArray arrayWithContentsOfFile:path];
+    NSLog(@"%@",array);
+    NSLog(@"%@",[[array objectAtIndex:0]objectForKey:@"name"]);
+
+    // string という名前の NSString 型の文字列から、"," が最初に現れる場所を取得します。
+    //NSRange found = [string rangeOfString:@","];
+
 }
 
 - (void)didReceiveMemoryWarning {
