@@ -54,10 +54,13 @@
             html = [NSString stringWithFormat:@"%@<option>%@</option>",html,[dict objectForKey:@"name"]];
         }
         self.busStopLabel.text = [[searchArray objectAtIndex:0]objectForKey:@"name"];
+        [BusSearchManager sharedManager].GetOnBusStop = [searchArray objectAtIndex:0];
+
         html = [NSString stringWithFormat:@"%@</select></form>",html];
         // webviewに読み込み
         NSLog(@"%@",html);
         
+        //ロード待ちが必要
         [self.webView loadHTMLString:html baseURL:[[NSBundle mainBundle] resourceURL]];
         
     }else{
@@ -98,6 +101,8 @@
 // JavaScriptから指定されて呼び出されるメソッド。
 -(void)selectChange:(NSString *)tag {
     self.busStopLabel.text = [[searchArray objectAtIndex:[tag integerValue]]objectForKey:@"name"];
+    [BusSearchManager sharedManager].GetOnBusStop = [searchArray objectAtIndex:[tag integerValue]];
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

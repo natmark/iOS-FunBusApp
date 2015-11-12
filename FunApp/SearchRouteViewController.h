@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "BusSearchManager.h"
 @interface SearchRouteViewController : UIViewController
 
 @end

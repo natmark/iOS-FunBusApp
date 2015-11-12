@@ -9,7 +9,7 @@
 #import "BusSearchManager.h"
 
 @implementation BusSearchManager{
-    void (^varGETRouteSearchResultCompletionHandler)(NSDictionary* json);
+    void (^varGETRouteSearchResultCompletionHandler)(NSString* data);
 }
 
 static BusSearchManager *sharedData_ = nil;
@@ -39,8 +39,12 @@ static BusSearchManager *sharedData_ = nil;
     return getArray;
 }
 -(void)routeSearch{
+    NSLog(@"%@",self.GetOffBusStop);
+    NSLog(@"%@",self.GetOnBusStop);
+    
     if(self.GetOnBusStop && self.GetOffBusStop){
-        [self GETRouteSearchResultWithGetOn:self.GetOnBusStop GetOff:self.GetOffBusStop completionHandler:^(NSDictionary* dictionaly){
+        [self GETRouteSearchResultWithGetOn:[[self.GetOnBusStop objectForKey:@"code"]intValue] GetOff:[[self.GetOffBusStop objectForKey:@"code"]intValue] completionHandler:^(NSString* data){
+            NSLog(@"%@",data);
             
         }];
     }else{
@@ -48,7 +52,7 @@ static BusSearchManager *sharedData_ = nil;
     }
 }
 #pragma mark ルート検索結果を取得
--(void)GETRouteSearchResultWithGetOn:(int)on GetOff:(int)off completionHandler:(void (^)(NSDictionary *json))handler{
+-(void)GETRouteSearchResultWithGetOn:(int)on GetOff:(int)off completionHandler:(void (^)(NSString *data))handler{
     varGETRouteSearchResultCompletionHandler = handler;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/result.php?in=%d&out=%d",on,off]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
@@ -57,9 +61,10 @@ static BusSearchManager *sharedData_ = nil;
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data,
                                                               NSURLResponse *response,
                                                               NSError *error){
-        NSLog(@"%@",data);
+        NSString* str = [[NSString alloc] initWithData:data encoding:NSShiftJISStringEncoding];
+        NSLog(@"%@",str);
         if(varGETRouteSearchResultCompletionHandler){
-            varGETRouteSearchResultCompletionHandler(data);
+            varGETRouteSearchResultCompletionHandler(str);
         }
         
         /*
