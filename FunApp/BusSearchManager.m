@@ -35,6 +35,13 @@ static BusSearchManager *sharedData_ = nil;
     }
     return getArray;
 }
+-(void)routeSearch{
+    if(self.GetOnBusStop && self.GetOffBusStop){
+        
+    }else{
+        NSLog(@"Error");
+    }
+}
 - (id)init
 {
     self = [super init];

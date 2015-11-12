@@ -14,4 +14,7 @@
 +(BusSearchManager*)sharedManager;
 //TODO: バス停検索機構・ルート検索機構・plist読み込み機構等 集約予定
 -(NSArray*)busSearch:(NSString*)str;
+@property(nonatomic,assign)int GetOnBusStop;
+@property(nonatomic,assign)int GetOffBusStop;
+-(void)routeSearch;
 @end

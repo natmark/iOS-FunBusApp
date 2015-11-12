@@ -240,6 +240,9 @@
                                 <state key="normal" title="検索">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="0pv-sK-D3j" kind="push" id="F3Y-4q-hOQ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <animations/>
@@ -279,6 +282,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEb-tv-3eq" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="975" y="-295"/>
+        </scene>
+        <!--Search Route View Controller-->
+        <scene sceneID="TeJ-82-zX0">
+            <objects>
+                <viewController id="0pv-sK-D3j" customClass="SearchRouteViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oay-ja-9bI"/>
+                        <viewControllerLayoutGuide type="bottom" id="WKG-fb-Amj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ntG-AW-BD2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="iS2-Vp-2YK"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="src-4F-YhC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1687" y="-295"/>
         </scene>
     </scenes>
 </document>
