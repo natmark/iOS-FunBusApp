@@ -8,7 +8,10 @@
 
 #import "BusSearchManager.h"
 
-@implementation BusSearchManager
+@implementation BusSearchManager{
+    void (^varGETRouteSearchResultCompletionHandler)(NSDictionary* json);
+}
+
 static BusSearchManager *sharedData_ = nil;
 + (BusSearchManager *)sharedManager{
     if (!sharedData_) {
@@ -37,11 +40,40 @@ static BusSearchManager *sharedData_ = nil;
 }
 -(void)routeSearch{
     if(self.GetOnBusStop && self.GetOffBusStop){
-        
+        [self GETRouteSearchResultWithGetOn:self.GetOnBusStop GetOff:self.GetOffBusStop completionHandler:^(NSDictionary* dictionaly){
+            
+        }];
     }else{
         NSLog(@"Error");
     }
 }
+#pragma mark ルート検索結果を取得
+-(void)GETRouteSearchResultWithGetOn:(int)on GetOff:(int)off completionHandler:(void (^)(NSDictionary *json))handler{
+    varGETRouteSearchResultCompletionHandler = handler;
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/result.php?in=%d&out=%d",on,off]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    [[session dataTaskWithRequest:request completionHandler:^(NSData *data,
+                                                              NSURLResponse *response,
+                                                              NSError *error){
+        NSLog(@"%@",data);
+        if(varGETRouteSearchResultCompletionHandler){
+            varGETRouteSearchResultCompletionHandler(data);
+        }
+        
+        /*
+        //jsonデータの取得
+        NSMutableDictionary* json = [[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error]mutableCopy];
+        
+        if(varGETRouteSearchResultCompletionHandler){
+            varGETRouteSearchResultCompletionHandler(json);
+        }
+        */
+    }] resume];
+    
+}
+
 - (id)init
 {
     self = [super init];
