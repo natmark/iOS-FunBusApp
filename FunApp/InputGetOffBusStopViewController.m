@@ -31,21 +31,7 @@
     // キーボードを閉じる
     [sender resignFirstResponder];
     
-    //読み込むファイルパスを指定
-    NSString* path = [[NSBundle mainBundle] pathForResource:@"bus_id" ofType:@"plist"];
-    NSArray* array = [NSArray arrayWithContentsOfFile:path];
-    NSLog(@"%@",array);
-    NSLog(@"%@",[[array objectAtIndex:0]objectForKey:@"name"]);
-    
-    // string という名前の NSString 型の文字列から、"," が最初に現れる場所を取得します。
-    searchArray = [NSMutableArray new];
-    
-    for(NSDictionary* dict in array){
-        NSRange found = [[dict objectForKey:@"name"] rangeOfString:sender.text];
-        if((int)found.location != -1){
-            [searchArray addObject:dict];
-        }
-    }
+    searchArray = [[BusSearchManager sharedManager]busSearch:sender.text];
     
     if([searchArray count] != 0){
         //上記JSが動いているUIWebViewのdelegateを指定します。

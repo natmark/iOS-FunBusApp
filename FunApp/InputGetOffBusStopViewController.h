@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "BusSearchManager.h"
 @interface InputGetOffBusStopViewController : UIViewController<UITextFieldDelegate,UIWebViewDelegate>{
-    NSMutableArray* searchArray;
+    NSArray* searchArray;
 }
 
 @property (strong, nonatomic) IBOutlet UITextField *textField;

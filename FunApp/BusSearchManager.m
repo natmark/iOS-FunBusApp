@@ -13,8 +13,27 @@ static BusSearchManager *sharedData_ = nil;
 + (BusSearchManager *)sharedManager{
     if (!sharedData_) {
         sharedData_ = [BusSearchManager new];
+        [sharedData_ readPlist];
     }
     return sharedData_;
+}
+//Plist読み込み
+-(void)readPlist{
+    busInfo = [NSArray new];
+    //読み込むファイルパスを指定
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"bus_id" ofType:@"plist"];
+    busInfo = [NSArray arrayWithContentsOfFile:path];
+}
+-(NSArray*)busSearch:(NSString *)str{
+    NSMutableArray* getArray = [NSMutableArray new];
+    
+    for(NSDictionary* dict in busInfo){
+        NSRange found = [[dict objectForKey:@"name"] rangeOfString:str];
+        if((int)found.location != -1){
+            [getArray addObject:dict];
+        }
+    }
+    return getArray;
 }
 - (id)init
 {

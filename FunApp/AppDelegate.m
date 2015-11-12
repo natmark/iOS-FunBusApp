@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "BusSearchManager.h"
 @interface AppDelegate ()
 
 @end
@@ -17,6 +17,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [UINavigationBar appearance].tintColor = [UIColor whiteColor];
+    [BusSearchManager sharedManager];
+
     // Override point for customization after application launch.
     return YES;
 }
