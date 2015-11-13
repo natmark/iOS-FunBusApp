@@ -64,8 +64,8 @@
         [self.webView loadHTMLString:html baseURL:[[NSBundle mainBundle] resourceURL]];
         
     }else{
+        self.busStopLabel.text = @"検索結果がありません。";
         self.webView.hidden = true;
-        self.busStopLabel.hidden = true;
         self.label1.hidden = true;
         self.searchButton.hidden = true;
     }

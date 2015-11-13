@@ -65,7 +65,7 @@
         
     }else{
         self.webView.hidden = true;
-        self.busStopLabel.hidden = true;
+        self.busStopLabel.text = @"検索結果がありません。";
         self.label1.hidden = true;
         self.searchButton.hidden = true;
     }

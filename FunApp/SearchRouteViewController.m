@@ -23,11 +23,19 @@
         [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg){
             if(flg){
                 NSLog(@"直通路線はあります。");
-                [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[getOn objectForKey:@"code"]intValue] GetOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(NSString* data){
-                   //Arrayで受け取って1つめを表示
-                    //Arrayはグローバルで定義
-                    //Arrayのindexを保存する変数をグローバルで取得
-                    //到着時間を取得する関数も必要かも
+                [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg2){
+                    if(!flg2){
+                        NSLog(@"バスあります");
+                        [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[getOn objectForKey:@"code"]intValue] GetOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(NSString* data){
+                            //Arrayで受け取って1つめを表示
+                            //Arrayはグローバルで定義
+                            //Arrayのindexを保存する変数をグローバルで取得
+                            //到着時間を取得する関数も必要かも
+                        }];
+
+                    }else{
+                        NSLog(@"営業時間終了");
+                    }
                 }];
             }else{
                 NSLog(@"直通路線はありません。");

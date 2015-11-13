@@ -54,6 +54,25 @@ static BusSearchManager *sharedData_ = nil;
         handler(flg);
     }] resume];
 }
+#pragma mark 営業時間が終了しているかどうかの関数
+-(void)isOutOfServiceWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg))handler{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/result.php?in=%d&out=%d",on,off]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    [[session dataTaskWithRequest:request completionHandler:^(NSData *data,
+                                                              NSURLResponse *response,
+                                                              NSError *error){
+        NSString* str = [[NSString alloc] initWithData:data encoding:NSShiftJISStringEncoding];
+        NSRange range = [str rangeOfString:@"本日の運行は終了しました。"];
+        BOOL flg = false;
+        if (range.location != NSNotFound) {
+            flg = true;
+        }
+        handler(flg);
+    }] resume];
+
+}
 #pragma mark ルート検索結果を取得
 -(void)GETRouteSearchResultWithGetOn:(int)on GetOff:(int)off completionHandler:(void (^)(NSString *data))handler{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/result.php?in=%d&out=%d",on,off]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
