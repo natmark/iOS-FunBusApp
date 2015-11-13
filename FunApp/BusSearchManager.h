@@ -11,10 +11,15 @@
 @interface BusSearchManager : NSObject{
     NSArray* busInfo;
 }
+
 +(BusSearchManager*)sharedManager;
 //TODO: バス停検索機構・ルート検索機構・plist読み込み機構等 集約予定
 -(NSArray*)busSearch:(NSString*)str;
 @property(nonatomic,assign)NSDictionary* GetOnBusStop;
 @property(nonatomic,assign)NSDictionary* GetOffBusStop;
--(void)routeSearch;
+
+-(void)isExistRouteWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg))handler;
+-(void)GETRouteSearchResultWithGetOn:(int)on GetOff:(int)off completionHandler:(void (^)(NSString *data))handler;
+
+
 @end

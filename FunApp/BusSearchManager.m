@@ -8,9 +8,7 @@
 
 #import "BusSearchManager.h"
 
-@implementation BusSearchManager{
-    void (^varGETRouteSearchResultCompletionHandler)(NSString* data);
-}
+@implementation BusSearchManager
 
 static BusSearchManager *sharedData_ = nil;
 + (BusSearchManager *)sharedManager{
@@ -38,22 +36,26 @@ static BusSearchManager *sharedData_ = nil;
     }
     return getArray;
 }
--(void)routeSearch{
-    NSLog(@"%@",self.GetOffBusStop);
-    NSLog(@"%@",self.GetOnBusStop);
+#pragma mark 直通路線が存在するかどうかBOOLの関数
+-(void)isExistRouteWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg))handler{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/result.php?in=%d&out=%d",on,off]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
-    if(self.GetOnBusStop && self.GetOffBusStop){
-        [self GETRouteSearchResultWithGetOn:[[self.GetOnBusStop objectForKey:@"code"]intValue] GetOff:[[self.GetOffBusStop objectForKey:@"code"]intValue] completionHandler:^(NSString* data){
-            NSLog(@"%@",data);
-            
-        }];
-    }else{
-        NSLog(@"Error");
-    }
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    [[session dataTaskWithRequest:request completionHandler:^(NSData *data,
+                                                              NSURLResponse *response,
+                                                              NSError *error){
+        NSString* str = [[NSString alloc] initWithData:data encoding:NSShiftJISStringEncoding];
+        NSRange range = [str rangeOfString:@"指定された区間の直通便はありません。"];
+        BOOL flg = true;
+        if (range.location != NSNotFound) {
+            flg = false;
+        }
+        handler(flg);
+    }] resume];
 }
 #pragma mark ルート検索結果を取得
 -(void)GETRouteSearchResultWithGetOn:(int)on GetOff:(int)off completionHandler:(void (^)(NSString *data))handler{
-    varGETRouteSearchResultCompletionHandler = handler;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/result.php?in=%d&out=%d",on,off]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
     NSURLSession *session = [NSURLSession sharedSession];
@@ -63,18 +65,7 @@ static BusSearchManager *sharedData_ = nil;
                                                               NSError *error){
         NSString* str = [[NSString alloc] initWithData:data encoding:NSShiftJISStringEncoding];
         NSLog(@"%@",str);
-        if(varGETRouteSearchResultCompletionHandler){
-            varGETRouteSearchResultCompletionHandler(str);
-        }
-        
-        /*
-        //jsonデータの取得
-        NSMutableDictionary* json = [[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error]mutableCopy];
-        
-        if(varGETRouteSearchResultCompletionHandler){
-            varGETRouteSearchResultCompletionHandler(json);
-        }
-        */
+        handler(str);
     }] resume];
     
 }

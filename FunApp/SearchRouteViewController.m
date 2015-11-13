@@ -17,8 +17,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[BusSearchManager sharedManager]routeSearch];
+    NSDictionary* getOn = [[BusSearchManager sharedManager]GetOnBusStop];
+    NSDictionary* getOff = [[BusSearchManager sharedManager]GetOffBusStop];
+    if(getOn && getOff){
+        [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg){
+            if(flg){
+                NSLog(@"直通路線はあります。");
+                [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[getOn objectForKey:@"code"]intValue] GetOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(NSString* data){
+                   //Arrayで受け取って1つめを表示
+                    //Arrayはグローバルで定義
+                    //Arrayのindexを保存する変数をグローバルで取得
+                    //到着時間を取得する関数も必要かも
+                }];
+            }else{
+                NSLog(@"直通路線はありません。");
+            }
+        }];
+    }
 }
+/*[{
+ if(存在){
+ [{検索して、Arrayを取得}]
+ }else{
+ for(){
+ [{
+ if(存在){
+ {[
+ if(存在){
+ 配列に追加
+ }
+ ]}
+ }else{
+ }
+ }]
+ }
+ }
+ }]
+ */
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
