@@ -26,4 +26,6 @@
 -(void)isOutOfServiceWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg))handler;
 #pragma mark 各地点の到着時間を返す関数
 -(void)GETArrivedTimeWithURL:(NSString*)url completionHandler:(void (^)(NSArray *array))handler;
+#pragma mark システムメンテナンスかどうかの関数
+-(void)isSystemMeintenanceWithcompletionHandler:(void (^)(BOOL flg))handler;
 @end

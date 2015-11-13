@@ -19,26 +19,44 @@
     // Do any additional setup after loading the view.
     NSDictionary* getOn = [[BusSearchManager sharedManager]GetOnBusStop];
     NSDictionary* getOff = [[BusSearchManager sharedManager]GetOffBusStop];
-    if(getOn && getOff){
-        [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg){
-            if(flg){
-                NSLog(@"直通路線はあります。");
-                [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg2){
-                    if(!flg2){
-                        NSLog(@"バスあります");
-                        [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[getOn objectForKey:@"code"]intValue] GetOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(NSString* data){
-                            //Arrayで受け取って1つめを表示
-                            //Arrayはグローバルで定義
-                            //Arrayのindexを保存する変数をグローバルで取得
-                            //到着時間を取得する関数も必要かも
-                        }];
+    
+    NSLog(@"乗車バス停:%@",[getOn objectForKey:@"name"]);
+    NSLog(@"降車バス停:%@",[getOff objectForKey:@"name"]);
 
+    if(getOn && getOff){
+        [[BusSearchManager sharedManager]isSystemMeintenanceWithcompletionHandler:^(BOOL meintenanceFlg){
+            if(!meintenanceFlg){
+                [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg){
+                    if(flg){
+                        NSLog(@"直通路線はあります。");
+                        [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg2){
+                            if(!flg2){
+                                NSLog(@"バスあります");
+                                [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[getOn objectForKey:@"code"]intValue] GetOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(NSArray* array){
+                                    NSLog(@"時間:%@",[[array objectAtIndex:0]objectForKey:@"time"]);
+                                    NSLog(@"行き先:%@",[[array objectAtIndex:0]objectForKey:@"destination"]);
+                                    NSLog(@"遅延情報:%@",[[array objectAtIndex:0]objectForKey:@"detail"]);
+                                    NSLog(@"URL:%@",[[array objectAtIndex:0]objectForKey:@"url"]);
+                                    [[BusSearchManager sharedManager]GETArrivedTimeWithURL:[[array objectAtIndex:0]objectForKey:@"url"] completionHandler:^(NSArray* array2){
+                                        for(NSDictionary* dict in array2){
+                                            if([[dict objectForKey:@"name"] isEqualToString:[getOff objectForKey:@"name"]]
+                                               ){
+                                                NSLog(@"バス停到着時間:%@",[dict objectForKey:@"time"]);
+                                            }
+                                        }
+                                    }];
+                                }];
+                                
+                            }else{
+                                NSLog(@"営業時間終了");
+                            }
+                        }];
                     }else{
-                        NSLog(@"営業時間終了");
+                        NSLog(@"直通路線はありません。");
                     }
                 }];
             }else{
-                NSLog(@"直通路線はありません。");
+                NSLog(@"システムメンテナンス中");
             }
         }];
     }

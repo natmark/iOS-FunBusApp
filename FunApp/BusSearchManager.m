@@ -36,6 +36,26 @@ static BusSearchManager *sharedData_ = nil;
     }
     return getArray;
 }
+#pragma mark システムメンテナンスかどうかの関数
+-(void)isSystemMeintenanceWithcompletionHandler:(void (^)(BOOL flg))handler{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/search01.php"]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    [[session dataTaskWithRequest:request completionHandler:^(NSData *data,
+                                                              NSURLResponse *response,
+                                                              NSError *error){
+        NSString* str = [[NSString alloc] initWithData:data encoding:NSShiftJISStringEncoding];
+        NSRange range = [str rangeOfString:@"只今、システムメンテナンス中のためバス接近情報はご利用できません。"];
+        BOOL flg = false;
+        if (range.location != NSNotFound) {
+            flg = true;
+        }
+        handler(flg);
+    }] resume];
+
+}
+
 #pragma mark 直通路線が存在するかどうかの関数
 -(void)isExistRouteWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg))handler{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/result.php?in=%d&out=%d",on,off]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
@@ -91,11 +111,14 @@ static BusSearchManager *sharedData_ = nil;
         
         NSArray* urlArray = [self HTMLParserWithString:str pattern:@"(<td width=\"50\"><div align=\"center\"><a href=\"(.*?)\"><img src=\"img/icon_keiro01.gif\" width=\"38\" height=\"16\" border=\"0\"></a></div></td>)"];
         
+        NSArray* detailArray = [self HTMLParserWithString:str pattern:@"(<td width=\"160\">(.*?)</td>)"];
+        
         for (int i = 0; i < [timeArray count]; i++) {
             NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
                                   [timeArray objectAtIndex:i],@"time",
                                   [destinationArray objectAtIndex:i],@"destination",
-                                  [urlArray objectAtIndex:i],@"URL",nil];
+                                  [urlArray objectAtIndex:i],@"url",
+                                  [detailArray objectAtIndex:i],@"detail",nil];
             [resultArray addObject:dict];
         }
         handler(resultArray);
