@@ -36,7 +36,7 @@ static BusSearchManager *sharedData_ = nil;
     }
     return getArray;
 }
-#pragma mark 直通路線が存在するかどうかBOOLの関数
+#pragma mark 直通路線が存在するかどうかの関数
 -(void)isExistRouteWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg))handler{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/result.php?in=%d&out=%d",on,off]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
@@ -54,7 +54,7 @@ static BusSearchManager *sharedData_ = nil;
         handler(flg);
     }] resume];
 }
-#pragma mark 営業時間が終了しているかどうかの関数
+#pragma mark 営業時間外かどうかを返す関数
 -(void)isOutOfServiceWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg))handler{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/result.php?in=%d&out=%d",on,off]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
@@ -73,8 +73,8 @@ static BusSearchManager *sharedData_ = nil;
     }] resume];
 
 }
-#pragma mark ルート検索結果を取得
--(void)GETRouteSearchResultWithGetOn:(int)on GetOff:(int)off completionHandler:(void (^)(NSString *data))handler{
+#pragma mark ルート検索の結果を返す関数
+-(void)GETRouteSearchResultWithGetOn:(int)on GetOff:(int)off completionHandler:(void (^)(NSArray* array))handler{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/result.php?in=%d&out=%d",on,off]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
     NSURLSession *session = [NSURLSession sharedSession];
@@ -83,16 +83,64 @@ static BusSearchManager *sharedData_ = nil;
                                                               NSURLResponse *response,
                                                               NSError *error){
         NSString* str = [[NSString alloc] initWithData:data encoding:NSShiftJISStringEncoding];
-        NSLog(@"%@",str);
-        handler(str);
+        NSMutableArray* resultArray = [NSMutableArray new];
+        
+        NSArray* timeArray = [self HTMLParserWithString:str pattern:@"(<td width=\"50\"><div align=\"center\">(.*?)</div></td>\n<td width=\"140\">)"];
+        
+        NSArray* destinationArray = [self HTMLParserWithString:str pattern:@"(<td width=\"120\"><div align=center>(.*?)</div></td>)"];
+        
+        NSArray* urlArray = [self HTMLParserWithString:str pattern:@"(<td width=\"50\"><div align=\"center\"><a href=\"(.*?)\"><img src=\"img/icon_keiro01.gif\" width=\"38\" height=\"16\" border=\"0\"></a></div></td>)"];
+        
+        for (int i = 0; i < [timeArray count]; i++) {
+            NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  [timeArray objectAtIndex:i],@"time",
+                                  [destinationArray objectAtIndex:i],@"destination",
+                                  [urlArray objectAtIndex:i],@"URL",nil];
+            [resultArray addObject:dict];
+        }
+        handler(resultArray);
     }] resume];
-    
 }
-#pragma mark TODO-LIST
-//TODO:直通路線が存在するかどうかBOOLの関数
-//TODO:経由候補を調べ、候補一覧を返す関数
-//TODO:バス検索関数
-//TODO:経由でのバス検索関数
+#pragma mark 各地点の到着時間を返す関数
+-(void)GETArrivedTimeWithURL:(NSString*)url completionHandler:(void (^)(NSArray *array))handler{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@",url]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    [[session dataTaskWithRequest:request completionHandler:^(NSData *data,
+                                                              NSURLResponse *response,
+                                                              NSError *error){
+        NSString* str = [[NSString alloc] initWithData:data encoding:NSShiftJISStringEncoding];
+        
+        NSMutableArray* resultArray = [NSMutableArray new];
+        
+        NSArray* nameArray = [self HTMLParserWithString:str pattern:@"(&nbsp;(.*?)&nbsp;)"];
+        NSArray* timeArray = [self HTMLParserWithString:str pattern:@"(&nbsp;　（(.*?)）<!-- 1 -->)"];
+        
+        for(int i = 0;i < [timeArray count];i++){
+            NSLog(@"%@ %@",[nameArray objectAtIndex:i],[timeArray objectAtIndex:i]);
+            NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:[nameArray objectAtIndex:i],@"name",
+                                  [timeArray objectAtIndex:i],@"time",nil];
+            [resultArray addObject:dict];
+        }
+        handler(resultArray);
+    }] resume];
+}
+-(NSArray*)HTMLParserWithString:(NSString*)str pattern:(NSString*)ptn{
+    NSMutableArray* array = [NSMutableArray new];
+    NSError* error = nil;
+    //#タグの検索
+    NSRegularExpression *regexp = [NSRegularExpression regularExpressionWithPattern:ptn options:0 error:&error];
+    if (error == nil) {
+        NSArray *arr = [regexp matchesInString:str options:0 range:NSMakeRange(0, str.length)];
+        for (NSTextCheckingResult *match in arr) {
+            NSRange range = [match rangeAtIndex:2];
+            NSString *str1=[str substringWithRange:range];
+            [array addObject:str1];
+        }
+    }
+    return array;
+}
 - (id)init
 {
     self = [super init];
