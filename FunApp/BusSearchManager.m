@@ -78,7 +78,11 @@ static BusSearchManager *sharedData_ = nil;
     }] resume];
     
 }
-
+#pragma mark TODO-LIST
+//TODO:直通路線が存在するかどうかBOOLの関数
+//TODO:経由候補を調べ、候補一覧を返す関数
+//TODO:バス検索関数
+//TODO:経由でのバス検索関数
 - (id)init
 {
     self = [super init];
