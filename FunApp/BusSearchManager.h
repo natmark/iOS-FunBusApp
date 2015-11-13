@@ -13,8 +13,11 @@
 }
 
 +(BusSearchManager*)sharedManager;
-//TODO: バス停検索機構・ルート検索機構・plist読み込み機構等 集約予定
+#pragma mark バス検索関数
 -(NSArray*)busSearch:(NSString*)str;
+#pragma mark バス情報返信関数
+-(NSDictionary*)getBusInfo:(int)bus_id;
+
 @property(nonatomic,assign)NSDictionary* GetOnBusStop;
 @property(nonatomic,assign)NSDictionary* GetOffBusStop;
 

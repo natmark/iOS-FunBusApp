@@ -25,6 +25,7 @@ static BusSearchManager *sharedData_ = nil;
     NSString* path = [[NSBundle mainBundle] pathForResource:@"bus_id" ofType:@"plist"];
     busInfo = [NSArray arrayWithContentsOfFile:path];
 }
+#pragma mark バス検索関数
 -(NSArray*)busSearch:(NSString *)str{
     NSMutableArray* getArray = [NSMutableArray new];
     
@@ -35,6 +36,17 @@ static BusSearchManager *sharedData_ = nil;
         }
     }
     return getArray;
+}
+#pragma mark バス情報返信関数
+-(NSDictionary*)getBusInfo:(int)bus_id{
+    NSDictionary* returnDict = [NSDictionary new];
+    
+    for(NSDictionary* dict in busInfo){
+        if([[dict objectForKey:@"id"]intValue] == bus_id){
+            returnDict = dict;
+        }
+    }
+    return returnDict;
 }
 #pragma mark システムメンテナンスかどうかの関数
 -(void)isSystemMeintenanceWithcompletionHandler:(void (^)(BOOL flg))handler{
@@ -149,6 +161,7 @@ static BusSearchManager *sharedData_ = nil;
         handler(resultArray);
     }] resume];
 }
+#pragma mark HTMLパース用関数(private)
 -(NSArray*)HTMLParserWithString:(NSString*)str pattern:(NSString*)ptn{
     NSMutableArray* array = [NSMutableArray new];
     NSError* error = nil;
