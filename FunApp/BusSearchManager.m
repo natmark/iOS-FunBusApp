@@ -52,7 +52,7 @@ static BusSearchManager *sharedData_ = nil;
 -(void)isSystemMeintenanceWithcompletionHandler:(void (^)(BOOL flg))handler{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/search01.php"]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
-    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
     
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data,
                                                               NSURLResponse *response,
@@ -72,8 +72,8 @@ static BusSearchManager *sharedData_ = nil;
 -(void)isExistRouteWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg))handler{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/result.php?in=%d&out=%d",on,off]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
-    NSURLSession *session = [NSURLSession sharedSession];
-    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data,
                                                               NSURLResponse *response,
                                                               NSError *error){
@@ -90,8 +90,8 @@ static BusSearchManager *sharedData_ = nil;
 -(void)isOutOfServiceWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg))handler{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/result.php?in=%d&out=%d",on,off]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
-    NSURLSession *session = [NSURLSession sharedSession];
-    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data,
                                                               NSURLResponse *response,
                                                               NSError *error){
@@ -109,8 +109,8 @@ static BusSearchManager *sharedData_ = nil;
 -(void)GETRouteSearchResultWithGetOn:(int)on GetOff:(int)off completionHandler:(void (^)(NSArray* array))handler{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/result.php?in=%d&out=%d",on,off]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
-    NSURLSession *session = [NSURLSession sharedSession];
-    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data,
                                                               NSURLResponse *response,
                                                               NSError *error){
@@ -140,8 +140,8 @@ static BusSearchManager *sharedData_ = nil;
 -(void)GETArrivedTimeWithURL:(NSString*)url completionHandler:(void (^)(NSArray *array))handler{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/%@",url]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
-    NSURLSession *session = [NSURLSession sharedSession];
-    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data,
                                                               NSURLResponse *response,
                                                               NSError *error){

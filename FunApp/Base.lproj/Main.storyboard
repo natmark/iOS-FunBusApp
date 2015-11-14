@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -122,7 +123,7 @@
                                 <rect key="frame" x="20" y="330" width="560" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6g-ks-g6Y">
@@ -226,7 +227,7 @@
                                 <rect key="frame" x="20" y="330" width="560" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R2-Oe-boT">
@@ -294,14 +295,99 @@
                     <view key="view" contentMode="scaleToFill" id="ntG-AW-BD2">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="乗車バス停" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6K-dB-596">
+                                <rect key="frame" x="20" y="72" width="250" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="VES-X7-EvB"/>
+                                    <constraint firstAttribute="height" constant="30" id="cQN-ci-Vwt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="亀田支所前" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLm-CS-VtD">
+                                <rect key="frame" x="20" y="102" width="250" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="J26-pV-olr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="→" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IL1-EB-a5y">
+                                <rect key="frame" x="278" y="90" width="45" height="24"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="Ear-d2-xtc"/>
+                                    <constraint firstAttribute="height" constant="24" id="fdz-HJ-2tG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                <color key="textColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="降車バス停" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aDO-kh-bJV">
+                                <rect key="frame" x="331" y="72" width="249" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="3C6-uc-f2a"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="8SZ-Xw-Uuf"/>
+                                    <constraint firstAttribute="height" constant="30" id="Rep-qv-mUZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="亀田支所前" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wrR-2f-uS1">
+                                <rect key="frame" x="331" y="102" width="249" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="acg-k4-CEV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IL1-EB-a5y" firstAttribute="centerY" secondItem="L6K-dB-596" secondAttribute="bottom" id="5C4-wa-NW8"/>
+                            <constraint firstItem="L6K-dB-596" firstAttribute="top" secondItem="oay-ja-9bI" secondAttribute="bottom" constant="8" id="A4U-ms-Kl6"/>
+                            <constraint firstItem="IL1-EB-a5y" firstAttribute="leading" secondItem="L6K-dB-596" secondAttribute="trailing" constant="8" id="E16-7g-ISl"/>
+                            <constraint firstItem="L6K-dB-596" firstAttribute="leading" secondItem="ntG-AW-BD2" secondAttribute="leadingMargin" id="GiW-Gj-hhW"/>
+                            <constraint firstItem="L6K-dB-596" firstAttribute="top" secondItem="oay-ja-9bI" secondAttribute="bottom" constant="8" id="KYQ-Qc-YJo"/>
+                            <constraint firstItem="wrR-2f-uS1" firstAttribute="trailing" secondItem="aDO-kh-bJV" secondAttribute="trailing" id="KkK-rm-GTM"/>
+                            <constraint firstItem="aDO-kh-bJV" firstAttribute="leading" secondItem="IL1-EB-a5y" secondAttribute="trailing" constant="8" id="LQe-e1-dTO"/>
+                            <constraint firstItem="GLm-CS-VtD" firstAttribute="top" secondItem="L6K-dB-596" secondAttribute="bottom" id="RPz-YV-2Hs"/>
+                            <constraint firstItem="IL1-EB-a5y" firstAttribute="centerX" secondItem="ntG-AW-BD2" secondAttribute="centerX" id="aDh-rH-31f"/>
+                            <constraint firstItem="wrR-2f-uS1" firstAttribute="leading" secondItem="aDO-kh-bJV" secondAttribute="leading" id="b87-cW-NI0"/>
+                            <constraint firstItem="wrR-2f-uS1" firstAttribute="leading" secondItem="aDO-kh-bJV" secondAttribute="leading" id="eqm-5F-P7b"/>
+                            <constraint firstItem="aDO-kh-bJV" firstAttribute="trailing" secondItem="ntG-AW-BD2" secondAttribute="trailingMargin" id="fno-8o-syU"/>
+                            <constraint firstItem="wrR-2f-uS1" firstAttribute="top" secondItem="aDO-kh-bJV" secondAttribute="bottom" id="hri-OQ-VNa"/>
+                            <constraint firstItem="aDO-kh-bJV" firstAttribute="top" secondItem="oay-ja-9bI" secondAttribute="bottom" constant="8" id="jQe-2C-sNF"/>
+                            <constraint firstItem="GLm-CS-VtD" firstAttribute="leading" secondItem="L6K-dB-596" secondAttribute="leading" id="nzw-0A-Zis"/>
+                            <constraint firstItem="wrR-2f-uS1" firstAttribute="trailing" secondItem="aDO-kh-bJV" secondAttribute="trailing" id="xaf-M0-QG5"/>
+                            <constraint firstItem="GLm-CS-VtD" firstAttribute="trailing" secondItem="L6K-dB-596" secondAttribute="trailing" id="zHy-aQ-f0S"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="KkK-rm-GTM"/>
+                                <exclude reference="b87-cW-NI0"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="iS2-Vp-2YK"/>
+                    <connections>
+                        <outlet property="getOffLabel" destination="wrR-2f-uS1" id="38f-jV-Ood"/>
+                        <outlet property="getOnLabel" destination="GLm-CS-VtD" id="Stj-hG-nXy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="src-4F-YhC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1687" y="-295"/>
+            <point key="canvasLocation" x="1731" y="-253"/>
         </scene>
     </scenes>
 </document>

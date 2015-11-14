@@ -69,6 +69,20 @@
     }
     return TRUE;
 }
+#pragma mark webViewが読み込み終わったとき
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    self.webView.hidden = false;
+    self.busStopLabel.hidden = false;
+    self.label1.hidden = false;
+    self.searchButton.hidden = false;
+}
+#pragma mark webViewが読み込み始めたとき
+-(void)webViewDidStartLoad:(UIWebView *)webView{
+    self.webView.hidden = true;
+    self.busStopLabel.hidden = true;
+    self.label1.hidden = true;
+    self.searchButton.hidden = true;
+}
 #pragma mark - UIWebViewDelegate
 // JavaScriptやリンクなどでサーバーへのリクエストが発生した際に呼び出されるメソッド。
 - (BOOL)webView:(UIWebView *)aWebView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {

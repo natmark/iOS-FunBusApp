@@ -21,13 +21,66 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //エラー表示用
+    /*==========================*/
+    errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height / 2 - 30, self.view.frame.size.width, 60)];
+    errorLabel.textColor = [UIColor colorWithRed:184/255.0 green:29/255.0 blue:31/255.0 alpha:1.0];
+    errorLabel.font = [UIFont systemFontOfSize:22];
+    errorLabel.hidden = true;
+    errorLabel.numberOfLines = 0;
+    errorLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:errorLabel];
+    /*==========================*/
+    
+    //インジケーター
+    /*==========================*/
+    indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    indicator.frame = CGRectMake(0, 0, 100, 100);
+    indicator.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+    indicator.backgroundColor = [UIColor colorWithRed:184/255.0 green:29/255.0 blue:31/255.0 alpha:1.0];
+    indicator.layer.cornerRadius = indicator.frame.size.width * 0.1;
+    [indicator startAnimating];
+    [self.view addSubview:indicator];
+    /*==========================*/
+    
+    //経由なしの表示用
+    /*==========================*/
+    showCnt = 0;
+    noConnectionView = [[NoConnectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width - 20, self.view.frame.size.width - 20)];
+    
+    noConnectionView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+    [self.view addSubview:noConnectionView];
+    noConnectionView.hidden = true;
+    
+    leftButton = [[UIButton alloc]initWithFrame:CGRectMake(20, self.view.frame.size.height - 30, 20, 20)];
+    [leftButton setTitle:@"◀︎" forState:UIControlStateNormal];
+    [leftButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [leftButton.titleLabel setFont:[UIFont systemFontOfSize:20]];
+    
+    [leftButton addTarget:self action:@selector(leftPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:leftButton];
+    
+    rightButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-40, self.view.frame.size.height - 30, 20, 20)];
+    [rightButton setTitle:@"▶︎" forState:UIControlStateNormal];
+    [rightButton.titleLabel setFont:[UIFont systemFontOfSize:20]];
+    [rightButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(rightPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:rightButton];
+    
+    leftButton.hidden = true;
+    rightButton.hidden = true;
+    
+    /*==========================*/
+    
+
+    
     // Do any additional setup after loading the view.
     NSDictionary* getOn = [[BusSearchManager sharedManager]GetOnBusStop];
     NSDictionary* getOff = [[BusSearchManager sharedManager]GetOffBusStop];
     
-    NSLog(@"乗車バス停:%@",[getOn objectForKey:@"name"]);
-    NSLog(@"降車バス停:%@",[getOff objectForKey:@"name"]);
-
+    self.getOnLabel.text = [getOn objectForKey:@"name"];
+    self.getOffLabel.text = [getOff objectForKey:@"name"];
+    
     if(getOn && getOff){
         [[BusSearchManager sharedManager]isSystemMeintenanceWithcompletionHandler:^(BOOL meintenanceFlg){
             if(!meintenanceFlg){
@@ -38,26 +91,21 @@
                             if(!flg2){
                                 NSLog(@">バスあります");
                                 [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[getOn objectForKey:@"code"]intValue] GetOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(NSArray* array){
-                                    [[BusSearchManager sharedManager]GETArrivedTimeWithURL:[[array objectAtIndex:0]objectForKey:@"url"] completionHandler:^(NSArray* array2){
-                                        for(NSDictionary* dict in array2){
-                                            if([[dict objectForKey:@"name"] isEqualToString:[getOff objectForKey:@"name"]]
-                                               ){
-                                                NSLog(@"/*===================================*/");
-                                                NSLog(@"乗車バス停:%@",[getOn objectForKey:@"name"]);
-                                                NSLog(@"発車時間:%@",[[array objectAtIndex:0]objectForKey:@"time"]);
-                                                NSLog(@"行き先:%@",[[array objectAtIndex:0]objectForKey:@"destination"]);
-                                                NSLog(@"遅延情報:%@",[[array objectAtIndex:0]objectForKey:@"detail"]);
-                                                NSLog(@"URL:%@",[[array objectAtIndex:0]objectForKey:@"url"]);
-                                                NSLog(@"降車バス停:%@",[getOff objectForKey:@"name"]);
-                                                NSLog(@"降車バス停到着時間:%@",[dict objectForKey:@"time"]);
-                                                NSLog(@"/*===================================*/");
-                                            }
-                                        }
-                                    }];
+                                    searchResultArray = array;
+                                    [self showSearchResult];
+                                    [indicator stopAnimating];
+                                    indicator.hidden = true;
+                                    leftButton.hidden = false;
+                                    rightButton.hidden = false;
+
                                 }];
                                 
                             }else{
                                 NSLog(@">営業時間終了");
+                                errorLabel.text = @"上記路線の本日の運行は終了しました。";
+                                errorLabel.hidden = false;
+                                [indicator stopAnimating];
+                                indicator.hidden = true;
                             }
                         }];
                     }else{
@@ -141,6 +189,10 @@
                                                                             }];
                                                                         }else{
                                                                             NSLog(@">営業時間終了");
+                                                                            errorLabel.text = @"上記路線の本日の運行は終了しました。";
+                                                                            errorLabel.hidden = false;
+                                                                            [indicator stopAnimating];
+                                                                            indicator.hidden = true;
                                                                         }
                                                                     }];
                                                                     
@@ -151,26 +203,40 @@
                                                     
                                                 }else{
                                                     NSLog(@">営業時間終了");
+                                                    errorLabel.text = @"上記路線の本日の運行は終了しました";
+                                                    errorLabel.hidden = false;
+                                                    [indicator stopAnimating];
+                                                    indicator.hidden = true;
                                                 }
                                             }];
 
                                         }else{
                                             NSLog(@">直通路線なし");
+                                            errorLabel.text = @"上記路線間の運行ルートが見つかりません。";
+                                            errorLabel.hidden = false;
+                                            [indicator stopAnimating];
+                                            indicator.hidden = true;
                                         }
                                     }];
 
                                 }else{
                                     NSLog(@">直通路線なし");
+                                    errorLabel.text = @"上記路線間の運行ルートが見つかりません。";
+                                    errorLabel.hidden = false;
+                                    [indicator stopAnimating];
+                                    indicator.hidden = true;
                                 }
                             }];
                             
                         }
-                        
-                        
                     }
                 }];
             }else{
                 NSLog(@">システムメンテナンス中");
+                errorLabel.text = @"システムメンテナンス中です。";
+                errorLabel.hidden = false;
+                [indicator stopAnimating];
+                indicator.hidden = true;
             }
         }];
     }
@@ -190,26 +256,43 @@
     return dict;
     
 }
-/*[{
- if(存在){
- [{検索して、Arrayを取得}]
- }else{
- for(){
- [{
- if(存在){
- {[
- if(存在){
- 配列に追加
- }
- ]}
- }else{
- }
- }]
- }
- }
- }]
- */
+-(void)showSearchResult{
+#pragma mark 検索時間の割に処理が長すぎるので、UI描画のスレッドをしっかり管理
+    // Do any additional setup after loading the view.
+    noConnectionView.hidden = false;
 
+    NSDictionary* getOn = [[BusSearchManager sharedManager]GetOnBusStop];
+    NSDictionary* getOff = [[BusSearchManager sharedManager]GetOffBusStop];
+    
+    NSLog(@"searchResult = %@",searchResultArray);
+    [[BusSearchManager sharedManager]GETArrivedTimeWithURL:[[searchResultArray objectAtIndex:showCnt]objectForKey:@"url"] completionHandler:^(NSArray* array2){
+        for(NSDictionary* dict in array2){
+            if([[dict objectForKey:@"name"] isEqualToString:[getOff objectForKey:@"name"]]
+               ){
+                NSLog(@"/*===================================*/");
+                NSLog(@"乗車バス停:%@",[getOn objectForKey:@"name"]);
+                
+                NSLog(@"発車時間:%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"time"]);
+                NSLog(@"行き先:%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"destination"]);
+                NSLog(@"遅延情報:%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"detail"]);
+                NSLog(@"URL:%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"url"]);
+                NSLog(@"降車バス停:%@",[getOff objectForKey:@"name"]);
+                NSLog(@"降車バス停到着時間:%@",[dict objectForKey:@"time"]);
+                NSLog(@"/*===================================*/");
+                noConnectionView.departureLabel.text = [NSString stringWithFormat:@"出発時刻:%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"time"]];
+                noConnectionView.destinationLabel.text = [NSString stringWithFormat:@"行き先:%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"destination"]];
+                noConnectionView.detailLabel.text = [NSString stringWithFormat:@"遅延情報:%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"detail"]];
+                noConnectionView.arrivalLabel.text = [NSString stringWithFormat:@"到着時刻:%@",[dict objectForKey:@"time"]];
+            }
+        }
+    }];
+}
+-(void)leftPressed:(UIButton*)sender{
+    showCnt = MAX(showCnt, 0);
+}
+-(void)rightPressed:(UIButton*)sender{
+    showCnt = MIN(showCnt, (int)[searchResultArray count]);
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "BusSearchManager.h"
-@interface SearchRouteViewController : UIViewController
-
+#import "NoConnectionView.h"
+@interface SearchRouteViewController : UIViewController{
+    UILabel *errorLabel;
+    UIActivityIndicatorView* indicator;
+    NSArray *searchResultArray;
+    int showCnt;
+    NoConnectionView* noConnectionView;
+    UIButton* leftButton;
+    UIButton* rightButton;
+}
+@property (strong, nonatomic) IBOutlet UILabel *getOnLabel;
+@property (strong, nonatomic) IBOutlet UILabel *getOffLabel;
 @end

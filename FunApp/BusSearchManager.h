@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BusSearchManager : NSObject{
+@interface BusSearchManager : NSObject<NSURLSessionDelegate>{
     NSArray* busInfo;
 }
 
