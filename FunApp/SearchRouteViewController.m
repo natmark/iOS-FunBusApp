@@ -33,31 +33,35 @@
             if(!meintenanceFlg){
                 [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg){
                     if(flg){
-                        NSLog(@"直通路線はあります。");
+                        NSLog(@">直通路線はあります。");
                         [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg2){
                             if(!flg2){
-                                NSLog(@"バスあります");
+                                NSLog(@">バスあります");
                                 [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[getOn objectForKey:@"code"]intValue] GetOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(NSArray* array){
-                                    NSLog(@"時間:%@",[[array objectAtIndex:0]objectForKey:@"time"]);
-                                    NSLog(@"行き先:%@",[[array objectAtIndex:0]objectForKey:@"destination"]);
-                                    NSLog(@"遅延情報:%@",[[array objectAtIndex:0]objectForKey:@"detail"]);
-                                    NSLog(@"URL:%@",[[array objectAtIndex:0]objectForKey:@"url"]);
                                     [[BusSearchManager sharedManager]GETArrivedTimeWithURL:[[array objectAtIndex:0]objectForKey:@"url"] completionHandler:^(NSArray* array2){
                                         for(NSDictionary* dict in array2){
                                             if([[dict objectForKey:@"name"] isEqualToString:[getOff objectForKey:@"name"]]
                                                ){
-                                                NSLog(@"バス停到着時間:%@",[dict objectForKey:@"time"]);
+                                                NSLog(@"/*===================================*/");
+                                                NSLog(@"乗車バス停:%@",[getOn objectForKey:@"name"]);
+                                                NSLog(@"発車時間:%@",[[array objectAtIndex:0]objectForKey:@"time"]);
+                                                NSLog(@"行き先:%@",[[array objectAtIndex:0]objectForKey:@"destination"]);
+                                                NSLog(@"遅延情報:%@",[[array objectAtIndex:0]objectForKey:@"detail"]);
+                                                NSLog(@"URL:%@",[[array objectAtIndex:0]objectForKey:@"url"]);
+                                                NSLog(@"降車バス停:%@",[getOff objectForKey:@"name"]);
+                                                NSLog(@"降車バス停到着時間:%@",[dict objectForKey:@"time"]);
+                                                NSLog(@"/*===================================*/");
                                             }
                                         }
                                     }];
                                 }];
                                 
                             }else{
-                                NSLog(@"営業時間終了");
+                                NSLog(@">営業時間終了");
                             }
                         }];
                     }else{
-                        NSLog(@"直通路線はありません。");
+                        NSLog(@">直通路線はありません。");
                         /*乗り継ぎバス停を検索*/
                         /*乗り継ぎバス停は以下8つのみ*/
                         /*現状2回以上の乗り継ぎは対応しない方向で*/
@@ -85,44 +89,58 @@
 
                             [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[dict objectForKey:@"code"]intValue] completionHandler:^(BOOL flg2){
                                 if(flg2){
-                                    [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[dict objectForKey:@"code"]intValue] getOff:[[dict objectForKey:@"code"]intValue] completionHandler:^(BOOL flg3){
+                                    [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[dict objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg3){
                                         if(flg3){
-                                            NSLog(@"経由路線発見");
+                                            NSLog(@">経由路線発見");
                                             //TODO:乗車バス停→経由バス停
                                             [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[dict objectForKey:@"code"]intValue] completionHandler:^(BOOL flg4){
                                                 if(!flg4){
-                                                    NSLog(@"バスあります");
+                                                    NSLog(@">バスあります");
                                                     [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[getOn objectForKey:@"code"]intValue] GetOff:[[dict objectForKey:@"code"]intValue] completionHandler:^(NSArray* array){
-                                                        NSLog(@"時間:%@",[[array objectAtIndex:0]objectForKey:@"time"]);
-                                                        NSLog(@"行き先:%@",[[array objectAtIndex:0]objectForKey:@"destination"]);
-                                                        NSLog(@"遅延情報:%@",[[array objectAtIndex:0]objectForKey:@"detail"]);
-                                                        NSLog(@"URL:%@",[[array objectAtIndex:0]objectForKey:@"url"]);
                                                         [[BusSearchManager sharedManager]GETArrivedTimeWithURL:[[array objectAtIndex:0]objectForKey:@"url"] completionHandler:^(NSArray* array2){
                                                             for(NSDictionary* dict2 in array2){
                                                                 if([[dict2 objectForKey:@"name"] isEqualToString:[dict objectForKey:@"name"]]
                                                                    ){
-                                                                    NSLog(@"経由バス停到着時間:%@",[dict2 objectForKey:@"time"]);
-                                                                    #warning 経由バス到着時間に合わせて、array3の要素を削る
-                                                                    //TODO:経由バス停→降車バス停
                                                                     [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[dict objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg5){
                                                                         if(!flg5){
-                                                                            NSLog(@"バスあります");
+                                                                            NSLog(@">バスあります");
                                                                             [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[dict objectForKey:@"code"]intValue] GetOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(NSArray* array3){
-                                                                                NSLog(@"時間:%@",[[array3 objectAtIndex:0]objectForKey:@"time"]);
-                                                                                NSLog(@"行き先:%@",[[array3 objectAtIndex:0]objectForKey:@"destination"]);
-                                                                                NSLog(@"遅延情報:%@",[[array3 objectAtIndex:0]objectForKey:@"detail"]);
-                                                                                NSLog(@"URL:%@",[[array3 objectAtIndex:0]objectForKey:@"url"]);
                                                                                 [[BusSearchManager sharedManager]GETArrivedTimeWithURL:[[array3 objectAtIndex:0]objectForKey:@"url"] completionHandler:^(NSArray* array4){
                                                                                     for(NSDictionary* dict3 in array4){
                                                                                         if([[dict3 objectForKey:@"name"] isEqualToString:[getOff objectForKey:@"name"]]
                                                                                            ){
-                                                                                            NSLog(@"バス停到着時間:%@",[dict3 objectForKey:@"time"]);
+                                                                                            NSLog(@"/*===================================*/");
+                                                                                            NSLog(@"乗車バス停:%@",[getOn objectForKey:@"name"]);
+                                                                                            NSLog(@"乗車バス停発車時間:%@",[[array objectAtIndex:0]objectForKey:@"time"]);
+                                                                                            NSLog(@"行き先:%@",[[array objectAtIndex:0]objectForKey:@"destination"]);
+                                                                                            NSLog(@"遅延情報:%@",[[array objectAtIndex:0]objectForKey:@"detail"]);
+                                                                                            NSLog(@"URL:%@",[[array objectAtIndex:0]objectForKey:@"url"]);
+                                                                                            NSLog(@"経由バス停:%@",[dict objectForKey:@"name"]);
+                                                                                            NSLog(@"経由バス停到着時間:%@",[dict2 objectForKey:@"time"]);
+                                                                                            #warning 経由バス到着時間に合わせて、array3の要素を削る
+                                                                                            NSDictionary* timeDic = [self strTimeToCalculableValueWithString:[dict2 objectForKey:@"time"]];
+                                                                                            int cnt = 0;//カウンタ
+                                                                                            for(int i = 0;i < [array3 count];i++){
+                                                                                                NSDictionary* timeDic2 = [self strTimeToCalculableValueWithString:[[array3 objectAtIndex:i] objectForKey:@"time"]];
+                                                                                                
+                                                                                                if(([[timeDic objectForKey:@"hour"]intValue] * 60 + [[timeDic objectForKey:@"min"]intValue]) > ([[timeDic2 objectForKey:@"hour"]intValue] * 60 + [[timeDic2 objectForKey:@"min"]intValue])){
+                                                                                                    cnt++;
+                                                                                                }
+                                                                                            }
+                                                                                            //TODO:経由バス停→降車バス停
+                                                                                            NSLog(@"経由バス停発車時間:%@",[[array3 objectAtIndex:cnt]objectForKey:@"time"]);
+                                                                                            NSLog(@"行き先:%@",[[array3 objectAtIndex:cnt]objectForKey:@"destination"]);
+                                                                                            NSLog(@"遅延情報:%@",[[array3 objectAtIndex:cnt]objectForKey:@"detail"]);
+                                                                                            NSLog(@"URL:%@",[[array3 objectAtIndex:cnt]objectForKey:@"url"]);
+                                                                                            NSLog(@"降車バス停:%@",[getOff objectForKey:@"name"]);
+                                                                                            NSLog(@"降車バス停到着時間:%@",[dict3 objectForKey:@"time"]);
+                                                                                            NSLog(@"/*===================================*/");
                                                                                         }
                                                                                     }
                                                                                 }];
                                                                             }];
                                                                         }else{
-                                                                            NSLog(@"営業時間終了");
+                                                                            NSLog(@">営業時間終了");
                                                                         }
                                                                     }];
                                                                     
@@ -132,17 +150,17 @@
                                                     }];
                                                     
                                                 }else{
-                                                    NSLog(@"営業時間終了");
+                                                    NSLog(@">営業時間終了");
                                                 }
                                             }];
 
                                         }else{
-                                            NSLog(@"直通路線なし");
+                                            NSLog(@">直通路線なし");
                                         }
                                     }];
 
                                 }else{
-                                    NSLog(@"直通路線なし");
+                                    NSLog(@">直通路線なし");
                                 }
                             }];
                             
@@ -152,10 +170,25 @@
                     }
                 }];
             }else{
-                NSLog(@"システムメンテナンス中");
+                NSLog(@">システムメンテナンス中");
             }
         }];
     }
+}
+-(NSDictionary*)strTimeToCalculableValueWithString:(NSString*)str{
+    NSError *error = nil;
+    NSString *pattern = @"([0-9]+):([0-9]+)";
+    
+    // パターンから正規表現を生成する
+    NSRegularExpression *regexp = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+    
+    // 正規表現を適用して結果を得る
+    NSTextCheckingResult *match = [regexp firstMatchInString:str options:0 range:NSMakeRange(0, str.length)];
+  
+    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:[str substringWithRange:[match rangeAtIndex:1]],@"hour",
+                          [str substringWithRange:[match rangeAtIndex:2]],@"min",nil];
+    return dict;
+    
 }
 /*[{
  if(存在){

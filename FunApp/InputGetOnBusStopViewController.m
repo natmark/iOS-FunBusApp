@@ -57,8 +57,6 @@
         [BusSearchManager sharedManager].GetOnBusStop = [searchArray objectAtIndex:0];
 
         html = [NSString stringWithFormat:@"%@</select></form>",html];
-        // webviewに読み込み
-        NSLog(@"%@",html);
         
         //ロード待ちが必要
         [self.webView loadHTMLString:html baseURL:[[NSBundle mainBundle] resourceURL]];

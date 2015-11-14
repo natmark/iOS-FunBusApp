@@ -138,7 +138,7 @@ static BusSearchManager *sharedData_ = nil;
 }
 #pragma mark 各地点の到着時間を返す関数
 -(void)GETArrivedTimeWithURL:(NSString*)url completionHandler:(void (^)(NSArray *array))handler{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@",url]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.hakobus.jp/%@",url]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -150,10 +150,9 @@ static BusSearchManager *sharedData_ = nil;
         NSMutableArray* resultArray = [NSMutableArray new];
         
         NSArray* nameArray = [self HTMLParserWithString:str pattern:@"(&nbsp;(.*?)&nbsp;)"];
-        NSArray* timeArray = [self HTMLParserWithString:str pattern:@"(&nbsp;　（(.*?)）<!-- 1 -->)"];
+        NSArray* timeArray = [self HTMLParserWithString:str pattern:@"(\\s（(.*?)）<!-- 1 -->)"];
         
         for(int i = 0;i < [timeArray count];i++){
-            NSLog(@"%@ %@",[nameArray objectAtIndex:i],[timeArray objectAtIndex:i]);
             NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:[nameArray objectAtIndex:i],@"name",
                                   [timeArray objectAtIndex:i],@"time",nil];
             [resultArray addObject:dict];
