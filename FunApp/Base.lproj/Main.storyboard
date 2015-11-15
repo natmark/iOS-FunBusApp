@@ -350,6 +350,14 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UhG-zc-caT">
+                                <rect key="frame" x="0.0" y="132" width="600" height="3"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="3" id="OA9-WO-2kY"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -361,10 +369,13 @@
                             <constraint firstItem="L6K-dB-596" firstAttribute="top" secondItem="oay-ja-9bI" secondAttribute="bottom" constant="8" id="KYQ-Qc-YJo"/>
                             <constraint firstItem="wrR-2f-uS1" firstAttribute="trailing" secondItem="aDO-kh-bJV" secondAttribute="trailing" id="KkK-rm-GTM"/>
                             <constraint firstItem="aDO-kh-bJV" firstAttribute="leading" secondItem="IL1-EB-a5y" secondAttribute="trailing" constant="8" id="LQe-e1-dTO"/>
+                            <constraint firstItem="UhG-zc-caT" firstAttribute="leading" secondItem="ntG-AW-BD2" secondAttribute="leadingMargin" constant="-20" id="MYQ-9e-xPm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="UhG-zc-caT" secondAttribute="trailing" constant="-20" id="Ncf-BR-JBX"/>
                             <constraint firstItem="GLm-CS-VtD" firstAttribute="top" secondItem="L6K-dB-596" secondAttribute="bottom" id="RPz-YV-2Hs"/>
                             <constraint firstItem="IL1-EB-a5y" firstAttribute="centerX" secondItem="ntG-AW-BD2" secondAttribute="centerX" id="aDh-rH-31f"/>
                             <constraint firstItem="wrR-2f-uS1" firstAttribute="leading" secondItem="aDO-kh-bJV" secondAttribute="leading" id="b87-cW-NI0"/>
                             <constraint firstItem="wrR-2f-uS1" firstAttribute="leading" secondItem="aDO-kh-bJV" secondAttribute="leading" id="eqm-5F-P7b"/>
+                            <constraint firstItem="UhG-zc-caT" firstAttribute="top" secondItem="GLm-CS-VtD" secondAttribute="bottom" id="fcm-0i-nDj"/>
                             <constraint firstItem="aDO-kh-bJV" firstAttribute="trailing" secondItem="ntG-AW-BD2" secondAttribute="trailingMargin" id="fno-8o-syU"/>
                             <constraint firstItem="wrR-2f-uS1" firstAttribute="top" secondItem="aDO-kh-bJV" secondAttribute="bottom" id="hri-OQ-VNa"/>
                             <constraint firstItem="aDO-kh-bJV" firstAttribute="top" secondItem="oay-ja-9bI" secondAttribute="bottom" constant="8" id="jQe-2C-sNF"/>

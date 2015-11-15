@@ -17,6 +17,7 @@
     NoConnectionView* noConnectionView;
     UIButton* leftButton;
     UIButton* rightButton;
+    UILabel* timeLabel;
 }
 @property (strong, nonatomic) IBOutlet UILabel *getOnLabel;
 @property (strong, nonatomic) IBOutlet UILabel *getOffLabel;

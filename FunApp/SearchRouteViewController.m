@@ -39,40 +39,56 @@
     indicator.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
     indicator.backgroundColor = [UIColor colorWithRed:184/255.0 green:29/255.0 blue:31/255.0 alpha:1.0];
     indicator.layer.cornerRadius = indicator.frame.size.width * 0.1;
-    [indicator startAnimating];
     [self.view addSubview:indicator];
     /*==========================*/
     
     //経由なしの表示用
     /*==========================*/
     showCnt = 0;
-    noConnectionView = [[NoConnectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width - 20, self.view.frame.size.width - 20)];
-    
-    noConnectionView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+    noConnectionView = [[NoConnectionView alloc]initWithFrame:CGRectMake(10, 190, self.view.frame.size.width - 20, self.view.frame.size.width - 20)];
     [self.view addSubview:noConnectionView];
     noConnectionView.hidden = true;
     
-    leftButton = [[UIButton alloc]initWithFrame:CGRectMake(20, self.view.frame.size.height - 30, 20, 20)];
-    [leftButton setTitle:@"◀︎" forState:UIControlStateNormal];
-    [leftButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    leftButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 150, 100, 30)];
+    [leftButton setTitle:@"◀︎前の便" forState:UIControlStateNormal];
+    [leftButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    [leftButton setTitleColor:[UIColor colorWithRed:184/255.0 green:29/255.0 blue:31/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    
     [leftButton.titleLabel setFont:[UIFont systemFontOfSize:20]];
     
     [leftButton addTarget:self action:@selector(leftPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:leftButton];
     
-    rightButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-40, self.view.frame.size.height - 30, 20, 20)];
-    [rightButton setTitle:@"▶︎" forState:UIControlStateNormal];
+    rightButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-100, 150, 100, 30)];
+    [rightButton setTitle:@"次の便▶︎" forState:UIControlStateNormal];
     [rightButton.titleLabel setFont:[UIFont systemFontOfSize:20]];
-    [rightButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [rightButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    [rightButton setTitleColor:[UIColor colorWithRed:184/255.0 green:29/255.0 blue:31/255.0 alpha:1.0] forState:UIControlStateHighlighted];
     [rightButton addTarget:self action:@selector(rightPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:rightButton];
     
     leftButton.hidden = true;
     rightButton.hidden = true;
     
-    /*==========================*/
+    timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, 150, self.view.frame.size.width - 200, 30)];
+    timeLabel.textColor = [UIColor blackColor];
+    timeLabel.font = [UIFont systemFontOfSize:26];
+    timeLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:timeLabel];
+    timeLabel.hidden = true;
     
-
+    /*==========================*/
+    NSTimer* timer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
+    [timer fire];
+}
+#pragma mark 1分おきに自動更新
+-(void)timerAction:(NSTimer*)timer{
+    [self routeSearch];
+}
+-(void)routeSearch{
+    [self.view bringSubviewToFront:indicator];
+    indicator.hidden = false;
+    [indicator startAnimating];
     
     // Do any additional setup after loading the view.
     NSDictionary* getOn = [[BusSearchManager sharedManager]GetOnBusStop];
@@ -93,11 +109,6 @@
                                 [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[getOn objectForKey:@"code"]intValue] GetOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(NSArray* array){
                                     searchResultArray = array;
                                     [self showSearchResult];
-                                    [indicator stopAnimating];
-                                    indicator.hidden = true;
-                                    leftButton.hidden = false;
-                                    rightButton.hidden = false;
-
                                 }];
                                 
                             }else{
@@ -134,7 +145,7 @@
                         NSArray* candidateArray = [NSArray arrayWithObjects:dict1,dict2,dict3,dict4,dict5,dict6,dict7,dict8, nil];
                         
                         for(NSDictionary* dict in candidateArray){
-
+                            
                             [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[dict objectForKey:@"code"]intValue] completionHandler:^(BOOL flg2){
                                 if(flg2){
                                     [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[dict objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg3){
@@ -165,7 +176,7 @@
                                                                                             NSLog(@"URL:%@",[[array objectAtIndex:0]objectForKey:@"url"]);
                                                                                             NSLog(@"経由バス停:%@",[dict objectForKey:@"name"]);
                                                                                             NSLog(@"経由バス停到着時間:%@",[dict2 objectForKey:@"time"]);
-                                                                                            #warning 経由バス到着時間に合わせて、array3の要素を削る
+#warning 経由バス到着時間に合わせて、array3の要素を削る
                                                                                             NSDictionary* timeDic = [self strTimeToCalculableValueWithString:[dict2 objectForKey:@"time"]];
                                                                                             int cnt = 0;//カウンタ
                                                                                             for(int i = 0;i < [array3 count];i++){
@@ -209,7 +220,7 @@
                                                     indicator.hidden = true;
                                                 }
                                             }];
-
+                                            
                                         }else{
                                             NSLog(@">直通路線なし");
                                             errorLabel.text = @"上記路線間の運行ルートが見つかりません。";
@@ -218,7 +229,7 @@
                                             indicator.hidden = true;
                                         }
                                     }];
-
+                                    
                                 }else{
                                     NSLog(@">直通路線なし");
                                     errorLabel.text = @"上記路線間の運行ルートが見つかりません。";
@@ -259,8 +270,6 @@
 -(void)showSearchResult{
 #pragma mark 検索時間の割に処理が長すぎるので、UI描画のスレッドをしっかり管理
     // Do any additional setup after loading the view.
-    noConnectionView.hidden = false;
-
     NSDictionary* getOn = [[BusSearchManager sharedManager]GetOnBusStop];
     NSDictionary* getOff = [[BusSearchManager sharedManager]GetOffBusStop];
     
@@ -269,6 +278,15 @@
         for(NSDictionary* dict in array2){
             if([[dict objectForKey:@"name"] isEqualToString:[getOff objectForKey:@"name"]]
                ){
+                noConnectionView.hidden = false;
+                [indicator stopAnimating];
+                indicator.hidden = true;
+                leftButton.hidden = false;
+                rightButton.hidden = false;
+                leftButton.enabled = true;
+                rightButton.enabled = true;
+                timeLabel.hidden = false;
+                timeLabel.text = [NSString stringWithFormat:@"%@発",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"time"]];
                 NSLog(@"/*===================================*/");
                 NSLog(@"乗車バス停:%@",[getOn objectForKey:@"name"]);
                 
@@ -279,19 +297,39 @@
                 NSLog(@"降車バス停:%@",[getOff objectForKey:@"name"]);
                 NSLog(@"降車バス停到着時間:%@",[dict objectForKey:@"time"]);
                 NSLog(@"/*===================================*/");
-                noConnectionView.departureLabel.text = [NSString stringWithFormat:@"出発時刻:%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"time"]];
-                noConnectionView.destinationLabel.text = [NSString stringWithFormat:@"行き先:%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"destination"]];
-                noConnectionView.detailLabel.text = [NSString stringWithFormat:@"遅延情報:%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"detail"]];
-                noConnectionView.arrivalLabel.text = [NSString stringWithFormat:@"到着時刻:%@",[dict objectForKey:@"time"]];
+                noConnectionView.departureLabel.text = [NSString stringWithFormat:@"%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"time"]];
+                noConnectionView.destinationLabel.text = [NSString stringWithFormat:@"%@ 行き",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"destination"]];
+                noConnectionView.detailLabel.text = [NSString stringWithFormat:@"%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"detail"]];
+                noConnectionView.arrivalLabel.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"time"]];
             }
         }
     }];
 }
 -(void)leftPressed:(UIButton*)sender{
-    showCnt = MAX(showCnt, 0);
+    showCnt--;
+    if(showCnt < 0){
+        showCnt = MAX(showCnt, 0);
+    }else{
+        noConnectionView.hidden = true;
+        [indicator startAnimating];
+        indicator.hidden = false;
+        leftButton.enabled = false;
+        rightButton.enabled = false;
+        [self showSearchResult];
+    }
 }
 -(void)rightPressed:(UIButton*)sender{
-    showCnt = MIN(showCnt, (int)[searchResultArray count]);
+    showCnt++;
+    if(showCnt > (int)[searchResultArray count]-1){
+        showCnt = MIN(showCnt, (int)[searchResultArray count]-1);
+    }else{
+        noConnectionView.hidden = true;
+        [indicator startAnimating];
+        indicator.hidden = false;
+        leftButton.enabled = false;
+        rightButton.enabled = false;
+        [self showSearchResult];
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

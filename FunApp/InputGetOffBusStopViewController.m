@@ -25,6 +25,18 @@
     self.busStopLabel.hidden = true;
     self.label1.hidden = true;
     self.searchButton.hidden = true;
+    
+    //インジケーター
+    /*==========================*/
+    indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    indicator.frame = CGRectMake(0, 0, 100, 100);
+    indicator.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+    indicator.backgroundColor = [UIColor colorWithRed:184/255.0 green:29/255.0 blue:31/255.0 alpha:1.0];
+    indicator.layer.cornerRadius = indicator.frame.size.width * 0.1;
+    indicator.hidden = true;
+    [self.view addSubview:indicator];
+    /*==========================*/
+
 }
 // UITextFieldのキーボード上の「Return」ボタンが押された時に呼ばれる処理
 - (BOOL)textFieldShouldReturn:(UITextField *)sender {
@@ -34,6 +46,9 @@
     searchArray = [[BusSearchManager sharedManager]busSearch:sender.text];
     
     if([searchArray count] != 0){
+        [indicator startAnimating];
+        indicator.hidden = false;
+
         //上記JSが動いているUIWebViewのdelegateを指定します。
         for (id subView in self.webView.subviews) {
             if ([[subView class] isSubclassOfClass:[UIScrollView class]]) {
@@ -66,6 +81,9 @@
 }
 #pragma mark webViewが読み込み終わったとき
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
+    [indicator stopAnimating];
+    indicator.hidden = true;
+
     self.webView.hidden = false;
     self.busStopLabel.hidden = false;
     self.label1.hidden = false;

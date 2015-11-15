@@ -10,6 +10,7 @@
 #import "BusSearchManager.h"
 @interface InputGetOffBusStopViewController : UIViewController<UITextFieldDelegate,UIWebViewDelegate>{
     NSArray* searchArray;
+    UIActivityIndicatorView* indicator;
 }
 
 @property (strong, nonatomic) IBOutlet UITextField *textField;
