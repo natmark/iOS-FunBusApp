@@ -144,7 +144,21 @@
                         NSDictionary* dict8 = [[BusSearchManager sharedManager]getBusInfo:150];
                         NSArray* candidateArray = [NSArray arrayWithObjects:dict1,dict2,dict3,dict4,dict5,dict6,dict7,dict8, nil];
                         
-                        for(NSDictionary* dict in candidateArray){
+#warning 接続路線の処理
+#pragma mark TODO-LIST
+//TODO:直通路線なし・営業時間終了に優先度をもたせる。
+//TODO:営業時間終了を一度でも通れば、その後の直通路線なしで上書きさせない。
+//TODO:一路線でもバスがあれば、直通路線なし・営業時間終了の文字は消してしまう。
+//TODO:ただし、[indicator stopAnimating]および、ラベルの表示は全件検索終了後に表示したい
+//TODO:for文に変えたので、i = [candidateArray count]のときに変更でもいいかもしれない
+/*
+ //TODO:もしくは、直通路線なし(乗車->経由)、直通路線なし(経由->降車)、営業時間終了、路線発見の
+どれかを通るため、純粋にカウントして、count = [canditateArray count]でラベル表示&[stop Animating]でもよいかも
+ //TODO:上記方法なら、路線発見カウンタも用意し、カウンタ == 0のときラベル表示&[stop Animating]
+ カウンタ != 0 のとき、路線表示でもよいかもしれない。
+ */
+                        for(int i = 0;i < [candidateArray count];i++){
+                            NSDictionary* dict = [candidateArray objectAtIndex:i];
                             
                             [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[dict objectForKey:@"code"]intValue] completionHandler:^(BOOL flg2){
                                 if(flg2){
@@ -176,7 +190,7 @@
                                                                                             NSLog(@"URL:%@",[[array objectAtIndex:0]objectForKey:@"url"]);
                                                                                             NSLog(@"経由バス停:%@",[dict objectForKey:@"name"]);
                                                                                             NSLog(@"経由バス停到着時間:%@",[dict2 objectForKey:@"time"]);
-#warning 経由バス到着時間に合わせて、array3の要素を削る
+                                                                                            #warning 経由バス到着時間に合わせて、array3の要素を削る
                                                                                             NSDictionary* timeDic = [self strTimeToCalculableValueWithString:[dict2 objectForKey:@"time"]];
                                                                                             int cnt = 0;//カウンタ
                                                                                             for(int i = 0;i < [array3 count];i++){
@@ -238,7 +252,6 @@
                                     indicator.hidden = true;
                                 }
                             }];
-                            
                         }
                     }
                 }];
@@ -268,7 +281,6 @@
     
 }
 -(void)showSearchResult{
-#pragma mark 検索時間の割に処理が長すぎるので、UI描画のスレッドをしっかり管理
     // Do any additional setup after loading the view.
     NSDictionary* getOn = [[BusSearchManager sharedManager]GetOnBusStop];
     NSDictionary* getOff = [[BusSearchManager sharedManager]GetOffBusStop];
