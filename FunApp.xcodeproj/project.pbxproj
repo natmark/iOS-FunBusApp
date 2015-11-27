@@ -14,6 +14,7 @@
 		F7048C5E1BF3855600B2EA72 /* InputGetOffBusStopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7048C5D1BF3855600B2EA72 /* InputGetOffBusStopViewController.m */; };
 		F7048C611BF42F9600B2EA72 /* BusSearchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F7048C601BF42F9500B2EA72 /* BusSearchManager.m */; };
 		F7048C671BF460AA00B2EA72 /* SearchRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7048C661BF460AA00B2EA72 /* SearchRouteViewController.m */; };
+		F7193A181C081D2B00819FF9 /* ConnectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7193A171C081D2B00819FF9 /* ConnectionView.m */; };
 		F71EC3371BF8210E000F9F1F /* NoConnectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F71EC3361BF8210E000F9F1F /* NoConnectionView.m */; };
 		F7C625871BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
 		F7C625881BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
@@ -72,6 +73,8 @@
 		F7048C601BF42F9500B2EA72 /* BusSearchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusSearchManager.m; sourceTree = "<group>"; };
 		F7048C651BF460AA00B2EA72 /* SearchRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchRouteViewController.h; sourceTree = "<group>"; };
 		F7048C661BF460AA00B2EA72 /* SearchRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchRouteViewController.m; sourceTree = "<group>"; };
+		F7193A161C081D2B00819FF9 /* ConnectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionView.h; sourceTree = "<group>"; };
+		F7193A171C081D2B00819FF9 /* ConnectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionView.m; sourceTree = "<group>"; };
 		F71EC3351BF8210E000F9F1F /* NoConnectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoConnectionView.h; sourceTree = "<group>"; };
 		F71EC3361BF8210E000F9F1F /* NoConnectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoConnectionView.m; sourceTree = "<group>"; };
 		F7C625831BF2F6E60016C86D /* bus_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bus_data.plist; sourceTree = "<group>"; };
@@ -163,6 +166,8 @@
 				F7048C661BF460AA00B2EA72 /* SearchRouteViewController.m */,
 				F71EC3351BF8210E000F9F1F /* NoConnectionView.h */,
 				F71EC3361BF8210E000F9F1F /* NoConnectionView.m */,
+				F7193A161C081D2B00819FF9 /* ConnectionView.h */,
+				F7193A171C081D2B00819FF9 /* ConnectionView.m */,
 				F7E2119F1B3E8E2F0035AF3A /* Images.xcassets */,
 				F7E211A11B3E8E2F0035AF3A /* LaunchScreen.xib */,
 				F7E211921B3E8E2E0035AF3A /* Supporting Files */,
@@ -363,6 +368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7048C5B1BF3854500B2EA72 /* InputGetOnBusStopViewController.m in Sources */,
+				F7193A181C081D2B00819FF9 /* ConnectionView.m in Sources */,
 				F7048C671BF460AA00B2EA72 /* SearchRouteViewController.m in Sources */,
 				F7E2119B1B3E8E2F0035AF3A /* ViewController.m in Sources */,
 				F7048C611BF42F9600B2EA72 /* BusSearchManager.m in Sources */,

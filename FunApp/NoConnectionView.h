@@ -13,7 +13,8 @@
 @property(nonatomic,strong)UILabel* destinationLabel;
 @property(nonatomic,strong)UILabel* detailLabel;
 @property(nonatomic,strong)UILabel* arrivalLabel;
-
+@property(nonatomic,strong)UILabel* getOnLabel;
+@property(nonatomic,strong)UILabel* getOffLabel;
 @end
 /*
 label.text = [NSString stringWithFormat:@"出発時刻:%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"time"]];

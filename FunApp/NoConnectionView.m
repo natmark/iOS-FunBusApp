@@ -25,14 +25,30 @@
     self.destinationLabel.font = [UIFont systemFontOfSize:20];
     [colorview addSubview:self.destinationLabel];
     
+    self.getOnLabel = [UILabel new];
+    self.getOnLabel.frame = CGRectMake(20,30,100,20);
+    self.getOnLabel.textColor = [UIColor blackColor];
+    self.getOnLabel.textAlignment = NSTextAlignmentCenter;
+    self.getOnLabel.font = [UIFont systemFontOfSize:10];
+    self.getOnLabel.numberOfLines = 0;
+    [self addSubview:self.getOnLabel];
+
+    self.getOffLabel = [UILabel new];
+    self.getOffLabel.frame = CGRectMake(160,30,100,20);
+    self.getOffLabel.textColor = [UIColor blackColor];
+    self.getOffLabel.textAlignment = NSTextAlignmentCenter;
+    self.getOffLabel.font = [UIFont systemFontOfSize:10];
+    self.getOffLabel.numberOfLines = 0;
+    [self addSubview:self.getOffLabel];
+
     self.departureLabel = [UILabel new];
-    self.departureLabel.frame = CGRectMake(20,30,100,50);
+    self.departureLabel.frame = CGRectMake(20,40,100,50);
     self.departureLabel.textColor = [UIColor colorWithRed:184/255.0 green:29/255.0 blue:31/255.0 alpha:1.0];
     self.departureLabel.textAlignment = NSTextAlignmentCenter;
     self.departureLabel.font = [UIFont systemFontOfSize:35];
     [self addSubview:self.departureLabel];
 
-    UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(120, 30, 40, 50)];
+    UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(120, 40, 40, 50)];
     label.textAlignment = NSTextAlignmentCenter;
     label.text = @"→";
     label.font = [UIFont systemFontOfSize:35];
@@ -40,7 +56,7 @@
     [self addSubview:label];
     
     self.arrivalLabel = [UILabel new];
-    self.arrivalLabel.frame = CGRectMake(160,30,100,50);
+    self.arrivalLabel.frame = CGRectMake(160,40,100,50);
     self.arrivalLabel.textAlignment = NSTextAlignmentCenter;
     self.arrivalLabel.textColor = [UIColor colorWithRed:184/255.0 green:29/255.0 blue:31/255.0 alpha:1.0];
     self.arrivalLabel.font = [UIFont systemFontOfSize:35];
