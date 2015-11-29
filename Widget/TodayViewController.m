@@ -19,18 +19,28 @@
     [super viewDidLoad];
     // 高さ変更
     self.preferredContentSize = CGSizeMake(0, 100);
-    UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    
+    UILabel* title = [[UILabel alloc]initWithFrame:CGRectMake(0, 10, self.view.frame.size.width, 20)];
+    title.text = @"はこだて未来大学 発";
+    title.textColor = [UIColor whiteColor];
+    [self.view addSubview:title];
+
+    UIView* view = [[UIView alloc]initWithFrame:CGRectMake(0, 29,self.view.frame.size.width, 1)];
+    view.backgroundColor = [UIColor orangeColor];
+    [self.view addSubview:view];
+
+    UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, 30)];
     label.text = @"Next";
     label.textColor = [UIColor orangeColor];
     [self.view addSubview:label];
     
-    UILabel* label2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    UILabel* label2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, 30)];
     label2.text = @"函館駅前 行";
     label2.textAlignment = NSTextAlignmentCenter;
     label2.textColor = [UIColor whiteColor];
     [self.view addSubview:label2];
     
-    UILabel* label3 = [[UILabel alloc]initWithFrame:CGRectMake(0, 50, self.view.frame.size.width-120, 40)];
+    UILabel* label3 = [[UILabel alloc]initWithFrame:CGRectMake(0, 70, self.view.frame.size.width-120, 30)];
     label3.font = [UIFont systemFontOfSize:32];
     label3.text = @"18:00";
     label3.textAlignment = NSTextAlignmentCenter;
