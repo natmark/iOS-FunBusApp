@@ -156,15 +156,17 @@
                          ・花園町 id:450 code:461
                          ・亀田支所前 id:150 code:155
                          */
-                        NSDictionary* dict1 = [[BusSearchManager sharedManager]getBusInfo:3];
-                        NSDictionary* dict2 = [[BusSearchManager sharedManager]getBusInfo:144];
-                        NSDictionary* dict3 = [[BusSearchManager sharedManager]getBusInfo:454];
-                        NSDictionary* dict4 = [[BusSearchManager sharedManager]getBusInfo:357];
-                        NSDictionary* dict5 = [[BusSearchManager sharedManager]getBusInfo:7];
-                        NSDictionary* dict6 = [[BusSearchManager sharedManager]getBusInfo:361];
-                        NSDictionary* dict7 = [[BusSearchManager sharedManager]getBusInfo:450];
-                        NSDictionary* dict8 = [[BusSearchManager sharedManager]getBusInfo:150];
-                        NSArray* candidateArray = [NSArray arrayWithObjects:dict1,dict2,dict3,dict4,dict5,dict6,dict7,dict8, nil];
+                        NSMutableArray* candidateArray = [[NSMutableArray alloc]init];
+                        
+                        int id_list[8] = {3,144,454,357,7,361,450,150};
+                        
+                        for(int i = 0;i < 8;i++){
+                            if([[getOn objectForKey:@"id"]intValue] != id_list[i] && [[getOff objectForKey:@"id"]intValue] != id_list[i]){
+                                NSDictionary* dict = [[BusSearchManager sharedManager]getBusInfo:id_list[i]];
+                                [candidateArray addObject:dict];
+                            }
+                        }
+
                         
                         __block bool route_flg = false;
                         __block bool data_flg = false;
