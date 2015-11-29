@@ -490,13 +490,13 @@
         connectionView.getOnLabel1.text = [info objectForKey:@"firstName"];
         connectionView.getOffLabel1.text = [info objectForKey:@"secondName"];
         connectionView.departureLabel1.text = [info objectForKey:@"firstDeparturesTime"];
-        connectionView.destinationLabel1.text = [info objectForKey:@"firstDestination"];
+        connectionView.destinationLabel1.text = [NSString stringWithFormat:@"%@ 行き",[info objectForKey:@"firstDestination"]];
         connectionView.detailLabel1.text = [info objectForKey:@"firstDetail"];
         connectionView.arrivalLabel1.text = [info objectForKey:@"firstArraivalTime"];
         connectionView.getOnLabel2.text = [info objectForKey:@"secondName"];
         connectionView.getOffLabel2.text = [info objectForKey:@"getOff"];
         connectionView.departureLabel2.text = [info objectForKey:@"secondDeparturesTime"];
-        connectionView.destinationLabel2.text = [info objectForKey:@"secondDestination"];
+        connectionView.destinationLabel2.text = [NSString stringWithFormat:@"%@ 行き",[info objectForKey:@"secondDestination"]];
         connectionView.detailLabel2.text = [info objectForKey:@"secondDetail"];
         connectionView.arrivalLabel2.text = [info objectForKey:@"secondArraivalTime"];
         /*
