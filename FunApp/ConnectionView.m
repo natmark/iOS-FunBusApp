@@ -75,10 +75,10 @@
     [self addSubview:colorview2];
     
     self.destinationLabel2 = [UILabel new];
-    self.destinationLabel2.frame = CGRectMake(20,120, frame.size.width-40, 30);
+    self.destinationLabel2.frame = CGRectMake(20,0, frame.size.width-40, 30);
     self.destinationLabel2.textColor = [UIColor whiteColor];
     self.destinationLabel2.font = [UIFont systemFontOfSize:20];
-    [colorview addSubview:self.destinationLabel2];
+    [colorview2 addSubview:self.destinationLabel2];
     
     self.getOnLabel2 = [UILabel new];
     self.getOnLabel2.frame = CGRectMake(20,150,100,20);

@@ -15,6 +15,7 @@
     UIActivityIndicatorView* indicator;
     NSArray *searchResultArray;
     NSMutableArray* connectionSearchResultArray;
+    NSMutableArray* organizeConnectionArray;
     int showCnt;
     NoConnectionView* noConnectionView;
     ConnectionView* connectionView;
