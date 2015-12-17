@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import "BusSearchManager.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 @interface AppDelegate ()
 
 @end
@@ -20,6 +23,8 @@
     [BusSearchManager sharedManager];
     
     // Override point for customization after application launch.
+    [Fabric with:@[[Crashlytics class]]];
+
     return YES;
 }
 

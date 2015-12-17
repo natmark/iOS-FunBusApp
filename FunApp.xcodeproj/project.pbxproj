@@ -16,6 +16,8 @@
 		F7048C671BF460AA00B2EA72 /* SearchRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7048C661BF460AA00B2EA72 /* SearchRouteViewController.m */; };
 		F7193A181C081D2B00819FF9 /* ConnectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7193A171C081D2B00819FF9 /* ConnectionView.m */; };
 		F71EC3371BF8210E000F9F1F /* NoConnectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F71EC3361BF8210E000F9F1F /* NoConnectionView.m */; };
+		F754E0111C22D3160054F003 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F754E00F1C22D3160054F003 /* Fabric.framework */; };
+		F754E0121C22D3160054F003 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F754E0101C22D3160054F003 /* Crashlytics.framework */; };
 		F7C625871BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
 		F7C625881BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
 		F7C625891BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
@@ -29,7 +31,6 @@
 		F7E211BF1B3E8FF90035AF3A /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E211BE1B3E8FF90035AF3A /* NotificationCenter.framework */; };
 		F7E211C51B3E8FF90035AF3A /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E211C41B3E8FF90035AF3A /* TodayViewController.m */; };
 		F7E211C71B3E8FF90035AF3A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7E211C61B3E8FF90035AF3A /* MainInterface.storyboard */; };
-		F7E211CA1B3E8FF90035AF3A /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F7E211BC1B3E8FF90035AF3A /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,20 +50,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		F7E211CE1B3E8FF90035AF3A /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				F7E211CA1B3E8FF90035AF3A /* Widget.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		F7048C551BF3032500B2EA72 /* bus_id.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bus_id.plist; sourceTree = "<group>"; };
 		F7048C591BF3854500B2EA72 /* InputGetOnBusStopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputGetOnBusStopViewController.h; sourceTree = "<group>"; };
@@ -77,6 +64,8 @@
 		F7193A171C081D2B00819FF9 /* ConnectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionView.m; sourceTree = "<group>"; };
 		F71EC3351BF8210E000F9F1F /* NoConnectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoConnectionView.h; sourceTree = "<group>"; };
 		F71EC3361BF8210E000F9F1F /* NoConnectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoConnectionView.m; sourceTree = "<group>"; };
+		F754E00F1C22D3160054F003 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		F754E0101C22D3160054F003 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		F7C625831BF2F6E60016C86D /* bus_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bus_data.plist; sourceTree = "<group>"; };
 		F7E2118F1B3E8E2E0035AF3A /* FunApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7E211931B3E8E2F0035AF3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,6 +93,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F754E0121C22D3160054F003 /* Crashlytics.framework in Frameworks */,
+				F754E0111C22D3160054F003 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +119,8 @@
 		F7E211861B3E8E2D0035AF3A = {
 			isa = PBXGroup;
 			children = (
+				F754E00F1C22D3160054F003 /* Fabric.framework */,
+				F754E0101C22D3160054F003 /* Crashlytics.framework */,
 				F7048C551BF3032500B2EA72 /* bus_id.plist */,
 				F7C625831BF2F6E60016C86D /* bus_data.plist */,
 				F7E211911B3E8E2E0035AF3A /* FunApp */,
@@ -238,7 +231,7 @@
 				F7E2118B1B3E8E2E0035AF3A /* Sources */,
 				F7E2118C1B3E8E2E0035AF3A /* Frameworks */,
 				F7E2118D1B3E8E2E0035AF3A /* Resources */,
-				F7E211CE1B3E8FF90035AF3A /* Embed App Extensions */,
+				F754E00E1C22D2BC0054F003 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -362,6 +355,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F754E00E1C22D2BC0054F003 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 3c6f7d6b7005eb0608c60ca0a6d455898e3929f4 c247ef5f03de67cbcf5380a6af065371ba58115846c22e89ab4d8e0f82e82a61";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F7E2118B1B3E8E2E0035AF3A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -469,6 +478,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "bb7291d0-93e8-4d09-b582-e0023ada525a";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -505,6 +515,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "bb7291d0-93e8-4d09-b582-e0023ada525a";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -515,9 +526,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = FunApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "bb7291d0-93e8-4d09-b582-e0023ada525a";
 			};
 			name = Debug;
 		};
@@ -526,9 +542,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = FunApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "bb7291d0-93e8-4d09-b582-e0023ada525a";
 			};
 			name = Release;
 		};
@@ -578,6 +599,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2ee68a32-f1f0-4322-9834-795d8d7436fb";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -590,6 +612,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2ee68a32-f1f0-4322-9834-795d8d7436fb";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
