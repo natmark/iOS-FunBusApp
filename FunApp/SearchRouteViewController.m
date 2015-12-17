@@ -21,6 +21,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // システムで用意されている画像を使った生成例
+    UIBarButtonItem *refleshButton =
+    [[UIBarButtonItem alloc]
+     initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh  // スタイルを指定
+     target:self  // デリゲートのターゲットを指定
+     action:@selector(reflesh:)  // ボタンが押されたときに呼ばれるメソッドを指定
+     ];
+    self.navigationItem.rightBarButtonItem = refleshButton;
+
     //エラー表示用
     /*==========================*/
     errorLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height / 2 - 30, self.view.frame.size.width, 60)];
@@ -53,7 +63,7 @@
     [self.view addSubview:connectionView];
     connectionView.hidden = true;
     
-    leftButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 150, 100, 30)];
+    leftButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 150, 90, 30)];
     [leftButton setTitle:@"◀︎前の便" forState:UIControlStateNormal];
     [leftButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
     [leftButton setTitleColor:[UIColor colorWithRed:184/255.0 green:29/255.0 blue:31/255.0 alpha:1.0] forState:UIControlStateHighlighted];
@@ -61,14 +71,22 @@
     [leftButton.titleLabel setFont:[UIFont systemFontOfSize:20]];
     
     [leftButton addTarget:self action:@selector(leftPressed:) forControlEvents:UIControlEventTouchUpInside];
+    leftButton.layer.cornerRadius = 10;
+    leftButton.layer.borderColor = [[UIColor orangeColor]CGColor];
+    leftButton.layer.borderWidth = 1.0;
+    
     [self.view addSubview:leftButton];
     
-    rightButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-100, 150, 100, 30)];
+    rightButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-100, 150, 90, 30)];
     [rightButton setTitle:@"次の便▶︎" forState:UIControlStateNormal];
     [rightButton.titleLabel setFont:[UIFont systemFontOfSize:20]];
     [rightButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor colorWithRed:184/255.0 green:29/255.0 blue:31/255.0 alpha:1.0] forState:UIControlStateHighlighted];
     [rightButton addTarget:self action:@selector(rightPressed:) forControlEvents:UIControlEventTouchUpInside];
+    rightButton.layer.cornerRadius = 10;
+    rightButton.layer.borderColor = [[UIColor orangeColor]CGColor];
+    rightButton.layer.borderWidth = 1.0;
+
     [self.view addSubview:rightButton];
     
     leftButton.hidden = true;
@@ -80,13 +98,24 @@
     timeLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:timeLabel];
     timeLabel.hidden = true;
-    
-    /*==========================*/
-    NSTimer* timer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
-    [timer fire];
+
+    NSDate *now = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm"];
+    NSString *result = [formatter stringFromDate:now];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationItem.title = [NSString stringWithFormat:@"更新[%@]",result];
+
+    [self routeSearch];
 }
-#pragma mark 1分おきに自動更新
--(void)timerAction:(NSTimer*)timer{
+#pragma mark 更新ボタン
+-(void)reflesh:(UIBarButtonItem*)btn{
+    NSDate *now = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm"];
+    NSString *result = [formatter stringFromDate:now];
+    
+    self.navigationItem.title = [NSString stringWithFormat:@"更新[%@]",result];
     [self routeSearch];
 }
 -(void)routeSearch{
@@ -323,7 +352,7 @@
     int time = [[dict objectForKey:@"hour"]intValue] * 60 + [[dict objectForKey:@"min"]intValue];
     return time;
 }
-#pragma mark これいるのかな？
+#pragma mark これいるのかな？ 複数乗り継ぎのときのやつ
 -(void)searchEarlyest{
     organizeConnectionArray = [NSMutableArray new];
     // Do any additional setup after loading the view.
@@ -501,6 +530,14 @@
         connectionView.destinationLabel2.text = [NSString stringWithFormat:@"%@ 行き",[info objectForKey:@"secondDestination"]];
         connectionView.detailLabel2.text = [info objectForKey:@"secondDetail"];
         connectionView.arrivalLabel2.text = [info objectForKey:@"secondArraivalTime"];
+        
+        if(showCnt == 0){
+            leftButton.hidden = true;
+        }
+        if(showCnt == [organizeConnectionArray count]-1){
+            rightButton.hidden = true;
+        }
+
         /*
         NSLog(@"|経路:%d",i);
         NSLog(@"|路線:%d",j);
@@ -550,6 +587,13 @@
                     noConnectionView.destinationLabel.text = [NSString stringWithFormat:@"%@ 行き",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"destination"]];
                     noConnectionView.detailLabel.text = [NSString stringWithFormat:@"%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"detail"]];
                     noConnectionView.arrivalLabel.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"time"]];
+                    
+                    if(showCnt == 0){
+                        leftButton.hidden = true;
+                    }
+                    if(showCnt == [searchResultArray count]-1){
+                        rightButton.hidden = true;
+                    }
                 }
             }
         }];
