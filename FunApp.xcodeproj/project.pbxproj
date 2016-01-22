@@ -21,6 +21,10 @@
 		F71EC3371BF8210E000F9F1F /* NoConnectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F71EC3361BF8210E000F9F1F /* NoConnectionView.m */; };
 		F754E0111C22D3160054F003 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F754E00F1C22D3160054F003 /* Fabric.framework */; };
 		F754E0121C22D3160054F003 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F754E0101C22D3160054F003 /* Crashlytics.framework */; };
+		F7687E8D1C52CCCE006968A7 /* BusTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7687E8C1C52CCCE006968A7 /* BusTabBarViewController.m */; };
+		F7687E901C52CD07006968A7 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7687E8F1C52CD07006968A7 /* HistoryViewController.m */; };
+		F7687E931C52CD15006968A7 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7687E921C52CD15006968A7 /* FavoriteViewController.m */; };
+		F7687E961C52CD1E006968A7 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7687E951C52CD1E006968A7 /* SettingViewController.m */; };
 		F773ADA41C267BE90071EA77 /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F7E211BC1B3E8FF90035AF3A /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F7C625871BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
 		F7C625881BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
@@ -89,6 +93,14 @@
 		F71EC3361BF8210E000F9F1F /* NoConnectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoConnectionView.m; sourceTree = "<group>"; };
 		F754E00F1C22D3160054F003 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		F754E0101C22D3160054F003 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		F7687E8B1C52CCCE006968A7 /* BusTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusTabBarViewController.h; sourceTree = "<group>"; };
+		F7687E8C1C52CCCE006968A7 /* BusTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusTabBarViewController.m; sourceTree = "<group>"; };
+		F7687E8E1C52CD07006968A7 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		F7687E8F1C52CD07006968A7 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		F7687E911C52CD15006968A7 /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteViewController.h; sourceTree = "<group>"; };
+		F7687E921C52CD15006968A7 /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
+		F7687E941C52CD1E006968A7 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		F7687E951C52CD1E006968A7 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		F7C625831BF2F6E60016C86D /* bus_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bus_data.plist; sourceTree = "<group>"; };
 		F7E2118F1B3E8E2E0035AF3A /* FunApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7E211931B3E8E2F0035AF3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -177,6 +189,14 @@
 				F701CB9B1C51C6FC00AC51D7 /* RouteSearchManager.h */,
 				F701CB9C1C51C6FC00AC51D7 /* RouteSearchManager.m */,
 				F7E2119C1B3E8E2F0035AF3A /* Main.storyboard */,
+				F7687E8E1C52CD07006968A7 /* HistoryViewController.h */,
+				F7687E8F1C52CD07006968A7 /* HistoryViewController.m */,
+				F7687E941C52CD1E006968A7 /* SettingViewController.h */,
+				F7687E951C52CD1E006968A7 /* SettingViewController.m */,
+				F7687E911C52CD15006968A7 /* FavoriteViewController.h */,
+				F7687E921C52CD15006968A7 /* FavoriteViewController.m */,
+				F7687E8B1C52CCCE006968A7 /* BusTabBarViewController.h */,
+				F7687E8C1C52CCCE006968A7 /* BusTabBarViewController.m */,
 				F701CB9F1C52700B00AC51D7 /* SelectViaViewController.h */,
 				F701CBA01C52700B00AC51D7 /* SelectViaViewController.m */,
 				F7048C5C1BF3855600B2EA72 /* InputGetOffBusStopViewController.h */,
@@ -407,17 +427,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7687E931C52CD15006968A7 /* FavoriteViewController.m in Sources */,
 				F7048C5B1BF3854500B2EA72 /* InputGetOnBusStopViewController.m in Sources */,
 				F7193A181C081D2B00819FF9 /* ConnectionView.m in Sources */,
 				F7048C671BF460AA00B2EA72 /* SearchRouteViewController.m in Sources */,
 				F7E2119B1B3E8E2F0035AF3A /* ViewController.m in Sources */,
 				F7048C611BF42F9600B2EA72 /* BusSearchManager.m in Sources */,
 				F7E211981B3E8E2F0035AF3A /* AppDelegate.m in Sources */,
+				F7687E901C52CD07006968A7 /* HistoryViewController.m in Sources */,
 				F701CBA11C52700B00AC51D7 /* SelectViaViewController.m in Sources */,
 				F71EC3371BF8210E000F9F1F /* NoConnectionView.m in Sources */,
 				F701CB9D1C51C6FC00AC51D7 /* RouteSearchManager.m in Sources */,
+				F7687E8D1C52CCCE006968A7 /* BusTabBarViewController.m in Sources */,
 				F7E211951B3E8E2F0035AF3A /* main.m in Sources */,
 				F7048C5E1BF3855600B2EA72 /* InputGetOffBusStopViewController.m in Sources */,
+				F7687E961C52CD1E006968A7 /* SettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
