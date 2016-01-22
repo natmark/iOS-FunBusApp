@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F701CB9D1C51C6FC00AC51D7 /* RouteSearchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F701CB9C1C51C6FC00AC51D7 /* RouteSearchManager.m */; };
 		F701CBA11C52700B00AC51D7 /* SelectViaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F701CBA01C52700B00AC51D7 /* SelectViaViewController.m */; };
+		F701CBA41C528FBA00AC51D7 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F701CBA31C528FBA00AC51D7 /* icon.png */; };
 		F7048C561BF3032500B2EA72 /* bus_id.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7048C551BF3032500B2EA72 /* bus_id.plist */; };
 		F7048C571BF3032500B2EA72 /* bus_id.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7048C551BF3032500B2EA72 /* bus_id.plist */; };
 		F7048C581BF3032500B2EA72 /* bus_id.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7048C551BF3032500B2EA72 /* bus_id.plist */; };
@@ -72,6 +73,7 @@
 		F701CB9C1C51C6FC00AC51D7 /* RouteSearchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteSearchManager.m; sourceTree = "<group>"; };
 		F701CB9F1C52700B00AC51D7 /* SelectViaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViaViewController.h; sourceTree = "<group>"; };
 		F701CBA01C52700B00AC51D7 /* SelectViaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViaViewController.m; sourceTree = "<group>"; };
+		F701CBA31C528FBA00AC51D7 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		F7048C551BF3032500B2EA72 /* bus_id.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bus_id.plist; sourceTree = "<group>"; };
 		F7048C591BF3854500B2EA72 /* InputGetOnBusStopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputGetOnBusStopViewController.h; sourceTree = "<group>"; };
 		F7048C5A1BF3854500B2EA72 /* InputGetOnBusStopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputGetOnBusStopViewController.m; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				F754E0101C22D3160054F003 /* Crashlytics.framework */,
 				F7048C551BF3032500B2EA72 /* bus_id.plist */,
 				F7C625831BF2F6E60016C86D /* bus_data.plist */,
+				F701CBA31C528FBA00AC51D7 /* icon.png */,
 				F7E211911B3E8E2E0035AF3A /* FunApp */,
 				F7E211AB1B3E8E2F0035AF3A /* FunAppTests */,
 				F7E211C01B3E8FF90035AF3A /* Widget */,
@@ -355,6 +358,7 @@
 			files = (
 				F7E2119E1B3E8E2F0035AF3A /* Main.storyboard in Resources */,
 				F7C625871BF2F6E60016C86D /* bus_data.plist in Resources */,
+				F701CBA41C528FBA00AC51D7 /* icon.png in Resources */,
 				F7048C561BF3032500B2EA72 /* bus_id.plist in Resources */,
 				F7E211A31B3E8E2F0035AF3A /* LaunchScreen.xib in Resources */,
 				F7E211A01B3E8E2F0035AF3A /* Images.xcassets in Resources */,
