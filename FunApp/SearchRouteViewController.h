@@ -8,22 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "BusSearchManager.h"
+#import "RouteSearchManager.h"
 #import "NoConnectionView.h"
 #import "ConnectionView.h"
 @interface SearchRouteViewController : UIViewController{
     UILabel *errorLabel;
     UIActivityIndicatorView* indicator;
-    NSArray *searchResultArray;
-    NSMutableArray* connectionSearchResultArray;
-    NSMutableArray* organizeConnectionArray;
     int showCnt;
     NoConnectionView* noConnectionView;
     ConnectionView* connectionView;
     UIButton* leftButton;
     UIButton* rightButton;
     UILabel* timeLabel;
-    bool connection;
+    NSDictionary* dataDictionary;
 }
+@property (strong, nonatomic) IBOutlet UIButton *switchButton;
 @property (strong, nonatomic) IBOutlet UILabel *getOnLabel;
 @property (strong, nonatomic) IBOutlet UILabel *getOffLabel;
 @end

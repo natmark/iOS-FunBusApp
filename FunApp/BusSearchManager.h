@@ -20,15 +20,16 @@
 
 @property(nonatomic,assign)NSDictionary* GetOnBusStop;
 @property(nonatomic,assign)NSDictionary* GetOffBusStop;
+@property(nonatomic,assign)NSDictionary* viaBusStop;
 
 #pragma mark 直通路線が存在するかどうかの関数
--(void)isExistRouteWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg))handler;
+-(void)isExistRouteWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg,NSError *error))handler;
 #pragma mark ルート検索の結果を返す関数
--(void)GETRouteSearchResultWithGetOn:(int)on GetOff:(int)off completionHandler:(void (^)(NSArray *array))handler;
+-(void)GETRouteSearchResultWithGetOn:(int)on GetOff:(int)off completionHandler:(void (^)(NSArray *array,NSError *error))handler;
 #pragma mark 営業時間外かどうかを返す関数
--(void)isOutOfServiceWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg))handler;
+-(void)isOutOfServiceWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg,NSError *error))handler;
 #pragma mark 各地点の到着時間を返す関数
--(void)GETArrivedTimeWithURL:(NSString*)url completionHandler:(void (^)(NSArray *array))handler;
+-(void)GETArrivedTimeWithURL:(NSString*)url completionHandler:(void (^)(NSArray *array,NSError *error))handler;
 #pragma mark システムメンテナンスかどうかの関数
--(void)isSystemMeintenanceWithcompletionHandler:(void (^)(BOOL flg))handler;
+-(void)isSystemMeintenanceWithcompletionHandler:(void (^)(BOOL flg,NSError *error))handler;
 @end
