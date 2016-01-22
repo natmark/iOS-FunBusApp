@@ -13,7 +13,9 @@
 +(void)getRouteWithGetOn:(NSDictionary*)getOn getOff:(NSDictionary*)getOff completionHandler:(void (^)(NSDictionary *dict,NSError *error))handler{
     [[BusSearchManager sharedManager]isSystemMeintenanceWithcompletionHandler:^(BOOL meintenanceFlg,NSError *error){
         if(error){
-#warning ネットワークエラーを記述
+#warning 設定済み(エラー処理はここを参考に)
+            NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNetwork userInfo: [NSDictionary dictionaryWithObject:@"ネットワークエラー" forKey:NSLocalizedDescriptionKey]];
+            handler(nil,err);
             return;
         }
         if(!meintenanceFlg){
