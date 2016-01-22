@@ -1,0 +1,30 @@
+simple route
+
+dict:NSDictionary
+-|type:NSString (simple)
+-|data:NSArray (multipul)
+--|time:NSString (HH:mm)
+--|destination NSString
+--|url:NSString (route info)
+--|detail:NSString (operation status)
+
+
+complex route
+
+dict:NSDictionary
+-|type:NSString (complex)
+-|data:NSArray (multipul)
+--|first:NSArray (multiple getOn->via)
+---|time:NSString (HH:mm)
+---|destination NSString
+---|url:NSString (route info)
+---|detail:NSString (operation status)
+--|second:NSArray (multiple via->getOff)
+---|time:NSString (HH:mm)
+---|destination NSString
+---|url:NSString (route info)
+---|detail:NSString (operation status)
+--|via:NSDictionary
+---|id:NSString(serial number)
+---|code:NSString(fixed number)
+---|name:NSString(bus-stop name)
