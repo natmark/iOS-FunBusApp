@@ -26,8 +26,6 @@
                 }
                 if(flg){
                     NSLog(@">直通路線はあります。");
-#warning NSDictionaryに直通路線有りを記述
-                    //connection = false;
                     [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg2,NSError *error){
                         if(error){
                             NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNetwork userInfo: [NSDictionary dictionaryWithObject:@"ネットワークエラー" forKey:NSLocalizedDescriptionKey]];
@@ -43,8 +41,9 @@
                                     handler(nil,err);
                                     return;
                                 }
-#warning NSDictionaryに路線一覧を追加
-                                //searchResultArray = array;
+                                NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:array,@"data",RouteTypeSimple,@"type",nil];
+                                handler(dict,nil);
+#warning 検索後の処理
                                 //[self showSearchResult];
                             }];
                             
@@ -57,9 +56,7 @@
                     }];
                 }else{
                     NSLog(@">直通路線はありません。");
-#warning この時点では接続があるかわからないので何もしない
-                    //connection = true;
-                    //connectionSearchResultArray = [NSMutableArray new];
+                NSMutableArray* connectionSearchResultArray = [NSMutableArray new];
 
                     /*乗り継ぎバス停を検索*/
                     /*乗り継ぎバス停は以下8つのみ*/
@@ -145,13 +142,13 @@
                                                                     
                                                                     NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:array,@"first",
                                                                                           array3,@"second",dict,@"via",nil];
-#warning 接続データをdictionaryに追加
-                                                                    //[connectionSearchResultArray addObject:data];
+                                                                    [connectionSearchResultArray addObject:data];
                                                                     counta++;
                                                                     data_flg = true;
                                                                     if (counta == [candidateArray count] && data_flg == true) {
-#warning 乗り継ぎデータあり
-                                                                        
+                                                                        NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:connectionSearchResultArray,@"data",RouteTypeComplex,@"type",nil];
+                                                                        handler(dict,nil);
+#warning 検索後の処理
                                                                         //[self searchEarlyest];
                                                                     }else if(counta == [candidateArray count] && route_flg == true){
                                                                         NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];
@@ -170,8 +167,9 @@
                                                             counta++;
                                                             route_flg = true;
                                                             if (counta == [candidateArray count] && data_flg == true) {
-#warning 乗り継ぎデータあり
-                                                                
+                                                                NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:connectionSearchResultArray,@"data",RouteTypeComplex,@"type",nil];
+                                                                handler(dict,nil);
+#warning 検索後の処理
                                                                 //[self searchEarlyest];
                                                             }else if(counta == [candidateArray count] && route_flg == true){
                                                                 NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];
@@ -190,8 +188,9 @@
                                                 counta++;
                                                 route_flg = true;
                                                 if (counta == [candidateArray count] && data_flg == true) {
-#warning 乗り継ぎデータあり
-                                                    
+                                                    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:connectionSearchResultArray,@"data",RouteTypeComplex,@"type",nil];
+                                                    handler(dict,nil);
+#warning 検索後の処理
                                                     //[self searchEarlyest];
                                                 }else if(counta == [candidateArray count] && route_flg == true){
                                                     NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];
@@ -210,8 +209,9 @@
                                         NSLog(@"counta:%d",counta);
                                         
                                         if (counta == [candidateArray count] && data_flg == true) {
-#warning 乗り継ぎデータあり
-                                            
+                                            NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:connectionSearchResultArray,@"data",RouteTypeComplex,@"type",nil];
+                                            handler(dict,nil);
+#warning 検索後の処理
                                             //[self searchEarlyest];
                                         }else if(counta == [candidateArray count] && route_flg == true){
                                             NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];
@@ -228,8 +228,9 @@
                                 NSLog(@">直通路線なし");
                                 counta++;
                                 if (counta == [candidateArray count] && data_flg == true) {
-#warning 乗り継ぎデータあり
-
+                                    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:connectionSearchResultArray,@"data",RouteTypeComplex,@"type",nil];
+                                    handler(dict,nil);
+#warning 検索後の処理
                                     //[self searchEarlyest];
                                 }else if(counta == [candidateArray count] && route_flg == true){
                                     NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];

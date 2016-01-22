@@ -15,9 +15,13 @@ typedef enum
     RouteSearchManagerErrorCodeNetwork = 0,
     RouteSearchManagerErrorCodeSystemMaintenance,
     RouteSearchManagerErrorCodeNoRoute,
-    RouteSearchManagerErrorCodeOutOfService,
-    
+    RouteSearchManagerErrorCodeOutOfService
 } RouteSearchManagerErrorCode;
+
+typedef enum{
+    RouteTypeSimple = 0,
+    RouteTypeComplex
+}RouteType;
 
 @interface RouteSearchManager : NSObject
 +(void)getRouteWithGetOn:(NSDictionary*)getOn getOff:(NSDictionary*)getOff completionHandler:(void (^)(NSDictionary *dict,NSError *error))handler;
