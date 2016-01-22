@@ -62,7 +62,7 @@ static RouteSearchManager *sharedData_ = nil;
                     }];
                 }else{
                     NSLog(@">直通路線はありません。");
-                    [self.connectionSearchResultArray removeAllObjects];
+                    NSMutableArray *connectionSearchResultArray = [NSMutableArray array];
 
                     /*乗り継ぎバス停を検索*/
                     /*乗り継ぎバス停は以下8つのみ*/
@@ -148,11 +148,11 @@ static RouteSearchManager *sharedData_ = nil;
                                                                     
                                                                     NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:array,@"first",
                                                                                           array3,@"second",dict,@"via",nil];
-                                                                    [self.connectionSearchResultArray addObject:data];
+                                                                    [connectionSearchResultArray addObject:data];
                                                                     counta++;
                                                                     data_flg = true;
                                                                     if (counta == [candidateArray count] && data_flg == true) {
-                                                                        NSDictionary* dataDict = [NSDictionary dictionaryWithObjectsAndKeys:self.connectionSearchResultArray,@"data",RouteTypeComplex,@"type",nil];
+                                                                        NSDictionary* dataDict = [NSDictionary dictionaryWithObjectsAndKeys:connectionSearchResultArray,@"data",RouteTypeComplex,@"type",nil];
                                                                         handler(dataDict,nil);
                                                                     }else if(counta == [candidateArray count] && route_flg == true){
                                                                         NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];
@@ -171,7 +171,7 @@ static RouteSearchManager *sharedData_ = nil;
                                                             counta++;
                                                             route_flg = true;
                                                             if (counta == [candidateArray count] && data_flg == true) {
-                                                                NSDictionary* dataDict = [NSDictionary dictionaryWithObjectsAndKeys:self.connectionSearchResultArray,@"data",RouteTypeComplex,@"type",nil];
+                                                                NSDictionary* dataDict = [NSDictionary dictionaryWithObjectsAndKeys:connectionSearchResultArray,@"data",RouteTypeComplex,@"type",nil];
                                                                 handler(dataDict,nil);
                                                             }else if(counta == [candidateArray count] && route_flg == true){
                                                                 NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];
@@ -190,7 +190,7 @@ static RouteSearchManager *sharedData_ = nil;
                                                 counta++;
                                                 route_flg = true;
                                                 if (counta == [candidateArray count] && data_flg == true) {
-                                                    NSDictionary* dataDict = [NSDictionary dictionaryWithObjectsAndKeys:self.connectionSearchResultArray,@"data",RouteTypeComplex,@"type",nil];
+                                                    NSDictionary* dataDict = [NSDictionary dictionaryWithObjectsAndKeys:connectionSearchResultArray,@"data",RouteTypeComplex,@"type",nil];
                                                     handler(dataDict,nil);
                                                }else if(counta == [candidateArray count] && route_flg == true){
                                                     NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];
@@ -209,7 +209,7 @@ static RouteSearchManager *sharedData_ = nil;
                                         NSLog(@"counta:%d",counta);
                                         
                                         if (counta == [candidateArray count] && data_flg == true) {
-                                            NSDictionary* dataDict = [NSDictionary dictionaryWithObjectsAndKeys:self.connectionSearchResultArray,@"data",RouteTypeComplex,@"type",nil];
+                                            NSDictionary* dataDict = [NSDictionary dictionaryWithObjectsAndKeys:connectionSearchResultArray,@"data",RouteTypeComplex,@"type",nil];
                                             handler(dataDict,nil);
                                         }else if(counta == [candidateArray count] && route_flg == true){
                                             NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];
@@ -226,7 +226,7 @@ static RouteSearchManager *sharedData_ = nil;
                                 NSLog(@">直通路線なし");
                                 counta++;
                                 if (counta == [candidateArray count] && data_flg == true) {
-                                    NSDictionary* dataDict = [NSDictionary dictionaryWithObjectsAndKeys:self.connectionSearchResultArray,@"data",RouteTypeComplex,@"type",nil];
+                                    NSDictionary* dataDict = [NSDictionary dictionaryWithObjectsAndKeys:connectionSearchResultArray,@"data",RouteTypeComplex,@"type",nil];
                                     handler(dataDict,nil);
                                 }else if(counta == [candidateArray count] && route_flg == true){
                                     NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];
@@ -360,7 +360,7 @@ static RouteSearchManager *sharedData_ = nil;
             return;
         }
         if(!meintenanceFlg){
-            [self.ViaListArray removeAllObjects];
+            NSMutableArray* viaListArray = [NSMutableArray array];
             
             /*乗り継ぎバス停を検索*/
             /*乗り継ぎバス停は以下8つのみ*/
@@ -405,16 +405,23 @@ static RouteSearchManager *sharedData_ = nil;
                             }
                             if(flg3){
                                 NSLog(@">経由路線発見");
-                                [self.ViaListArray addObject:dict];
+                                [viaListArray addObject:dict];
                                 counta++;
-                            }
-                            if(counta == 8){
-                                handler(self.ViaListArray,nil);
+                                if(counta == [candidateArray count]){
+                                    handler(viaListArray,nil);
+                                }
+                            }else{
+                                counta++;
+                                if(counta == [candidateArray count]){
+                                    handler(viaListArray,nil);
+                                }
                             }
                         }];
-                    }
-                    if(counta == 8){
-                        handler(self.ViaListArray,nil);
+                    }else{
+                        counta++;
+                        if(counta == [candidateArray count]){
+                            handler(viaListArray,nil);
+                        }
                     }
                 }];
             }

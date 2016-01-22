@@ -146,20 +146,58 @@
         return;
     }
     if(getOn && getOff){
-        [[RouteSearchManager sharedManager]getRouteWithGetOn:getOn getOff:getOff completionHandler:^(NSDictionary* dict,NSError *error){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if(error){
-                    NSLog(@"%@",error.localizedDescription);
-                    errorLabel.text = error.localizedDescription;
-                    errorLabel.hidden = false;
-                    [indicator stopAnimating];
-                    indicator.hidden = true;
+        
+        [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg,NSError *error){
+            
+            if(error){
+                NSLog(@"%@",error.localizedDescription);
+                errorLabel.text = error.localizedDescription;
+                errorLabel.hidden = false;
+                [indicator stopAnimating];
+                indicator.hidden = true;
+            }else{
+                if(flg){
+                  
+                    [[RouteSearchManager sharedManager]getRouteWithGetOn:getOn getOff:getOff completionHandler:^(NSDictionary* dict,NSError *error){
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if(error){
+                                NSLog(@"%@",error.localizedDescription);
+                                errorLabel.text = error.localizedDescription;
+                                errorLabel.hidden = false;
+                                [indicator stopAnimating];
+                                indicator.hidden = true;
+                            }else{
+                                dataDictionary = dict;
+                                [self showSearchResult];
+                            }
+                        });
+                    }];
                 }else{
-                    dataDictionary = dict;
-                    [self showSearchResult];
+                    
+                    [[RouteSearchManager sharedManager]getViaListWithGetOn:getOn getOff:getOff completionHandler:^(NSArray *list,NSError *error){
+                        if(error){
+                            NSLog(@"%@",error.localizedDescription);
+                            errorLabel.text = error.localizedDescription;
+                            errorLabel.hidden = false;
+                            [indicator stopAnimating];
+                            indicator.hidden = true;
+                        }else{
+                            NSLog(@"%@",list);
+                            [[RouteSearchManager sharedManager]getRouteWithGetOn:getOff getOff:getOff via:[list objectAtIndex:0] completionHandler:^(NSDictionary *dict,NSError* error){
+                                if(error){
+                                    NSLog(@"%@",error.localizedDescription);
+                                    errorLabel.text = error.localizedDescription;
+                                    errorLabel.hidden = false;
+                                    [indicator stopAnimating];
+                                    indicator.hidden = true;
+                                }else{
+                                    NSLog(@"%@",dict);
+                                }
+                            }];
+                        }
+                    }];
                 }
-                
-            });
+            }
         }];
     }else{
         //データ取得に失敗

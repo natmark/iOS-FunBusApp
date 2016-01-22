@@ -24,9 +24,9 @@ typedef enum{
 }RouteType;
 
 @interface RouteSearchManager : NSObject
-@property (nonatomic,assign) NSMutableArray* connectionSearchResultArray;
-@property (nonatomic,assign) NSMutableArray* ViaListArray;
 
 +(RouteSearchManager*)sharedManager;
 -(void)getRouteWithGetOn:(NSDictionary*)getOn getOff:(NSDictionary*)getOff completionHandler:(void (^)(NSDictionary *dict,NSError *error))handler;
+-(void)getRouteWithGetOn:(NSDictionary*)getOn getOff:(NSDictionary*)getOff via:(NSDictionary*)via completionHandler:(void (^)(NSDictionary *dict,NSError *error))handler;
+-(void)getViaListWithGetOn:(NSDictionary*)getOn getOff:(NSDictionary*)getOff completionHandler:(void (^)(NSArray *list,NSError *error))handler;
 @end
