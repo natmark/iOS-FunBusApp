@@ -71,7 +71,9 @@ static BusSearchManager *sharedData_ = nil;
         if (range.location != NSNotFound) {
             flg = true;
         }
-        handler(flg,error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(flg,error);
+        });
     }] resume];
 
 }
@@ -98,7 +100,9 @@ static BusSearchManager *sharedData_ = nil;
             if (range.location != NSNotFound) {
                 flg = false;
             }
-            handler(flg,nil);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(flg,nil);
+            });
             return;
         }
     }
@@ -126,7 +130,9 @@ static BusSearchManager *sharedData_ = nil;
         if (range.location != NSNotFound) {
             flg = false;
         }
-        handler(flg,error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(flg,error);
+        });
     }] resume];
 }
 #pragma mark 営業時間外かどうかを返す関数
@@ -144,7 +150,9 @@ static BusSearchManager *sharedData_ = nil;
         if (range.location != NSNotFound) {
             flg = true;
         }
-        handler(flg,error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(flg,nil);
+        });
     }] resume];
 
 }
@@ -183,7 +191,10 @@ static BusSearchManager *sharedData_ = nil;
                                       [detailArray objectAtIndex:i],@"detail",nil];
                 [resultArray addObject:dict];
             }
-            handler(resultArray,nil);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(resultArray,nil);
+            });
+
             return;
         }
     }
@@ -222,7 +233,9 @@ static BusSearchManager *sharedData_ = nil;
                                   [detailArray objectAtIndex:i],@"detail",nil];
             [resultArray addObject:dict];
         }
-        handler(resultArray,error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(resultArray,error);
+        });
     }] resume];
 }
 #pragma mark 各地点の到着時間を返す関数
@@ -253,7 +266,10 @@ static BusSearchManager *sharedData_ = nil;
                                       [timeArray objectAtIndex:i],@"time",nil];
                 [resultArray addObject:dict];
             }
-            handler(resultArray,nil);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(resultArray,nil);
+            });
+
             return;
         }
     }
@@ -285,7 +301,10 @@ static BusSearchManager *sharedData_ = nil;
                                   [timeArray objectAtIndex:i],@"time",nil];
             [resultArray addObject:dict];
         }
-        handler(resultArray,error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(resultArray,error);
+        });
+
     }] resume];
 }
 #pragma mark HTMLパース用関数(private)

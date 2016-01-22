@@ -132,7 +132,7 @@
     // Do any additional setup after loading the view.
     NSDictionary* getOn = [[BusSearchManager sharedManager]GetOnBusStop];
     NSDictionary* getOff = [[BusSearchManager sharedManager]GetOffBusStop];
-#warning viaBusStopを追加 !viaBusStopなら経由検索にする必要あり
+    NSDictionary* via = [[BusSearchManager sharedManager]viaBusStop];
     
     self.getOnLabel.text = [getOn objectForKey:@"name"];
     self.getOffLabel.text = [getOff objectForKey:@"name"];
@@ -147,59 +147,36 @@
         return;
     }
     if(getOn && getOff){
-        
-        [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg,NSError *error){
-            
-            if(error){
-                NSLog(@"%@",error.localizedDescription);
-                errorLabel.text = error.localizedDescription;
-                errorLabel.hidden = false;
-                [indicator stopAnimating];
-                indicator.hidden = true;
-            }else{
-                if(flg){
-                  
-                    [[RouteSearchManager sharedManager]getRouteWithGetOn:getOn getOff:getOff completionHandler:^(NSDictionary* dict,NSError *error){
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            if(error){
-                                NSLog(@"%@",error.localizedDescription);
-                                errorLabel.text = error.localizedDescription;
-                                errorLabel.hidden = false;
-                                [indicator stopAnimating];
-                                indicator.hidden = true;
-                            }else{
-                                dataDictionary = dict;
-                                [self showSearchResult];
-                            }
-                        });
-                    }];
+        if(!via){
+            [[RouteSearchManager sharedManager]getRouteWithGetOn:getOn getOff:getOff completionHandler:^(NSDictionary* dict,NSError *error){
+                if(error){
+                    NSLog(@"%@",error.localizedDescription);
+                    errorLabel.text = error.localizedDescription;
+                    errorLabel.hidden = false;
+                    [indicator stopAnimating];
+                    indicator.hidden = true;
                 }else{
-                    
-                    [[RouteSearchManager sharedManager]getViaListWithGetOn:getOn getOff:getOff completionHandler:^(NSArray *list,NSError *error){
-                        if(error){
-                            NSLog(@"%@",error.localizedDescription);
-                            errorLabel.text = error.localizedDescription;
-                            errorLabel.hidden = false;
-                            [indicator stopAnimating];
-                            indicator.hidden = true;
-                        }else{
-                            NSLog(@"%@",list);
-                            [[RouteSearchManager sharedManager]getRouteWithGetOn:getOff getOff:getOff via:[list objectAtIndex:0] completionHandler:^(NSDictionary *dict,NSError* error){
-                                if(error){
-                                    NSLog(@"%@",error.localizedDescription);
-                                    errorLabel.text = error.localizedDescription;
-                                    errorLabel.hidden = false;
-                                    [indicator stopAnimating];
-                                    indicator.hidden = true;
-                                }else{
-                                    NSLog(@"%@",dict);
-                                }
-                            }];
-                        }
-                    }];
+                    dataDictionary = dict;
+                    [self showSearchResult];
                 }
-            }
-        }];
+            }];
+        }else{
+            [[RouteSearchManager sharedManager]getRouteWithGetOn:getOn getOff:getOff via:via completionHandler:^(NSDictionary* dict,NSError *error){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if(error){
+                        NSLog(@"%@",error.localizedDescription);
+                        errorLabel.text = error.localizedDescription;
+                        errorLabel.hidden = false;
+                        [indicator stopAnimating];
+                        indicator.hidden = true;
+                    }else{
+                        dataDictionary = dict;
+                        [self showSearchResult];
+                    }
+                });
+            }];
+        }
+        
     }else{
         //データ取得に失敗
         [self.navigationController popToRootViewControllerAnimated:YES];
@@ -230,99 +207,180 @@
     NSDictionary* getOn = [[BusSearchManager sharedManager]GetOnBusStop];
     NSDictionary* getOff = [[BusSearchManager sharedManager]GetOffBusStop];
     
-    if((RouteType)[dataDictionary objectForKey:@"type"] == RouteTypeComplex){
-        /*
-        //ソート対象となるキーを指定した、NSSortDescriptorの生成
-        NSSortDescriptor *sortDepTime;
-        NSSortDescriptor *sortArrTime;
-        sortDepTime = [[NSSortDescriptor alloc] initWithKey:@"depIntTime" ascending:YES];
-        sortArrTime = [[NSSortDescriptor alloc] initWithKey:@"arrIntTime" ascending:YES];
+    if((RouteType)[[dataDictionary objectForKey:@"type"]intValue] == RouteTypeComplex){
+        NSDictionary* dict = [dataDictionary objectForKey:@"data"];
+        NSArray* firstArray = [dict objectForKey:@"first"];
+        NSArray* secondArray = [dict objectForKey:@"second"];
+        NSDictionary* via = [dict objectForKey:@"via"];
         
-        NSArray *sortAscendingArray;
-        // NSSortDescriptorを配列にセット departures -> arrival の順にソートする
-        sortAscendingArray = [NSArray arrayWithObjects:sortDepTime, sortArrTime, nil];
-        
-        // ソートの実行
-        NSArray *sortArray;
-        sortArray = [organizeConnectionArray sortedArrayUsingDescriptors:sortAscendingArray];
-        
-        NSDictionary* info = [sortArray objectAtIndex:showCnt];
-        [indicator stopAnimating];
-        indicator.hidden = true;
-        connectionView.hidden = false;
-        leftButton.hidden = false;
-        rightButton.hidden = false;
-        leftButton.enabled = true;
-        rightButton.enabled = true;
-        timeLabel.hidden = false;
-        */
-        
-        /*
-         //辞書一覧
-         NSDictionary* organizedDict = [[NSDictionary alloc]initWithObjectsAndKeys:
-         [earlyestRide objectForKey:@"destination"],@"firstDestination",
-         [getOn objectForKey:@"name"],@"firstName",
-         [earlyestRide objectForKey:@"time"],@"firstDeparturesTime",
-         [dict2 objectForKey:@"time"],@"firstArraivalTime",
-         [earlyestRide objectForKey:@"detail"],@"firstDetail",
-         [earlyestRide objectForKey:@"url"],@"firstURL",
-         [earlyestVia objectForKey:@"destination"],@"secondDestination",
-         [dict2 objectForKey:@"name"],@"secondName",
-         [earlyestVia objectForKey:@"time"],@"secondDeparturesTime",
-         [dict3 objectForKey:@"time"],@"secondArraivalTime",
-         [earlyestVia objectForKey:@"detail"],@"secondDetail",
-         [earlyestVia objectForKey:@"url"],@"secondURL",
-         [getOff objectForKey:@"name"],@"getOff",
-         depTime,@"depIntTime",
-         arrTime,@"arrIntTime",
-         nil];
+        [[BusSearchManager sharedManager]GETArrivedTimeWithURL:[[firstArray objectAtIndex:showCnt] objectForKey:@"url"] completionHandler:^(NSArray* array,NSError *error){
+            if(error){
+                NSLog(@"%@",error.localizedDescription);
+                errorLabel.text = error.localizedDescription;
+                errorLabel.hidden = false;
+                [indicator stopAnimating];
+                indicator.hidden = true;
+                
+                connectionView.hidden = true;
+                leftButton.hidden = true;
+                rightButton.hidden = true;
+                leftButton.enabled = false;
+                rightButton.enabled = false;
+                timeLabel.hidden = true;
 
-         */
-        /*
-        timeLabel.text = [NSString stringWithFormat:@"%@発",[info objectForKey:@"firstDeparturesTime"]];
-        connectionView.getOnLabel1.text = [info objectForKey:@"firstName"];
-        connectionView.getOffLabel1.text = [info objectForKey:@"secondName"];
-        connectionView.departureLabel1.text = [info objectForKey:@"firstDeparturesTime"];
-        connectionView.destinationLabel1.text = [NSString stringWithFormat:@"%@ 行き",[info objectForKey:@"firstDestination"]];
-        connectionView.detailLabel1.text = [info objectForKey:@"firstDetail"];
-        connectionView.arrivalLabel1.text = [info objectForKey:@"firstArraivalTime"];
-        connectionView.getOnLabel2.text = [info objectForKey:@"secondName"];
-        connectionView.getOffLabel2.text = [info objectForKey:@"getOff"];
-        connectionView.departureLabel2.text = [info objectForKey:@"secondDeparturesTime"];
-        connectionView.destinationLabel2.text = [NSString stringWithFormat:@"%@ 行き",[info objectForKey:@"secondDestination"]];
-        connectionView.detailLabel2.text = [info objectForKey:@"secondDetail"];
-        connectionView.arrivalLabel2.text = [info objectForKey:@"secondArraivalTime"];
-        
-        if(showCnt == 0){
-            leftButton.hidden = true;
-        }
-        if(showCnt == [organizeConnectionArray count]-1){
-            rightButton.hidden = true;
-        }
-        */
-        /*
-        NSLog(@"|経路:%d",i);
-        NSLog(@"|路線:%d",j);
-        NSLog(@"ー｜乗車バス行き先:%@",[earlyestRide objectForKey:@"destination"]);
-        NSLog(@"ー｜乗車バス停:%@",[getOn objectForKey:@"name"]);
-        NSLog(@"ー｜乗車バス停 発車時間:%@",[earlyestRide objectForKey:@"time"]);
-        NSLog(@"ー｜経由バス停 到着時間:%@",[dict2 objectForKey:@"time"]);
-        NSLog(@"ー｜遅延情報:%@",[earlyestRide objectForKey:@"detail"]);
-        NSLog(@"ー｜URL:%@",[earlyestRide objectForKey:@"url"]);
-        
-        NSLog(@"ーー｜経由バス行き先:%@",[earlyestVia objectForKey:@"destination"]);
-        NSLog(@"ーー｜経由バス停:%@",[dict2 objectForKey:@"name"]);
-        NSLog(@"ーー｜経由バス停 発車時間:%@",[earlyestVia objectForKey:@"time"]);
-        NSLog(@"ーー｜降車バス停 到着時間:%@",[dict3 objectForKey:@"time"]);
-        NSLog(@"ーー｜遅延情報:%@",[earlyestVia objectForKey:@"detail"]);
-        NSLog(@"ーー｜URL:%@",[earlyestVia objectForKey:@"url"]);
-        NSLog(@"ーーー｜降車バス停:%@",[getOff objectForKey:@"name"]);
-         */
+                return;
+            }
+            for(NSDictionary* dict2 in array){
+                if([[dict2 objectForKey:@"name"] isEqualToString:[via objectForKey:@"name"]]
+                   ){
+                    NSDictionary* timeDic = [self strTimeToCalculableValueWithString:[dict2 objectForKey:@"time"]];
+                    int cnt = 0;//カウンタ
+                    for(NSDictionary* viaDict in secondArray){
+                        NSDictionary* timeDic2 = [self strTimeToCalculableValueWithString:[viaDict objectForKey:@"time"]];
+                        if(([[timeDic objectForKey:@"hour"]intValue] * 60 + [[timeDic objectForKey:@"min"]intValue]) > ([[timeDic2 objectForKey:@"hour"]intValue] * 60 + [[timeDic2 objectForKey:@"min"]intValue])){
+                            cnt++;
+                        }
+                    }
+                    if(cnt >= [secondArray count]){
+                        NSLog(@"経由先乗り継ぎ便なし。");
+                        errorLabel.text = @"上記路線の本日の運行は終了しました。";
+                        errorLabel.hidden = false;
+                        [indicator stopAnimating];
+                        indicator.hidden = true;
+                        
+                        connectionView.hidden = true;
+                        [indicator stopAnimating];
+                        indicator.hidden = true;
+                        leftButton.hidden = true;
+                        rightButton.hidden = false;
+                        leftButton.enabled = false;
+                        rightButton.enabled = true;
+                        timeLabel.hidden = false;
+                        
+                        return;
+                    }
+                    
+                    [[BusSearchManager sharedManager]GETArrivedTimeWithURL:[[secondArray objectAtIndex:cnt] objectForKey:@"url"] completionHandler:^(NSArray* array2,NSError *error){
+                        if(error){
+                            NSLog(@"%@",error.localizedDescription);
+                            errorLabel.text = error.localizedDescription;
+                            errorLabel.hidden = false;
+                            [indicator stopAnimating];
+                            indicator.hidden = true;
+
+                            connectionView.hidden = true;
+                            leftButton.hidden = true;
+                            rightButton.hidden = true;
+                            leftButton.enabled = false;
+                            rightButton.enabled = false;
+                            timeLabel.hidden = true;
+
+                            return;
+                        }
+                        
+                        for(NSDictionary* dict3 in array2){
+                            if([[dict3 objectForKey:@"name"] isEqualToString:[getOff objectForKey:@"name"]]
+                               ){
+                                
+                                connectionView.hidden = false;
+                                [indicator stopAnimating];
+                                indicator.hidden = true;
+                                leftButton.hidden = false;
+                                rightButton.hidden = false;
+                                leftButton.enabled = true;
+                                rightButton.enabled = true;
+                                timeLabel.hidden = false;
+
+                                
+                                NSDictionary* info = [[NSDictionary alloc]initWithObjectsAndKeys:
+                                 [[firstArray objectAtIndex:showCnt] objectForKey:@"destination"],@"firstDestination",
+                                 [getOn objectForKey:@"name"],@"firstName",
+                                 [[firstArray objectAtIndex:showCnt] objectForKey:@"time"],@"firstDeparturesTime",
+                                 [dict2 objectForKey:@"time"],@"firstArraivalTime",
+                                 [[firstArray objectAtIndex:showCnt] objectForKey:@"detail"],@"firstDetail",
+                                 [[firstArray objectAtIndex:showCnt] objectForKey:@"url"],@"firstURL",
+                                 [[secondArray objectAtIndex:cnt] objectForKey:@"destination"],@"secondDestination",
+                                 [dict2 objectForKey:@"name"],@"secondName",
+                                 [[secondArray objectAtIndex:cnt] objectForKey:@"time"],@"secondDeparturesTime",
+                                 [dict3 objectForKey:@"time"],@"secondArraivalTime",
+                                 [[secondArray objectAtIndex:cnt] objectForKey:@"detail"],@"secondDetail",
+                                 [[secondArray objectAtIndex:cnt] objectForKey:@"url"],@"secondURL",
+                                 [getOff objectForKey:@"name"],@"getOff",nil];
+                                
+                                 timeLabel.text = [NSString stringWithFormat:@"%@発",[info objectForKey:@"firstDeparturesTime"]];
+                                 connectionView.getOnLabel1.text = [info objectForKey:@"firstName"];
+                                 connectionView.getOffLabel1.text = [info objectForKey:@"secondName"];
+                                 connectionView.departureLabel1.text = [info objectForKey:@"firstDeparturesTime"];
+                                 connectionView.destinationLabel1.text = [NSString stringWithFormat:@"%@ 行き",[info objectForKey:@"firstDestination"]];
+                                 connectionView.detailLabel1.text = [info objectForKey:@"firstDetail"];
+                                 connectionView.arrivalLabel1.text = [info objectForKey:@"firstArraivalTime"];
+                                 connectionView.getOnLabel2.text = [info objectForKey:@"secondName"];
+                                 connectionView.getOffLabel2.text = [info objectForKey:@"getOff"];
+                                 connectionView.departureLabel2.text = [info objectForKey:@"secondDeparturesTime"];
+                                 connectionView.destinationLabel2.text = [NSString stringWithFormat:@"%@ 行き",[info objectForKey:@"secondDestination"]];
+                                 connectionView.detailLabel2.text = [info objectForKey:@"secondDetail"];
+                                 connectionView.arrivalLabel2.text = [info objectForKey:@"secondArraivalTime"];
+                                 
+                                 if(showCnt == 0){
+                                     leftButton.hidden = true;
+                                 }
+                                
+                                //1個次のデータも見ておく(あまり綺麗なやり方ではないが)
+                                if([firstArray count] > showCnt + 1){
+                                    [[BusSearchManager sharedManager]GETArrivedTimeWithURL:[[firstArray objectAtIndex:showCnt + 1] objectForKey:@"url"] completionHandler:^(NSArray* array3,NSError *error){
+                                        for(NSDictionary* dict4 in array3){
+                                            if([[dict4 objectForKey:@"name"] isEqualToString:[via objectForKey:@"name"]]
+                                               ){
+                                                NSDictionary* timeDic3 = [self strTimeToCalculableValueWithString:[dict4 objectForKey:@"time"]];
+                                                int cnt2 = 0;//カウンタ
+                                                for(NSDictionary* viaDict2 in secondArray){
+                                                    NSDictionary* timeDic4 = [self strTimeToCalculableValueWithString:[viaDict2 objectForKey:@"time"]];
+                                                    if(([[timeDic3 objectForKey:@"hour"]intValue] * 60 + [[timeDic3 objectForKey:@"min"]intValue]) > ([[timeDic4 objectForKey:@"hour"]intValue] * 60 + [[timeDic4 objectForKey:@"min"]intValue])){
+                                                        cnt2++;
+                                                    }
+                                                }
+                                                if(cnt2 >= [secondArray count]){
+                                                    rightButton.hidden = true;
+                                                }else{
+                                                    if(showCnt == [[[dataDictionary objectForKey:@"data"]objectForKey:@"first"] count]-1){
+                                                        rightButton.hidden = true;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }];
+                                }else{
+                                    if(showCnt == [[[dataDictionary objectForKey:@"data"]objectForKey:@"first"] count]-1){
+                                        rightButton.hidden = true;
+                                    }
+                                }
+                            }
+                        }
+                    }];
+                }
+            }
+        }];
     }else{
         NSArray* searchResultArray = [dataDictionary objectForKey:@"data"];
+        NSLog(@"dataDictionary = %@",dataDictionary);
         NSLog(@"searchResult = %@",searchResultArray);
         [[BusSearchManager sharedManager]GETArrivedTimeWithURL:[[searchResultArray objectAtIndex:showCnt]objectForKey:@"url"] completionHandler:^(NSArray* array2,NSError * error){
-#warning エラー処理
+            if(error){
+                NSLog(@"%@",error.localizedDescription);
+                errorLabel.text = error.localizedDescription;
+                errorLabel.hidden = false;
+                [indicator stopAnimating];
+                indicator.hidden = true;
+
+                noConnectionView.hidden = true;
+                leftButton.hidden = true;
+                rightButton.hidden = true;
+                leftButton.enabled = false;
+                rightButton.enabled = false;
+                timeLabel.hidden = true;
+
+                return;
+            }
             for(NSDictionary* dict in array2){
                 if([[dict objectForKey:@"name"] isEqualToString:[getOff objectForKey:@"name"]]
                    ){
@@ -360,7 +418,7 @@
                     }
                 }
             }
-        }];
+    }];
     }
 }
 -(void)leftPressed:(UIButton*)sender{
@@ -379,10 +437,9 @@
 }
 -(void)rightPressed:(UIButton*)sender{
     showCnt++;
-    if((RouteType)[dataDictionary objectForKey:@"type"] == RouteTypeComplex){
-        /*
-        if(showCnt > (int)[organizeConnectionArray count]-1){
-            showCnt = MIN(showCnt, (int)[organizeConnectionArray count]-1);
+    if([BusSearchManager sharedManager].viaBusStop){
+        if(showCnt > (int)[[[dataDictionary objectForKey:@"data"]objectForKey:@"first"] count]-1){
+            showCnt = MIN(showCnt, (int)[[[dataDictionary objectForKey:@"data"]objectForKey:@"first"] count]-1);
         }else{
             connectionView.hidden = true;
             noConnectionView.hidden = true;
@@ -392,7 +449,6 @@
             rightButton.enabled = false;
             [self showSearchResult];
         }
-        */
     }else{
         if(showCnt > (int)[[dataDictionary objectForKey:@"data"] count]-1){
             showCnt = MIN(showCnt, (int)[[dataDictionary objectForKey:@"data"] count]-1);

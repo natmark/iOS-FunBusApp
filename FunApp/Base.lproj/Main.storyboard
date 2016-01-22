@@ -577,7 +577,7 @@
         <!--保存した路線-->
         <scene sceneID="w89-Ng-aTo">
             <objects>
-                <viewController storyboardIdentifier="SelectViaViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="DV5-w1-D3o" customClass="SelectViaViewController" sceneMemberID="viewController">
+                <viewController id="DV5-w1-D3o" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5Vp-lp-c25"/>
                         <viewControllerLayoutGuide type="bottom" id="dxx-8Z-3er"/>
@@ -632,8 +632,8 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="8zC-HD-rjy"/>
-                                <exclude reference="oMn-ai-ScN"/>
                                 <exclude reference="AX2-ji-B43"/>
+                                <exclude reference="oMn-ai-ScN"/>
                             </mask>
                         </variation>
                     </view>
@@ -651,7 +651,7 @@
         <!--検索履歴-->
         <scene sceneID="oh7-NE-uKj">
             <objects>
-                <viewController storyboardIdentifier="SelectViaViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Fiq-6f-S9W" customClass="SelectViaViewController" sceneMemberID="viewController">
+                <viewController id="Fiq-6f-S9W" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vPZ-GE-tkq"/>
                         <viewControllerLayoutGuide type="bottom" id="vpd-9z-p2N"/>
@@ -706,8 +706,8 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="Eve-eM-Wv1"/>
-                                <exclude reference="pDs-N3-j3m"/>
                                 <exclude reference="g5P-Uf-E3X"/>
+                                <exclude reference="pDs-N3-j3m"/>
                             </mask>
                         </variation>
                     </view>
