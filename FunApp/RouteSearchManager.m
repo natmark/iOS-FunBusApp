@@ -13,7 +13,6 @@
 +(void)getRouteWithGetOn:(NSDictionary*)getOn getOff:(NSDictionary*)getOff completionHandler:(void (^)(NSDictionary *dict,NSError *error))handler{
     [[BusSearchManager sharedManager]isSystemMeintenanceWithcompletionHandler:^(BOOL meintenanceFlg,NSError *error){
         if(error){
-#warning 設定済み(エラー処理はここを参考に)
             NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNetwork userInfo: [NSDictionary dictionaryWithObject:@"ネットワークエラー" forKey:NSLocalizedDescriptionKey]];
             handler(nil,err);
             return;
@@ -21,7 +20,8 @@
         if(!meintenanceFlg){
             [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg,NSError *error){
                 if(error){
-#warning ネットワークエラーを記述
+                    NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNetwork userInfo: [NSDictionary dictionaryWithObject:@"ネットワークエラー" forKey:NSLocalizedDescriptionKey]];
+                    handler(nil,err);
                     return;
                 }
                 if(flg){
@@ -30,7 +30,8 @@
                     //connection = false;
                     [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg2,NSError *error){
                         if(error){
-#warning ネットワークエラーを記述
+                            NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNetwork userInfo: [NSDictionary dictionaryWithObject:@"ネットワークエラー" forKey:NSLocalizedDescriptionKey]];
+                            handler(nil,err);
                             return;
                         }
                         
@@ -38,7 +39,8 @@
                             NSLog(@">バスあります");
                             [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[getOn objectForKey:@"code"]intValue] GetOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(NSArray* array,NSError* error){
                                 if(error){
-#warning ネットワークエラーを記述
+                                    NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNetwork userInfo: [NSDictionary dictionaryWithObject:@"ネットワークエラー" forKey:NSLocalizedDescriptionKey]];
+                                    handler(nil,err);
                                     return;
                                 }
 #warning NSDictionaryに路線一覧を追加
@@ -48,12 +50,9 @@
                             
                         }else{
                             NSLog(@">営業時間終了");
-#warning 営業時間終了エラーを記述
-                            
-                            //errorLabel.text = @"上記路線の本日の運行は終了しました。";
-                            //errorLabel.hidden = false;
-                            //[indicator stopAnimating];
-                            //indicator.hidden = true;
+                            NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];
+                            handler(nil,err);
+                            return;
                         }
                     }];
                 }else{
@@ -96,44 +95,51 @@
                         
                         [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[dict objectForKey:@"code"]intValue] completionHandler:^(BOOL flg2,NSError *error){
                             if(error){
-#warning ネットワークエラーを記述
+                                NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNetwork userInfo: [NSDictionary dictionaryWithObject:@"ネットワークエラー" forKey:NSLocalizedDescriptionKey]];
+                                handler(nil,err);
                                 return;
                             }
                             if(flg2){
                                 [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[dict objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg3,NSError *error){
                                     if(error){
-#warning ネットワークエラーを記述
+                                        NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNetwork userInfo: [NSDictionary dictionaryWithObject:@"ネットワークエラー" forKey:NSLocalizedDescriptionKey]];
+                                        handler(nil,err);
                                         return;
                                     }
                                     if(flg3){
                                         NSLog(@">経由路線発見");
                                         [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[dict objectForKey:@"code"]intValue] completionHandler:^(BOOL flg4,NSError *error){
                                             if(error){
-#warning ネットワークエラーを記述
+                                                NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNetwork userInfo: [NSDictionary dictionaryWithObject:@"ネットワークエラー" forKey:NSLocalizedDescriptionKey]];
+                                                handler(nil,err);
                                                 return;
                                             }
                                             if(!flg4){
                                                 NSLog(@">乗車->乗り継ぎ バス営業中");
                                                 [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[getOn objectForKey:@"code"]intValue] GetOff:[[dict objectForKey:@"code"]intValue] completionHandler:^(NSArray* array,NSError *error){
                                                     if(error){
-#warning ネットワークエラーを記述
+                                                        NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNetwork userInfo: [NSDictionary dictionaryWithObject:@"ネットワークエラー" forKey:NSLocalizedDescriptionKey]];
+                                                        handler(nil,err);
                                                         return;
                                                     }
                                                     [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[dict objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg5,NSError *error){
                                                         if(error){
-#warning ネットワークエラーを記述
+                                                            NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNetwork userInfo: [NSDictionary dictionaryWithObject:@"ネットワークエラー" forKey:NSLocalizedDescriptionKey]];
+                                                            handler(nil,err);
                                                             return;
                                                         }
                                                         if(!flg5){
                                                             NSLog(@">乗り継ぎ->降車 バス営業中");
                                                             [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[dict objectForKey:@"code"]intValue] GetOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(NSArray* array3,NSError *error){
                                                                 if(error){
-#warning ネットワークエラーを記述
+                                                                    NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNetwork userInfo: [NSDictionary dictionaryWithObject:@"ネットワークエラー" forKey:NSLocalizedDescriptionKey]];
+                                                                    handler(nil,err);
                                                                     return;
                                                                 }
                                                                 [[BusSearchManager sharedManager]GETArrivedTimeWithURL:[[array3 objectAtIndex:0]objectForKey:@"url"] completionHandler:^(NSArray* array2,NSError *error){
                                                                     if(error){
-#warning ネットワークエラーを記述
+                                                                        NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNetwork userInfo: [NSDictionary dictionaryWithObject:@"ネットワークエラー" forKey:NSLocalizedDescriptionKey]];
+                                                                        handler(nil,err);
                                                                         return;
                                                                     }
                                                                     
@@ -148,17 +154,13 @@
                                                                         
                                                                         //[self searchEarlyest];
                                                                     }else if(counta == [candidateArray count] && route_flg == true){
-#warning 乗り継ぎデータあり、運行終了エラーを記述
-                                                                        //errorLabel.text = @"上記路線の本日の運行は終了しました。";
-                                                                        //errorLabel.hidden = false;
-                                                                        //[indicator stopAnimating];
-                                                                        //indicator.hidden = true;
+                                                                        NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];
+                                                                        handler(nil,err);
+                                                                        return;
                                                                     }else if(counta == [candidateArray count] && route_flg == false){
-#warning 乗り継ぎデータなしエラーを記述
-                                                                        //errorLabel.text = @"上記路線間のルートが見つかりませんでした";
-                                                                        //errorLabel.hidden = false;
-                                                                        //[indicator stopAnimating];
-                                                                        //indicator.hidden = true;
+                                                                        NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNoRoute userInfo: [NSDictionary dictionaryWithObject:@"上記路線間のルートが見つかりませんでした。" forKey:NSLocalizedDescriptionKey]];
+                                                                        handler(nil,err);
+                                                                        return;
                                                                     }
                                                                     
                                                                 }];
@@ -172,17 +174,13 @@
                                                                 
                                                                 //[self searchEarlyest];
                                                             }else if(counta == [candidateArray count] && route_flg == true){
-#warning 乗り継ぎデータあり、運行終了エラーを記述
-                                                                //errorLabel.text = @"上記路線の本日の運行は終了しました。";
-                                                                //errorLabel.hidden = false;
-                                                                //[indicator stopAnimating];
-                                                                //indicator.hidden = true;
+                                                                NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];
+                                                                handler(nil,err);
+                                                                return;
                                                             }else if(counta == [candidateArray count] && route_flg == false){
-#warning 乗り継ぎデータなしエラーを記述
-                                                                //errorLabel.text = @"上記路線間のルートが見つかりませんでした";
-                                                                //errorLabel.hidden = false;
-                                                                //[indicator stopAnimating];
-                                                                //indicator.hidden = true;
+                                                                NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNoRoute userInfo: [NSDictionary dictionaryWithObject:@"上記路線間のルートが見つかりませんでした。" forKey:NSLocalizedDescriptionKey]];
+                                                                handler(nil,err);
+                                                                return;
                                                             }
                                                         }
                                                     }];
@@ -196,17 +194,13 @@
                                                     
                                                     //[self searchEarlyest];
                                                 }else if(counta == [candidateArray count] && route_flg == true){
-#warning 乗り継ぎデータあり、運行終了エラーを記述
-                                                    //errorLabel.text = @"上記路線の本日の運行は終了しました。";
-                                                    //errorLabel.hidden = false;
-                                                    //[indicator stopAnimating];
-                                                    //indicator.hidden = true;
+                                                    NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];
+                                                    handler(nil,err);
+                                                    return;
                                                 }else if(counta == [candidateArray count] && route_flg == false){
-#warning 乗り継ぎデータなしエラーを記述
-                                                    //errorLabel.text = @"上記路線間のルートが見つかりませんでした";
-                                                    //errorLabel.hidden = false;
-                                                    //[indicator stopAnimating];
-                                                    //indicator.hidden = true;
+                                                    NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNoRoute userInfo: [NSDictionary dictionaryWithObject:@"上記路線間のルートが見つかりませんでした。" forKey:NSLocalizedDescriptionKey]];
+                                                    handler(nil,err);
+                                                    return;
                                                 }
                                             }
                                         }];
@@ -220,17 +214,13 @@
                                             
                                             //[self searchEarlyest];
                                         }else if(counta == [candidateArray count] && route_flg == true){
-#warning 乗り継ぎデータあり、運行終了エラーを記述
-                                            //errorLabel.text = @"上記路線の本日の運行は終了しました。";
-                                            //errorLabel.hidden = false;
-                                            //[indicator stopAnimating];
-                                            //indicator.hidden = true;
+                                            NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];
+                                            handler(nil,err);
+                                            return;
                                         }else if(counta == [candidateArray count] && route_flg == false){
-#warning 乗り継ぎデータなしエラーを記述
-                                            //errorLabel.text = @"上記路線間のルートが見つかりませんでした";
-                                            //errorLabel.hidden = false;
-                                            //[indicator stopAnimating];
-                                            //indicator.hidden = true;
+                                            NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNoRoute userInfo: [NSDictionary dictionaryWithObject:@"上記路線間のルートが見つかりませんでした。" forKey:NSLocalizedDescriptionKey]];
+                                            handler(nil,err);
+                                            return;
                                         }
                                     }
                                 }];
@@ -242,17 +232,13 @@
 
                                     //[self searchEarlyest];
                                 }else if(counta == [candidateArray count] && route_flg == true){
-#warning 乗り継ぎデータあり、運行終了エラーを記述
-                                    //errorLabel.text = @"上記路線の本日の運行は終了しました。";
-                                    //errorLabel.hidden = false;
-                                    //[indicator stopAnimating];
-                                    //indicator.hidden = true;
+                                    NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeOutOfService userInfo: [NSDictionary dictionaryWithObject:@"上記路線の本日の運行は終了しました。" forKey:NSLocalizedDescriptionKey]];
+                                    handler(nil,err);
+                                    return;
                                 }else if(counta == [candidateArray count] && route_flg == false){
-#warning 乗り継ぎデータなしエラーを記述
-                                    //errorLabel.text = @"上記路線間のルートが見つかりませんでした";
-                                    //errorLabel.hidden = false;
-                                    //[indicator stopAnimating];
-                                    //indicator.hidden = true;
+                                    NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeNoRoute userInfo: [NSDictionary dictionaryWithObject:@"上記路線間のルートが見つかりませんでした。" forKey:NSLocalizedDescriptionKey]];
+                                    handler(nil,err);
+                                    return;
                                 }
                             }
                         }];
@@ -261,12 +247,9 @@
             }];
         }else{
             NSLog(@">システムメンテナンス中");
-#warning システムメンテナンスエラーを記述
-
-            //errorLabel.text = @"システムメンテナンス中です。";
-            //errorLabel.hidden = false;
-            //[indicator stopAnimating];
-            //indicator.hidden = true;
+            NSError * err = [NSError errorWithDomain:RouteSearchManagerError code:RouteSearchManagerErrorCodeSystemMaintenance userInfo: [NSDictionary dictionaryWithObject:@"システムメンテナンス中です。" forKey:NSLocalizedDescriptionKey]];
+            handler(nil,err);
+            return;
         }
     }];
 }

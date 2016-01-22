@@ -148,6 +148,13 @@
     if(getOn && getOff){
         [RouteSearchManager getRouteWithGetOn:getOn getOff:getOff completionHandler:^(NSDictionary* dict,NSError *error){
             //処理
+            #warning UI更新はメインスレッドで処理
+            #warning エラー発生後の処理
+            //errorLabel.text = @"システムメンテナンス中です。";
+            //errorLabel.hidden = false;
+            //[indicator stopAnimating];
+            //indicator.hidden = true;
+
         }];
     }else{
         //データ取得に失敗
