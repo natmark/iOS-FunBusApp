@@ -146,186 +146,8 @@
         return;
     }
     if(getOn && getOff){
-        [[BusSearchManager sharedManager]isSystemMeintenanceWithcompletionHandler:^(BOOL meintenanceFlg){
-            if(!meintenanceFlg){
-                [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg){
-                    if(flg){
-                        NSLog(@">直通路線はあります。");
-                        connection = false;
-                        [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg2){
-                            if(!flg2){
-                                NSLog(@">バスあります");
-                                [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[getOn objectForKey:@"code"]intValue] GetOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(NSArray* array){
-                                    searchResultArray = array;
-                                    [self showSearchResult];
-                                }];
-                                
-                            }else{
-                                NSLog(@">営業時間終了");
-                                errorLabel.text = @"上記路線の本日の運行は終了しました。";
-                                errorLabel.hidden = false;
-                                [indicator stopAnimating];
-                                indicator.hidden = true;
-                            }
-                        }];
-                    }else{
-                        NSLog(@">直通路線はありません。");
-                        connection = true;
-                        connectionSearchResultArray = [NSMutableArray new];
-                        /*乗り継ぎバス停を検索*/
-                        /*乗り継ぎバス停は以下8つのみ*/
-                        /*現状2回以上の乗り継ぎは対応しない方向で*/
-                        /*
-                         ・函館駅前 id:3 code:3
-                         ・五稜郭 id:144 code:149
-                         ・湯倉神社前 id:454 code:465
-                         ・テーオーデパート前 id:357 code:363
-                         ・ガス会社前 id:7 code:7
-                         ・深堀町 id:361 code:367
-                         ・花園町 id:450 code:461
-                         ・亀田支所前 id:150 code:155
-                         */
-                        NSMutableArray* candidateArray = [[NSMutableArray alloc]init];
-                        
-                        int id_list[8] = {3,144,454,357,7,361,450,150};
-                        
-                        for(int i = 0;i < 8;i++){
-                            if([[getOn objectForKey:@"id"]intValue] != id_list[i] && [[getOff objectForKey:@"id"]intValue] != id_list[i]){
-                                NSDictionary* dict = [[BusSearchManager sharedManager]getBusInfo:id_list[i]];
-                                [candidateArray addObject:dict];
-                            }
-                        }
-
-                        
-                        __block bool route_flg = false;
-                        __block bool data_flg = false;
-                        __block int counta = 0;
-                        
-                        for(int i = 0;i < [candidateArray count];i++){
-                            NSDictionary* dict = [candidateArray objectAtIndex:i];
-                            
-                            [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[dict objectForKey:@"code"]intValue] completionHandler:^(BOOL flg2){
-                                if(flg2){
-                                    [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[dict objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg3){
-                                        if(flg3){
-                                            NSLog(@">経由路線発見");
-                                            [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[dict objectForKey:@"code"]intValue] completionHandler:^(BOOL flg4){
-                                                if(!flg4){
-                                                    NSLog(@">乗車->乗り継ぎ バス営業中");
-                                                    [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[getOn objectForKey:@"code"]intValue] GetOff:[[dict objectForKey:@"code"]intValue] completionHandler:^(NSArray* array){
-                                                        [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[dict objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg5){
-                                                            if(!flg5){
-                                                                NSLog(@">乗り継ぎ->降車 バス営業中");
-                                                                [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[dict objectForKey:@"code"]intValue] GetOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(NSArray* array3){
-                                                                    [[BusSearchManager sharedManager]GETArrivedTimeWithURL:[[array3 objectAtIndex:0]objectForKey:@"url"] completionHandler:^(NSArray* array2){
-                                                                        NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:array,@"first",
-                                                                        array3,@"second",dict,@"via",nil];
-                                                                        [connectionSearchResultArray addObject:data];
-                                                                        counta++;
-                                                                        data_flg = true;
-                                                                        if (counta == [candidateArray count] && data_flg == true) {
-                                                                            [self searchEarlyest];
-                                                                        }else if(counta == [candidateArray count] && route_flg == true){
-                                                                            errorLabel.text = @"上記路線の本日の運行は終了しました。";
-                                                                            errorLabel.hidden = false;
-                                                                            [indicator stopAnimating];
-                                                                            indicator.hidden = true;
-                                                                        }else if(counta == [candidateArray count] && route_flg == false){
-                                                                            errorLabel.text = @"上記路線の本日の運行は終了しました";
-                                                                            errorLabel.hidden = false;
-                                                                            [indicator stopAnimating];
-                                                                            indicator.hidden = true;
-                                                                        }
-
-                                                                    }];
-                                                                }];
-                                                            }else{
-                                                                NSLog(@">営業時間終了");
-                                                                counta++;
-                                                                route_flg = true;
-                                                                if (counta == [candidateArray count] && data_flg == true) {
-                                                                    [self searchEarlyest];
-                                                                }else if(counta == [candidateArray count] && route_flg == true){
-                                                                    errorLabel.text = @"上記路線の本日の運行は終了しました。";
-                                                                    errorLabel.hidden = false;
-                                                                    [indicator stopAnimating];
-                                                                    indicator.hidden = true;
-                                                                }else if(counta == [candidateArray count] && route_flg == false){
-                                                                    errorLabel.text = @"上記路線の本日の運行は終了しました";
-                                                                    errorLabel.hidden = false;
-                                                                    [indicator stopAnimating];
-                                                                    indicator.hidden = true;
-                                                                }
-                                                            }
-                                                        }];
-                                                    }];
-                                                }else{
-                                                    NSLog(@">営業時間終了");
-                                                    counta++;
-                                                    route_flg = true;
-                                                    if (counta == [candidateArray count] && data_flg == true) {
-                                                        [self searchEarlyest];
-                                                    }else if(counta == [candidateArray count] && route_flg == true){
-                                                        errorLabel.text = @"上記路線の本日の運行は終了しました。";
-                                                        errorLabel.hidden = false;
-                                                        [indicator stopAnimating];
-                                                        indicator.hidden = true;
-                                                    }else if(counta == [candidateArray count] && route_flg == false){
-                                                        errorLabel.text = @"上記路線の本日の運行は終了しました";
-                                                        errorLabel.hidden = false;
-                                                        [indicator stopAnimating];
-                                                        indicator.hidden = true;
-                                                    }
-                                                }
-                                            }];
-                                        }else{
-                                            NSLog(@">直通路線なし");
-                                            counta++;
-                                            NSLog(@"counta:%d",counta);
-
-                                            if (counta == [candidateArray count] && data_flg == true) {
-                                                [self searchEarlyest];
-                                            }else if(counta == [candidateArray count] && route_flg == true){
-                                                errorLabel.text = @"上記路線の本日の運行は終了しました。";
-                                                errorLabel.hidden = false;
-                                                [indicator stopAnimating];
-                                                indicator.hidden = true;
-                                            }else if(counta == [candidateArray count] && route_flg == false){
-                                                errorLabel.text = @"上記路線の本日の運行は終了しました";
-                                                errorLabel.hidden = false;
-                                                [indicator stopAnimating];
-                                                indicator.hidden = true;
-                                            }
-                                        }
-                                    }];
-                                }else{
-                                    NSLog(@">直通路線なし");
-                                    counta++;
-                                    if (counta == [candidateArray count] && data_flg == true) {
-                                        [self searchEarlyest];
-                                    }else if(counta == [candidateArray count] && route_flg == true){
-                                        errorLabel.text = @"上記路線の本日の運行は終了しました。";
-                                        errorLabel.hidden = false;
-                                        [indicator stopAnimating];
-                                        indicator.hidden = true;
-                                    }else if(counta == [candidateArray count] && route_flg == false){
-                                        errorLabel.text = @"上記路線の本日の運行は終了しました";
-                                        errorLabel.hidden = false;
-                                        [indicator stopAnimating];
-                                        indicator.hidden = true;
-                                    }
-                                }
-                            }];
-                        }
-                    }
-                }];
-            }else{
-                NSLog(@">システムメンテナンス中");
-                errorLabel.text = @"システムメンテナンス中です。";
-                errorLabel.hidden = false;
-                [indicator stopAnimating];
-                indicator.hidden = true;
-            }
+        [RouteSearchManager getRouteWithGetOn:getOn getOff:getOff completionHandler:^(NSDictionary* dict,NSError *error){
+            //処理
         }];
     }else{
         //データ取得に失敗
@@ -353,6 +175,7 @@
     return time;
 }
 #pragma mark これいるのかな？ 複数乗り継ぎのときのやつ
+/*
 -(void)searchEarlyest{
     organizeConnectionArray = [NSMutableArray new];
     // Do any additional setup after loading the view.
@@ -467,6 +290,7 @@
         }
     }
 }
+ */
 -(void)showSearchResult{
     // Do any additional setup after loading the view.
     NSDictionary* getOn = [[BusSearchManager sharedManager]GetOnBusStop];
@@ -558,7 +382,8 @@
          */
     }else{
         NSLog(@"searchResult = %@",searchResultArray);
-        [[BusSearchManager sharedManager]GETArrivedTimeWithURL:[[searchResultArray objectAtIndex:showCnt]objectForKey:@"url"] completionHandler:^(NSArray* array2){
+        [[BusSearchManager sharedManager]GETArrivedTimeWithURL:[[searchResultArray objectAtIndex:showCnt]objectForKey:@"url"] completionHandler:^(NSArray* array2,NSError * error){
+#warning エラー処理
             for(NSDictionary* dict in array2){
                 if([[dict objectForKey:@"name"] isEqualToString:[getOff objectForKey:@"name"]]
                    ){

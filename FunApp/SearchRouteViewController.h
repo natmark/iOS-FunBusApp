@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BusSearchManager.h"
+#import "RouteSearchManager.h"
 #import "NoConnectionView.h"
 #import "ConnectionView.h"
 @interface SearchRouteViewController : UIViewController{

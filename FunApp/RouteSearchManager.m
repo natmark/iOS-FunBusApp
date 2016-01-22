@@ -1,0 +1,272 @@
+//
+//  RouteSearchManager.m
+//  FunApp
+//
+//  Created by Atsuya Sato on 2016/01/22.
+//  Copyright © 2016年 Atsuya Sato. All rights reserved.
+//
+
+#import "RouteSearchManager.h"
+
+@implementation RouteSearchManager
+
++(void)getRouteWithGetOn:(NSDictionary*)getOn getOff:(NSDictionary*)getOff completionHandler:(void (^)(NSDictionary *dict,NSError *error))handler{
+    [[BusSearchManager sharedManager]isSystemMeintenanceWithcompletionHandler:^(BOOL meintenanceFlg,NSError *error){
+        if(error){
+#warning ネットワークエラーを記述
+            return;
+        }
+        if(!meintenanceFlg){
+            [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg,NSError *error){
+                if(error){
+#warning ネットワークエラーを記述
+                    return;
+                }
+                if(flg){
+                    NSLog(@">直通路線はあります。");
+#warning NSDictionaryに直通路線有りを記述
+                    //connection = false;
+                    [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg2,NSError *error){
+                        if(error){
+#warning ネットワークエラーを記述
+                            return;
+                        }
+                        
+                        if(!flg2){
+                            NSLog(@">バスあります");
+                            [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[getOn objectForKey:@"code"]intValue] GetOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(NSArray* array,NSError* error){
+                                if(error){
+#warning ネットワークエラーを記述
+                                    return;
+                                }
+#warning NSDictionaryに路線一覧を追加
+                                //searchResultArray = array;
+                                //[self showSearchResult];
+                            }];
+                            
+                        }else{
+                            NSLog(@">営業時間終了");
+#warning 営業時間終了エラーを記述
+                            
+                            //errorLabel.text = @"上記路線の本日の運行は終了しました。";
+                            //errorLabel.hidden = false;
+                            //[indicator stopAnimating];
+                            //indicator.hidden = true;
+                        }
+                    }];
+                }else{
+                    NSLog(@">直通路線はありません。");
+#warning この時点では接続があるかわからないので何もしない
+                    //connection = true;
+                    //connectionSearchResultArray = [NSMutableArray new];
+
+                    /*乗り継ぎバス停を検索*/
+                    /*乗り継ぎバス停は以下8つのみ*/
+                    /*現状2回以上の乗り継ぎは対応しない方向で*/
+                    /*
+                     ・函館駅前 id:3 code:3
+                     ・五稜郭 id:144 code:149
+                     ・湯倉神社前 id:454 code:465
+                     ・テーオーデパート前 id:357 code:363
+                     ・ガス会社前 id:7 code:7
+                     ・深堀町 id:361 code:367
+                     ・花園町 id:450 code:461
+                     ・亀田支所前 id:150 code:155
+                     */
+                    NSMutableArray* candidateArray = [[NSMutableArray alloc]init];
+                    
+                    int id_list[8] = {3,144,454,357,7,361,450,150};
+                    
+                    for(int i = 0;i < 8;i++){
+                        if([[getOn objectForKey:@"id"]intValue] != id_list[i] && [[getOff objectForKey:@"id"]intValue] != id_list[i]){
+                            NSDictionary* dict = [[BusSearchManager sharedManager]getBusInfo:id_list[i]];
+                            [candidateArray addObject:dict];
+                        }
+                    }
+                    
+                    
+                    __block bool route_flg = false;
+                    __block bool data_flg = false;
+                    __block int counta = 0;
+                    
+                    for(int i = 0;i < [candidateArray count];i++){
+                        NSDictionary* dict = [candidateArray objectAtIndex:i];
+                        
+                        [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[dict objectForKey:@"code"]intValue] completionHandler:^(BOOL flg2,NSError *error){
+                            if(error){
+#warning ネットワークエラーを記述
+                                return;
+                            }
+                            if(flg2){
+                                [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[dict objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg3,NSError *error){
+                                    if(error){
+#warning ネットワークエラーを記述
+                                        return;
+                                    }
+                                    if(flg3){
+                                        NSLog(@">経由路線発見");
+                                        [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[getOn objectForKey:@"code"]intValue] getOff:[[dict objectForKey:@"code"]intValue] completionHandler:^(BOOL flg4,NSError *error){
+                                            if(error){
+#warning ネットワークエラーを記述
+                                                return;
+                                            }
+                                            if(!flg4){
+                                                NSLog(@">乗車->乗り継ぎ バス営業中");
+                                                [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[getOn objectForKey:@"code"]intValue] GetOff:[[dict objectForKey:@"code"]intValue] completionHandler:^(NSArray* array,NSError *error){
+                                                    if(error){
+#warning ネットワークエラーを記述
+                                                        return;
+                                                    }
+                                                    [[BusSearchManager sharedManager]isOutOfServiceWithGetOn:[[dict objectForKey:@"code"]intValue] getOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(BOOL flg5,NSError *error){
+                                                        if(error){
+#warning ネットワークエラーを記述
+                                                            return;
+                                                        }
+                                                        if(!flg5){
+                                                            NSLog(@">乗り継ぎ->降車 バス営業中");
+                                                            [[BusSearchManager sharedManager]GETRouteSearchResultWithGetOn:[[dict objectForKey:@"code"]intValue] GetOff:[[getOff objectForKey:@"code"]intValue] completionHandler:^(NSArray* array3,NSError *error){
+                                                                if(error){
+#warning ネットワークエラーを記述
+                                                                    return;
+                                                                }
+                                                                [[BusSearchManager sharedManager]GETArrivedTimeWithURL:[[array3 objectAtIndex:0]objectForKey:@"url"] completionHandler:^(NSArray* array2,NSError *error){
+                                                                    if(error){
+#warning ネットワークエラーを記述
+                                                                        return;
+                                                                    }
+                                                                    
+                                                                    NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:array,@"first",
+                                                                                          array3,@"second",dict,@"via",nil];
+#warning 接続データをdictionaryに追加
+                                                                    //[connectionSearchResultArray addObject:data];
+                                                                    counta++;
+                                                                    data_flg = true;
+                                                                    if (counta == [candidateArray count] && data_flg == true) {
+#warning 乗り継ぎデータあり
+                                                                        
+                                                                        //[self searchEarlyest];
+                                                                    }else if(counta == [candidateArray count] && route_flg == true){
+#warning 乗り継ぎデータあり、運行終了エラーを記述
+                                                                        //errorLabel.text = @"上記路線の本日の運行は終了しました。";
+                                                                        //errorLabel.hidden = false;
+                                                                        //[indicator stopAnimating];
+                                                                        //indicator.hidden = true;
+                                                                    }else if(counta == [candidateArray count] && route_flg == false){
+#warning 乗り継ぎデータなしエラーを記述
+                                                                        //errorLabel.text = @"上記路線間のルートが見つかりませんでした";
+                                                                        //errorLabel.hidden = false;
+                                                                        //[indicator stopAnimating];
+                                                                        //indicator.hidden = true;
+                                                                    }
+                                                                    
+                                                                }];
+                                                            }];
+                                                        }else{
+                                                            NSLog(@">営業時間終了");
+                                                            counta++;
+                                                            route_flg = true;
+                                                            if (counta == [candidateArray count] && data_flg == true) {
+#warning 乗り継ぎデータあり
+                                                                
+                                                                //[self searchEarlyest];
+                                                            }else if(counta == [candidateArray count] && route_flg == true){
+#warning 乗り継ぎデータあり、運行終了エラーを記述
+                                                                //errorLabel.text = @"上記路線の本日の運行は終了しました。";
+                                                                //errorLabel.hidden = false;
+                                                                //[indicator stopAnimating];
+                                                                //indicator.hidden = true;
+                                                            }else if(counta == [candidateArray count] && route_flg == false){
+#warning 乗り継ぎデータなしエラーを記述
+                                                                //errorLabel.text = @"上記路線間のルートが見つかりませんでした";
+                                                                //errorLabel.hidden = false;
+                                                                //[indicator stopAnimating];
+                                                                //indicator.hidden = true;
+                                                            }
+                                                        }
+                                                    }];
+                                                }];
+                                            }else{
+                                                NSLog(@">営業時間終了");
+                                                counta++;
+                                                route_flg = true;
+                                                if (counta == [candidateArray count] && data_flg == true) {
+#warning 乗り継ぎデータあり
+                                                    
+                                                    //[self searchEarlyest];
+                                                }else if(counta == [candidateArray count] && route_flg == true){
+#warning 乗り継ぎデータあり、運行終了エラーを記述
+                                                    //errorLabel.text = @"上記路線の本日の運行は終了しました。";
+                                                    //errorLabel.hidden = false;
+                                                    //[indicator stopAnimating];
+                                                    //indicator.hidden = true;
+                                                }else if(counta == [candidateArray count] && route_flg == false){
+#warning 乗り継ぎデータなしエラーを記述
+                                                    //errorLabel.text = @"上記路線間のルートが見つかりませんでした";
+                                                    //errorLabel.hidden = false;
+                                                    //[indicator stopAnimating];
+                                                    //indicator.hidden = true;
+                                                }
+                                            }
+                                        }];
+                                    }else{
+                                        NSLog(@">直通路線なし");
+                                        counta++;
+                                        NSLog(@"counta:%d",counta);
+                                        
+                                        if (counta == [candidateArray count] && data_flg == true) {
+#warning 乗り継ぎデータあり
+                                            
+                                            //[self searchEarlyest];
+                                        }else if(counta == [candidateArray count] && route_flg == true){
+#warning 乗り継ぎデータあり、運行終了エラーを記述
+                                            //errorLabel.text = @"上記路線の本日の運行は終了しました。";
+                                            //errorLabel.hidden = false;
+                                            //[indicator stopAnimating];
+                                            //indicator.hidden = true;
+                                        }else if(counta == [candidateArray count] && route_flg == false){
+#warning 乗り継ぎデータなしエラーを記述
+                                            //errorLabel.text = @"上記路線間のルートが見つかりませんでした";
+                                            //errorLabel.hidden = false;
+                                            //[indicator stopAnimating];
+                                            //indicator.hidden = true;
+                                        }
+                                    }
+                                }];
+                            }else{
+                                NSLog(@">直通路線なし");
+                                counta++;
+                                if (counta == [candidateArray count] && data_flg == true) {
+#warning 乗り継ぎデータあり
+
+                                    //[self searchEarlyest];
+                                }else if(counta == [candidateArray count] && route_flg == true){
+#warning 乗り継ぎデータあり、運行終了エラーを記述
+                                    //errorLabel.text = @"上記路線の本日の運行は終了しました。";
+                                    //errorLabel.hidden = false;
+                                    //[indicator stopAnimating];
+                                    //indicator.hidden = true;
+                                }else if(counta == [candidateArray count] && route_flg == false){
+#warning 乗り継ぎデータなしエラーを記述
+                                    //errorLabel.text = @"上記路線間のルートが見つかりませんでした";
+                                    //errorLabel.hidden = false;
+                                    //[indicator stopAnimating];
+                                    //indicator.hidden = true;
+                                }
+                            }
+                        }];
+                    }
+                }
+            }];
+        }else{
+            NSLog(@">システムメンテナンス中");
+#warning システムメンテナンスエラーを記述
+
+            //errorLabel.text = @"システムメンテナンス中です。";
+            //errorLabel.hidden = false;
+            //[indicator stopAnimating];
+            //indicator.hidden = true;
+        }
+    }];
+}
+
+@end

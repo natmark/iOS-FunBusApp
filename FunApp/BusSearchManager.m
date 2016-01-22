@@ -9,9 +9,9 @@
 #import "BusSearchManager.h"
 #define SYSTEM_MAINTENANCE_URL @"http://www.hakobus.jp/search01.php"
 #define ROUTE_SEARCH_URL @"http://www.hakobus.jp/result.php"
-#define CONFIRM_ROUTE_CACHE 1440//min
+#define CONFIRM_ROUTE_CACHE 60*24//min
 #define ROUTE_SEARCH_CACHE 1//min
-#define GET_ARRIVED_TIME_CACHE 1440//min
+#define GET_ARRIVED_TIME_CACHE 60*24//min
 
 
 @implementation BusSearchManager
@@ -56,7 +56,7 @@ static BusSearchManager *sharedData_ = nil;
     return returnDict;
 }
 #pragma mark システムメンテナンスかどうかの関数
--(void)isSystemMeintenanceWithcompletionHandler:(void (^)(BOOL flg))handler{
+-(void)isSystemMeintenanceWithcompletionHandler:(void (^)(BOOL flg,NSError *error))handler{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:SYSTEM_MAINTENANCE_URL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
@@ -71,13 +71,13 @@ static BusSearchManager *sharedData_ = nil;
         if (range.location != NSNotFound) {
             flg = true;
         }
-        handler(flg);
+        handler(flg,error);
     }] resume];
 
 }
 
 #pragma mark 直通路線が存在するかどうかの関数
--(void)isExistRouteWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg))handler{
+-(void)isExistRouteWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg,NSError *error))handler{
     /*=======================*/
     //データ読み込み
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
@@ -98,7 +98,7 @@ static BusSearchManager *sharedData_ = nil;
             if (range.location != NSNotFound) {
                 flg = false;
             }
-            handler(flg);
+            handler(flg,nil);
             return;
         }
     }
@@ -126,11 +126,11 @@ static BusSearchManager *sharedData_ = nil;
         if (range.location != NSNotFound) {
             flg = false;
         }
-        handler(flg);
+        handler(flg,error);
     }] resume];
 }
 #pragma mark 営業時間外かどうかを返す関数
--(void)isOutOfServiceWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg))handler{
+-(void)isOutOfServiceWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg,NSError *error))handler{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?in=%d&out=%d",ROUTE_SEARCH_URL,on,off]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
@@ -144,12 +144,12 @@ static BusSearchManager *sharedData_ = nil;
         if (range.location != NSNotFound) {
             flg = true;
         }
-        handler(flg);
+        handler(flg,error);
     }] resume];
 
 }
 #pragma mark ルート検索の結果を返す関数
--(void)GETRouteSearchResultWithGetOn:(int)on GetOff:(int)off completionHandler:(void (^)(NSArray* array))handler{
+-(void)GETRouteSearchResultWithGetOn:(int)on GetOff:(int)off completionHandler:(void (^)(NSArray* array,NSError *error))handler{
     /*=======================*/
     //データ読み込み
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
@@ -183,7 +183,7 @@ static BusSearchManager *sharedData_ = nil;
                                       [detailArray objectAtIndex:i],@"detail",nil];
                 [resultArray addObject:dict];
             }
-            handler(resultArray);
+            handler(resultArray,nil);
             return;
         }
     }
@@ -222,11 +222,11 @@ static BusSearchManager *sharedData_ = nil;
                                   [detailArray objectAtIndex:i],@"detail",nil];
             [resultArray addObject:dict];
         }
-        handler(resultArray);
+        handler(resultArray,error);
     }] resume];
 }
 #pragma mark 各地点の到着時間を返す関数
--(void)GETArrivedTimeWithURL:(NSString*)url completionHandler:(void (^)(NSArray *array))handler{
+-(void)GETArrivedTimeWithURL:(NSString*)url completionHandler:(void (^)(NSArray *array,NSError *error))handler{
     /*=======================*/
     //データ読み込み
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
@@ -253,7 +253,7 @@ static BusSearchManager *sharedData_ = nil;
                                       [timeArray objectAtIndex:i],@"time",nil];
                 [resultArray addObject:dict];
             }
-            handler(resultArray);
+            handler(resultArray,nil);
             return;
         }
     }
@@ -285,7 +285,7 @@ static BusSearchManager *sharedData_ = nil;
                                   [timeArray objectAtIndex:i],@"time",nil];
             [resultArray addObject:dict];
         }
-        handler(resultArray);
+        handler(resultArray,error);
     }] resume];
 }
 #pragma mark HTMLパース用関数(private)
