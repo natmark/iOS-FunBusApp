@@ -18,7 +18,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
+-(void)viewDidLayoutSubviews{
+    self.searchButton.clipsToBounds = YES;
+    self.searchButton.layer.cornerRadius = self.searchButton.frame.size.height/2;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
