@@ -22,6 +22,7 @@
     UILabel* timeLabel;
     NSDictionary* dataDictionary;
 }
+@property (strong, nonatomic) IBOutlet UIButton *switchButton;
 @property (strong, nonatomic) IBOutlet UILabel *getOnLabel;
 @property (strong, nonatomic) IBOutlet UILabel *getOffLabel;
 @end

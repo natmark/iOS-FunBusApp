@@ -7,6 +7,7 @@
 //
 
 #import "SearchRouteViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface SearchRouteViewController ()
 
@@ -108,6 +109,25 @@
 
     [self routeSearch];
 }
+-(void)viewDidLayoutSubviews{
+    self.switchButton.clipsToBounds = YES;
+    self.switchButton.layer.cornerRadius = self.switchButton.frame.size.height / 4;
+    self.switchButton.layer.masksToBounds = NO;
+    self.switchButton.layer.shadowOffset = CGSizeMake(2,2); // 上向きの影
+    self.switchButton.layer.shadowRadius = 2.0f;
+    self.switchButton.layer.shadowOpacity = 0.6f;
+}
+#pragma mark 乗車と降車を入れ替え
+- (IBAction)switchBusStop:(id)sender {
+    // Do any additional setup after loading the view.
+    NSDictionary* getOn = [[BusSearchManager sharedManager]GetOnBusStop];
+    NSDictionary* getOff = [[BusSearchManager sharedManager]GetOffBusStop];
+    
+    [BusSearchManager sharedManager].GetOnBusStop = getOff;
+    [BusSearchManager sharedManager].GetOffBusStop = getOn;
+    [self routeSearch];
+}
+
 #pragma mark 更新ボタン
 -(void)reflesh:(UIBarButtonItem*)btn{
     NSDate *now = [NSDate date];
