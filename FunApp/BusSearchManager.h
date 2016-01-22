@@ -20,6 +20,7 @@
 
 @property(nonatomic,assign)NSDictionary* GetOnBusStop;
 @property(nonatomic,assign)NSDictionary* GetOffBusStop;
+@property(nonatomic,assign)NSDictionary* viaBusStop;
 
 #pragma mark 直通路線が存在するかどうかの関数
 -(void)isExistRouteWithGetOn:(int)on getOff:(int)off completionHandler:(void (^)(BOOL flg,NSError *error))handler;

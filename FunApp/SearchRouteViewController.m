@@ -132,6 +132,7 @@
     // Do any additional setup after loading the view.
     NSDictionary* getOn = [[BusSearchManager sharedManager]GetOnBusStop];
     NSDictionary* getOff = [[BusSearchManager sharedManager]GetOffBusStop];
+#warning viaBusStopを追加 !viaBusStopなら経由検索にする必要あり
     
     self.getOnLabel.text = [getOn objectForKey:@"name"];
     self.getOffLabel.text = [getOff objectForKey:@"name"];

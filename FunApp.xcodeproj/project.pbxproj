@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F701CB9D1C51C6FC00AC51D7 /* RouteSearchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F701CB9C1C51C6FC00AC51D7 /* RouteSearchManager.m */; };
+		F701CBA11C52700B00AC51D7 /* SelectViaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F701CBA01C52700B00AC51D7 /* SelectViaViewController.m */; };
 		F7048C561BF3032500B2EA72 /* bus_id.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7048C551BF3032500B2EA72 /* bus_id.plist */; };
 		F7048C571BF3032500B2EA72 /* bus_id.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7048C551BF3032500B2EA72 /* bus_id.plist */; };
 		F7048C581BF3032500B2EA72 /* bus_id.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7048C551BF3032500B2EA72 /* bus_id.plist */; };
@@ -69,6 +70,8 @@
 /* Begin PBXFileReference section */
 		F701CB9B1C51C6FC00AC51D7 /* RouteSearchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteSearchManager.h; sourceTree = "<group>"; };
 		F701CB9C1C51C6FC00AC51D7 /* RouteSearchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteSearchManager.m; sourceTree = "<group>"; };
+		F701CB9F1C52700B00AC51D7 /* SelectViaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViaViewController.h; sourceTree = "<group>"; };
+		F701CBA01C52700B00AC51D7 /* SelectViaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViaViewController.m; sourceTree = "<group>"; };
 		F7048C551BF3032500B2EA72 /* bus_id.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bus_id.plist; sourceTree = "<group>"; };
 		F7048C591BF3854500B2EA72 /* InputGetOnBusStopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputGetOnBusStopViewController.h; sourceTree = "<group>"; };
 		F7048C5A1BF3854500B2EA72 /* InputGetOnBusStopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputGetOnBusStopViewController.m; sourceTree = "<group>"; };
@@ -171,6 +174,8 @@
 				F701CB9B1C51C6FC00AC51D7 /* RouteSearchManager.h */,
 				F701CB9C1C51C6FC00AC51D7 /* RouteSearchManager.m */,
 				F7E2119C1B3E8E2F0035AF3A /* Main.storyboard */,
+				F701CB9F1C52700B00AC51D7 /* SelectViaViewController.h */,
+				F701CBA01C52700B00AC51D7 /* SelectViaViewController.m */,
 				F7048C5C1BF3855600B2EA72 /* InputGetOffBusStopViewController.h */,
 				F7048C5D1BF3855600B2EA72 /* InputGetOffBusStopViewController.m */,
 				F7048C591BF3854500B2EA72 /* InputGetOnBusStopViewController.h */,
@@ -404,6 +409,7 @@
 				F7E2119B1B3E8E2F0035AF3A /* ViewController.m in Sources */,
 				F7048C611BF42F9600B2EA72 /* BusSearchManager.m in Sources */,
 				F7E211981B3E8E2F0035AF3A /* AppDelegate.m in Sources */,
+				F701CBA11C52700B00AC51D7 /* SelectViaViewController.m in Sources */,
 				F71EC3371BF8210E000F9F1F /* NoConnectionView.m in Sources */,
 				F701CB9D1C51C6FC00AC51D7 /* RouteSearchManager.m in Sources */,
 				F7E211951B3E8E2F0035AF3A /* main.m in Sources */,

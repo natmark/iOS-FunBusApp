@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BusSearchManager.h"
+#import "SearchRouteViewController.h"
+#import "SelectViaViewController.h"
 @interface InputGetOffBusStopViewController : UIViewController<UITextFieldDelegate,UIWebViewDelegate>{
     NSArray* searchArray;
     UIActivityIndicatorView* indicator;

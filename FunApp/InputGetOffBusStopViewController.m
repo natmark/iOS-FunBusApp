@@ -38,6 +38,35 @@
     /*==========================*/
 
 }
+- (IBAction)pressedSearchButton:(id)sender {
+    if([BusSearchManager sharedManager].GetOnBusStop && [BusSearchManager sharedManager].GetOffBusStop){
+        //経由バス停を消してしまう
+        [BusSearchManager sharedManager].viaBusStop = nil;
+        [indicator startAnimating];
+        indicator.hidden = false;
+        [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[[BusSearchManager sharedManager].GetOnBusStop objectForKey:@"code"]intValue] getOff:[[[BusSearchManager sharedManager].GetOffBusStop objectForKey:@"code"]intValue] completionHandler:^(BOOL flg,NSError *error){
+            [indicator stopAnimating];
+            indicator.hidden = true;
+            
+            if(error){
+                SearchRouteViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchRouteViewController"];
+                [self.navigationController pushViewController:viewController animated:YES];
+            }else{
+                if(flg){
+                    SearchRouteViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchRouteViewController"];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                }else{
+                    SelectViaViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectViaViewController"];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                    
+                }
+            }
+        }];
+    }else{
+        //データ取得に失敗
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
 // UITextFieldのキーボード上の「Return」ボタンが押された時に呼ばれる処理
 - (BOOL)textFieldShouldReturn:(UITextField *)sender {
     // キーボードを閉じる
