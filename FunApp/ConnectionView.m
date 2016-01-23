@@ -69,6 +69,16 @@
     self.detailLabel1.textColor = [UIColor blackColor];
     self.detailLabel1.font = [UIFont systemFontOfSize:18];
     [self addSubview:self.detailLabel1];
+    
+    self.mapButton1 = [UIButton new];
+    self.mapButton1.frame = CGRectMake(colorview.frame.size.width-28, 2, 26, 26);
+    [self.mapButton1 setImage:[UIImage imageNamed:@"pin.png"] forState:UIControlStateNormal];
+    [self.mapButton1 setImage:[UIImage imageNamed:@"pin.png"] forState:UIControlStateHighlighted];
+    self.mapButton1.backgroundColor = [UIColor whiteColor];
+    self.mapButton1.clipsToBounds = YES;
+    self.mapButton1.layer.cornerRadius = self.mapButton1.frame.size.width / 4;
+    [colorview addSubview:self.mapButton1];
+
 #pragma mark 経由->降車
     UIView* colorview2 = [[UIView alloc]initWithFrame:CGRectMake(0, 120, frame.size.width, 30)];
     colorview2.backgroundColor = [UIColor colorWithRed:184/255.0 green:29/255.0 blue:31/255.0 alpha:1.0];
@@ -124,6 +134,40 @@
     self.detailLabel2.font = [UIFont systemFontOfSize:18];
     [self addSubview:self.detailLabel2];
     
+    self.mapButton2 = [UIButton new];
+    self.mapButton2.frame = CGRectMake(colorview.frame.size.width-28, 2, 26, 26);
+    [self.mapButton2 setImage:[UIImage imageNamed:@"pin.png"] forState:UIControlStateNormal];
+    [self.mapButton2 setImage:[UIImage imageNamed:@"pin.png"] forState:UIControlStateHighlighted];
+    self.mapButton2.backgroundColor = [UIColor whiteColor];
+    self.mapButton2.clipsToBounds = YES;
+    self.mapButton2.layer.cornerRadius = self.mapButton2.frame.size.width / 4;
+    [colorview2 addSubview:self.mapButton2];
+
+    self.twitter = [UIButton new];
+    self.twitter.frame = CGRectMake(self.frame.size.width - 50,self.frame.size.height - 50, 40, 40);
+    [self.twitter setImage:[UIImage imageNamed:@"twitter.png"] forState:UIControlStateNormal];
+    self.twitter.backgroundColor = [UIColor whiteColor];
+    self.twitter.clipsToBounds = YES;
+    self.twitter.layer.cornerRadius = self.twitter.frame.size.width / 4;
+    [self addSubview:self.twitter];
+    
+    self.timerList = [UIButton new];
+    self.timerList.frame = CGRectMake(self.twitter.frame.origin.x - 50,self.frame.size.height - 50, 40, 40);
+    [self.timerList setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
+    self.timerList.backgroundColor = [UIColor whiteColor];
+    self.timerList.clipsToBounds = YES;
+    self.timerList.layer.cornerRadius = self.timerList.frame.size.width / 4;
+    [self addSubview:self.timerList];
+    
+    self.bookmark = [UIButton new];
+    self.bookmark.frame = CGRectMake(self.timerList.frame.origin.x - 50,self.frame.size.height - 50, 40, 40);
+    [self.bookmark setImage:[UIImage imageNamed:@"bookmark.png"] forState:UIControlStateNormal];
+    self.bookmark.backgroundColor = [UIColor whiteColor];
+    self.bookmark.clipsToBounds = YES;
+    self.bookmark.layer.cornerRadius = self.bookmark.frame.size.width / 4;
+    [self addSubview:self.bookmark];
+    
+
     return self;
 }
 

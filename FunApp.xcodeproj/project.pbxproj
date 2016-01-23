@@ -25,6 +25,10 @@
 		F7687E901C52CD07006968A7 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7687E8F1C52CD07006968A7 /* HistoryViewController.m */; };
 		F7687E931C52CD15006968A7 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7687E921C52CD15006968A7 /* FavoriteViewController.m */; };
 		F7687E961C52CD1E006968A7 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7687E951C52CD1E006968A7 /* SettingViewController.m */; };
+		F7687E9C1C533C9A006968A7 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = F7687E981C533C9A006968A7 /* pin.png */; };
+		F7687EA21C5341A2006968A7 /* bookmark.png in Resources */ = {isa = PBXBuildFile; fileRef = F7687E9F1C5341A2006968A7 /* bookmark.png */; };
+		F7687EA31C5341A2006968A7 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = F7687EA01C5341A2006968A7 /* twitter.png */; };
+		F7687EA41C5341A2006968A7 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = F7687EA11C5341A2006968A7 /* list.png */; };
 		F773ADA41C267BE90071EA77 /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F7E211BC1B3E8FF90035AF3A /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F7C625871BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
 		F7C625881BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
@@ -101,6 +105,10 @@
 		F7687E921C52CD15006968A7 /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
 		F7687E941C52CD1E006968A7 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		F7687E951C52CD1E006968A7 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		F7687E981C533C9A006968A7 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		F7687E9F1C5341A2006968A7 /* bookmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookmark.png; sourceTree = "<group>"; };
+		F7687EA01C5341A2006968A7 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
+		F7687EA11C5341A2006968A7 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = "<group>"; };
 		F7C625831BF2F6E60016C86D /* bus_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bus_data.plist; sourceTree = "<group>"; };
 		F7E2118F1B3E8E2E0035AF3A /* FunApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7E211931B3E8E2F0035AF3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -211,6 +219,10 @@
 				F7193A171C081D2B00819FF9 /* ConnectionView.m */,
 				F7E2119F1B3E8E2F0035AF3A /* Images.xcassets */,
 				F7E211A11B3E8E2F0035AF3A /* LaunchScreen.xib */,
+				F7687E981C533C9A006968A7 /* pin.png */,
+				F7687E9F1C5341A2006968A7 /* bookmark.png */,
+				F7687EA01C5341A2006968A7 /* twitter.png */,
+				F7687EA11C5341A2006968A7 /* list.png */,
 				F7E211921B3E8E2E0035AF3A /* Supporting Files */,
 			);
 			path = FunApp;
@@ -377,9 +389,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7E2119E1B3E8E2F0035AF3A /* Main.storyboard in Resources */,
+				F7687EA41C5341A2006968A7 /* list.png in Resources */,
+				F7687E9C1C533C9A006968A7 /* pin.png in Resources */,
 				F7C625871BF2F6E60016C86D /* bus_data.plist in Resources */,
 				F701CBA41C528FBA00AC51D7 /* icon.png in Resources */,
 				F7048C561BF3032500B2EA72 /* bus_id.plist in Resources */,
+				F7687EA21C5341A2006968A7 /* bookmark.png in Resources */,
+				F7687EA31C5341A2006968A7 /* twitter.png in Resources */,
 				F7E211A31B3E8E2F0035AF3A /* LaunchScreen.xib in Resources */,
 				F7E211A01B3E8E2F0035AF3A /* Images.xcassets in Resources */,
 			);
