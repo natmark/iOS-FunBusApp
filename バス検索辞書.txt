@@ -6,6 +6,8 @@ dict:NSDictionary
 --|time:NSString (HH:mm)
 --|destination NSString
 --|url:NSString (route info)
+--|map:NSString (map url)
+--|boarding:NSString
 --|detail:NSString (operation status)
 
 
@@ -18,12 +20,16 @@ dict:NSDictionary
 ---|time:NSString (HH:mm)
 ---|destination NSString
 ---|url:NSString (route info)
+---|map:NSString (map url)
+---|boarding:NSString
 ---|detail:NSString (operation status)
 --|second:NSArray (multiple via->getOff)
 ---|time:NSString (HH:mm)
 ---|destination NSString
 ---|url:NSString (route info)
 ---|detail:NSString (operation status)
+---|map:NSString (map url)
+---|boarding:NSString
 --|via:NSDictionary
 ---|id:NSString(serial number)
 ---|code:NSString(fixed number)

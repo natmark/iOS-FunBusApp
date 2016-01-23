@@ -10,7 +10,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Gc6-8S-fcr">
             <objects>
-                <navigationController id="mZt-1o-iBm" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="mZt-1o-iBm" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2pF-Xi-Fup">
@@ -30,6 +30,27 @@
             </objects>
             <point key="canvasLocation" x="-3141" y="-295"/>
         </scene>
+        <!--ホーム-->
+        <scene sceneID="FgE-3j-RWk">
+            <objects>
+                <navigationController id="lG2-wA-hsX" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="ホーム" image="homeIcon" id="E5U-ZD-Ja5"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aH3-l5-6i6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="hUT-Hx-HWe" kind="relationship" relationship="rootViewController" id="YJC-HO-sDn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cTx-75-1J9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1349" y="-1425"/>
+        </scene>
         <!--はこバス-->
         <scene sceneID="S7R-YU-9KE">
             <objects>
@@ -43,14 +64,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="ホーム" image="homeIcon" id="9ys-Rw-4is"/>
                     <navigationItem key="navigationItem" title="はこバス" id="pGr-EV-0uC">
                         <barButtonItem key="backBarButtonItem" title="トップ" id="C7c-wT-v1T"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bL4-XR-GyU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1035" y="-1427"/>
+            <point key="canvasLocation" x="-577" y="-1425"/>
         </scene>
         <!--Bus Tab Bar View Controller-->
         <scene sceneID="szN-6q-gIO">
@@ -63,16 +83,16 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="hUT-Hx-HWe" kind="relationship" relationship="viewControllers" id="TM6-Da-rj9"/>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="tey-1G-Urj"/>
-                        <segue destination="DV5-w1-D3o" kind="relationship" relationship="viewControllers" id="OET-Zs-IEB"/>
-                        <segue destination="Fiq-6f-S9W" kind="relationship" relationship="viewControllers" id="qro-3G-vey"/>
-                        <segue destination="zOi-LQ-jIV" kind="relationship" relationship="viewControllers" id="rc4-bU-oWf"/>
+                        <segue destination="lG2-wA-hsX" kind="relationship" relationship="viewControllers" id="k5Z-mq-qkk"/>
+                        <segue destination="bss-gi-qMd" kind="relationship" relationship="viewControllers" id="Ps7-jc-V5I"/>
+                        <segue destination="0Y2-WR-Mwa" kind="relationship" relationship="viewControllers" id="Sat-ms-C3c"/>
+                        <segue destination="OYE-Uu-f08" kind="relationship" relationship="viewControllers" id="Ydk-vh-EFf"/>
+                        <segue destination="KC4-Ch-Lpk" kind="relationship" relationship="viewControllers" id="fyY-A9-mc7"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6YA-Af-wDb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1851" y="-295"/>
+            <point key="canvasLocation" x="-2331" y="-295"/>
         </scene>
         <!--設定-->
         <scene sceneID="Mtc-Fv-mHS">
@@ -87,7 +107,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="設定" image="settingIcon" id="OBD-tc-UZ2"/>
                     <navigationItem key="navigationItem" title="設定" id="5h2-J7-xlJ">
                         <barButtonItem key="backBarButtonItem" title="設定" id="m1E-mk-JD1"/>
                     </navigationItem>
@@ -178,7 +197,6 @@
                             <constraint firstItem="RBt-5y-tVT" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="yhp-ki-oCF"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="検索" image="busIcon" id="fkM-Wc-7hy"/>
                     <navigationItem key="navigationItem" title="乗車バス停入力" id="57Q-Lv-J0L">
                         <barButtonItem key="backBarButtonItem" title="乗車" id="GAK-qe-Yqt"/>
                     </navigationItem>
@@ -239,7 +257,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R2-Oe-boT">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R2-Oe-boT">
                                 <rect key="frame" x="20" y="540" width="560" height="40"/>
                                 <color key="backgroundColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -549,14 +567,13 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="ブックマーク" image="favoriteIcon" id="1sw-tL-Pb3"/>
                     <navigationItem key="navigationItem" title="ブックマーク" id="NcX-Ox-iBs">
                         <barButtonItem key="backBarButtonItem" title="ブックマーク" id="raP-r9-x6w"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="luS-Op-kt9" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1846" y="511"/>
+            <point key="canvasLocation" x="-1827" y="511"/>
         </scene>
         <!--検索履歴-->
         <scene sceneID="oh7-NE-uKj">
@@ -621,7 +638,6 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="履歴" image="historyIcon" id="Z9h-bY-8r5"/>
                     <navigationItem key="navigationItem" title="検索履歴" id="gQW-96-Qzc">
                         <barButtonItem key="backBarButtonItem" title="履歴" id="kov-ms-EIu"/>
                     </navigationItem>
@@ -630,15 +646,99 @@
             </objects>
             <point key="canvasLocation" x="-1827" y="1193"/>
         </scene>
+        <!--検索-->
+        <scene sceneID="YSF-Oo-Xi5">
+            <objects>
+                <navigationController id="bss-gi-qMd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="検索" image="busIcon" id="nNO-hE-mpj"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="k8Y-8s-JLa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="N56-gT-Ydn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Chu-YM-TV9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1689" y="-295"/>
+        </scene>
+        <!--履歴-->
+        <scene sceneID="oxp-6B-gvq">
+            <objects>
+                <navigationController id="OYE-Uu-f08" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="履歴" image="historyIcon" id="2Pg-1d-86G"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pHX-c0-nAD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Fiq-6f-S9W" kind="relationship" relationship="rootViewController" id="SEg-qc-Zj1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dY3-CW-ZY2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2533" y="1232"/>
+        </scene>
+        <!--設定-->
+        <scene sceneID="L4J-lY-urR">
+            <objects>
+                <navigationController id="KC4-Ch-Lpk" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="設定" image="settingIcon" id="Hcq-Lh-RBn"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eub-Ui-9yV">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="zOi-LQ-jIV" kind="relationship" relationship="rootViewController" id="LpO-Wg-g1h"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZU-Yx-Xhv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2571" y="1901"/>
+        </scene>
+        <!--ブックマーク-->
+        <scene sceneID="S9k-qG-78t">
+            <objects>
+                <navigationController id="0Y2-WR-Mwa" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="ブックマーク" image="favoriteIcon" id="Bee-15-4WF"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TcL-s8-Ek7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="DV5-w1-D3o" kind="relationship" relationship="rootViewController" id="r3v-gU-VzZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vFO-LF-2oS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2501" y="544"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="busIcon" width="32" height="32"/>
-        <image name="favoriteIcon" width="32" height="32"/>
-        <image name="historyIcon" width="32" height="32"/>
-        <image name="homeIcon" width="32" height="32"/>
-        <image name="settingIcon" width="32" height="32"/>
+        <image name="busIcon" width="30" height="30"/>
+        <image name="favoriteIcon" width="30" height="30"/>
+        <image name="historyIcon" width="30" height="30"/>
+        <image name="homeIcon" width="30" height="30"/>
+        <image name="settingIcon" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="HbZ-XA-OKQ"/>
+        <segue reference="F8f-eO-iFC"/>
     </inferredMetricsTieBreakers>
 </document>

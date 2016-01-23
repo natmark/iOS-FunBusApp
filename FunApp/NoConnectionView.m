@@ -20,7 +20,7 @@
     [self addSubview:colorview];
     
     self.destinationLabel = [UILabel new];
-    self.destinationLabel.frame = CGRectMake(20,0, frame.size.width-40, 30);
+    self.destinationLabel.frame = CGRectMake(20,0, frame.size.width-60, 30);
     self.destinationLabel.textColor = [UIColor whiteColor];
     self.destinationLabel.font = [UIFont systemFontOfSize:20];
     [colorview addSubview:self.destinationLabel];
@@ -69,6 +69,39 @@
     self.detailLabel.font = [UIFont systemFontOfSize:18];
     [self addSubview:self.detailLabel];
     
+
+    self.mapButton = [UIButton new];
+    self.mapButton.frame = CGRectMake(colorview.frame.size.width-28, 2, 26, 26);
+    [self.mapButton setImage:[UIImage imageNamed:@"pin.png"] forState:UIControlStateNormal];
+    [self.mapButton setImage:[UIImage imageNamed:@"pin.png"] forState:UIControlStateHighlighted];
+    self.mapButton.backgroundColor = [UIColor whiteColor];
+    self.mapButton.clipsToBounds = YES;
+    self.mapButton.layer.cornerRadius = self.mapButton.frame.size.width / 4;
+    [self addSubview:self.mapButton];
+    
+    self.twitter = [UIButton new];
+    self.twitter.frame = CGRectMake(self.frame.size.width - 50,self.frame.size.height - 50, 40, 40);
+    [self.twitter setImage:[UIImage imageNamed:@"twitter.png"] forState:UIControlStateNormal];
+    self.twitter.backgroundColor = [UIColor whiteColor];
+    self.twitter.clipsToBounds = YES;
+    self.twitter.layer.cornerRadius = self.twitter.frame.size.width / 4;
+    [self addSubview:self.twitter];
+    
+    self.timerList = [UIButton new];
+    self.timerList.frame = CGRectMake(self.twitter.frame.origin.x - 50,self.frame.size.height - 50, 40, 40);
+    [self.timerList setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
+    self.timerList.backgroundColor = [UIColor whiteColor];
+    self.timerList.clipsToBounds = YES;
+    self.timerList.layer.cornerRadius = self.timerList.frame.size.width / 4;
+    [self addSubview:self.timerList];
+
+    self.bookmark = [UIButton new];
+    self.bookmark.frame = CGRectMake(self.timerList.frame.origin.x - 50,self.frame.size.height - 50, 40, 40);
+    [self.bookmark setImage:[UIImage imageNamed:@"bookmark.png"] forState:UIControlStateNormal];
+    self.bookmark.backgroundColor = [UIColor whiteColor];
+    self.bookmark.clipsToBounds = YES;
+    self.bookmark.layer.cornerRadius = self.bookmark.frame.size.width / 4;
+    [self addSubview:self.bookmark];
 
     return self;
 }

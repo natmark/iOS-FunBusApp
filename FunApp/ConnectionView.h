@@ -16,6 +16,7 @@
 @property(nonatomic,strong)UILabel* arrivalLabel1;
 @property(nonatomic,strong)UILabel* getOnLabel1;
 @property(nonatomic,strong)UILabel* getOffLabel1;
+@property(nonatomic,strong)UIButton* mapButton1;
 
 //TODO:経由->降車
 @property(nonatomic,strong)UILabel* departureLabel2;
@@ -24,5 +25,11 @@
 @property(nonatomic,strong)UILabel* arrivalLabel2;
 @property(nonatomic,strong)UILabel* getOnLabel2;
 @property(nonatomic,strong)UILabel* getOffLabel2;
+@property(nonatomic,strong)UIButton* mapButton2;
+
+//その他
+@property(nonatomic,strong)UIButton* twitter;
+@property(nonatomic,strong)UIButton* timerList;
+@property(nonatomic,strong)UIButton* bookmark;
 
 @end
