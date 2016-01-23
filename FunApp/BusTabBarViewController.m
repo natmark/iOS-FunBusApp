@@ -18,10 +18,17 @@
     [super viewDidLoad];
     self.delegate = self;
     // Do any additional setup after loading the view.
-    self.navigationItem.title = [self.viewControllers objectAtIndex:0].navigationItem.title;
 }
 -(void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController{
-    self.navigationItem.title = viewController.navigationItem.title;
+}
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    if(self.selectedIndex == 1){
+        if((UINavigationController*)viewController == [self.viewControllers objectAtIndex:1]){
+            UINavigationController* navigation = (UINavigationController*)viewController;
+            [navigation popToRootViewControllerAnimated:YES];
+        }
+    }
+    return YES;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
