@@ -183,11 +183,25 @@ static BusSearchManager *sharedData_ = nil;
             
             NSArray* detailArray = [self HTMLParserWithString:str pattern:@"(<td width=\"160\">(.*?)</td>)"];
             
+            NSArray* mapArray = [self HTMLParserWithString:str pattern:@"(<td width=\"100\"><div align=center><a href=(.*?)>.*?</a></div></td>)"];
+    
+            NSArray* boardingArray = [self HTMLParserWithString:str pattern:@"(<td width=\"100\"><div align=center><a href=.*?>(.*?)</a></div></td>)"];
+
             for (int i = 0; i < [timeArray count]; i++) {
+                NSString* mapURL = @"";
+                NSString* boardingPlace = @"";
+                
+                if([mapArray count] != 0){
+                    mapURL = [mapArray objectAtIndex:i];
+                    boardingPlace = [boardingArray objectAtIndex:i];
+                }
+                
                 NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
                                       [timeArray objectAtIndex:i],@"time",
                                       [destinationArray objectAtIndex:i],@"destination",
                                       [urlArray objectAtIndex:i],@"url",
+                                      mapURL,@"map",
+                                      boardingPlace,@"boarding",
                                       [detailArray objectAtIndex:i],@"detail",nil];
                 [resultArray addObject:dict];
             }
@@ -224,13 +238,28 @@ static BusSearchManager *sharedData_ = nil;
         NSArray* urlArray = [self HTMLParserWithString:str pattern:@"(<td width=\"50\"><div align=\"center\"><a href=\"(.*?)\"><img src=\"img/icon_keiro01.gif\" width=\"38\" height=\"16\" border=\"0\"></a></div></td>)"];
         
         NSArray* detailArray = [self HTMLParserWithString:str pattern:@"(<td width=\"160\">(.*?)</td>)"];
+
+        NSArray* mapArray = [self HTMLParserWithString:str pattern:@"(<td width=\"100\"><div align=center><a href=(.*?)>.*?</a></div></td>)"];
+
+        NSArray* boardingArray = [self HTMLParserWithString:str pattern:@"(<td width=\"100\"><div align=center><a href=.*?>(.*?)</a></div></td>)"];
         
         for (int i = 0; i < [timeArray count]; i++) {
+            NSString* mapURL = @"";
+            NSString* boardingPlace = @"";
+            
+            if([mapArray count] != 0){
+                mapURL = [mapArray objectAtIndex:i];
+                boardingPlace = [boardingArray objectAtIndex:i];
+            }
+            
             NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
                                   [timeArray objectAtIndex:i],@"time",
                                   [destinationArray objectAtIndex:i],@"destination",
                                   [urlArray objectAtIndex:i],@"url",
+                                  mapURL,@"map",
+                                  boardingPlace,@"boarding",
                                   [detailArray objectAtIndex:i],@"detail",nil];
+            
             [resultArray addObject:dict];
         }
         dispatch_async(dispatch_get_main_queue(), ^{

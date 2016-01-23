@@ -15,6 +15,12 @@
 @property(nonatomic,strong)UILabel* arrivalLabel;
 @property(nonatomic,strong)UILabel* getOnLabel;
 @property(nonatomic,strong)UILabel* getOffLabel;
+/*
+@property(nonatomic,strong)UIButton* twitter;
+@property(nonatomic,strong)UIButton* timer;
+@property(nonatomic,strong)UIButton* bookmark;
+@property(nonatomic,strong)UIButton* pin;
+*/
 @end
 /*
 label.text = [NSString stringWithFormat:@"出発時刻:%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"time"]];
