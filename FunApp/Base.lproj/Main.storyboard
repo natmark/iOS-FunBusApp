@@ -239,7 +239,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R2-Oe-boT">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R2-Oe-boT">
                                 <rect key="frame" x="20" y="540" width="560" height="40"/>
                                 <color key="backgroundColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -632,11 +632,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="busIcon" width="32" height="32"/>
-        <image name="favoriteIcon" width="32" height="32"/>
-        <image name="historyIcon" width="32" height="32"/>
-        <image name="homeIcon" width="32" height="32"/>
-        <image name="settingIcon" width="32" height="32"/>
+        <image name="busIcon" width="30" height="30"/>
+        <image name="favoriteIcon" width="30" height="30"/>
+        <image name="historyIcon" width="30" height="30"/>
+        <image name="homeIcon" width="30" height="30"/>
+        <image name="settingIcon" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="HbZ-XA-OKQ"/>

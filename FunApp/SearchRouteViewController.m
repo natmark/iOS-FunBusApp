@@ -125,6 +125,7 @@
     
     [BusSearchManager sharedManager].GetOnBusStop = getOff;
     [BusSearchManager sharedManager].GetOffBusStop = getOn;
+    showCnt = 0;
     [self routeSearch];
 }
 
