@@ -65,6 +65,25 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath*) indexPath{
     NSLog(@"%d",(int)indexPath.row);
     [BusSearchManager sharedManager].viaBusStop = [arrayList objectAtIndex:(int)indexPath.row];
+    
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    // NSArrayの保存
+    NSMutableArray* array = [NSMutableArray array];
+    array = [[defaults objectForKey:@"History"]mutableCopy];
+    if(!array){
+        array = [NSMutableArray array];
+    }
+    NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:[BusSearchManager sharedManager].GetOffBusStop,@"getOff",[BusSearchManager sharedManager].GetOnBusStop,@"getOn",[BusSearchManager sharedManager].viaBusStop,@"via",nil];
+    
+    NSDictionary* dict = [[NSDictionary alloc]initWithObjectsAndKeys:[NSNumber numberWithInt:RouteTypeComplex],@"type",data,@"data",nil];
+    
+    [array addObject:dict];
+    if([array count] > 100){
+        [array removeObject:[array firstObject]];
+    }
+    [defaults setObject:array forKey:@"History"];
+
+    
     SearchRouteViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchRouteViewController"];
     [self.navigationController pushViewController:viewController animated:YES];
 }

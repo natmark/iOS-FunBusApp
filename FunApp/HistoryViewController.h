@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface HistoryViewController : UIViewController
+#import "RouteSearchManager.h"
+#import "SearchRouteViewController.h"
+@interface HistoryViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
+    NSArray* arrayList;
+}
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
