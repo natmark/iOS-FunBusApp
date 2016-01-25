@@ -11,6 +11,8 @@
 #import "RouteSearchManager.h"
 #import "NoConnectionView.h"
 #import "ConnectionView.h"
+#import <Social/Social.h>
+
 @interface SearchRouteViewController : UIViewController{
     UILabel *errorLabel;
     UIActivityIndicatorView* indicator;
@@ -22,6 +24,7 @@
     UILabel* timeLabel;
     NSDictionary* dataDictionary;
 }
+
 @property (strong, nonatomic) IBOutlet UIButton *switchButton;
 @property (strong, nonatomic) IBOutlet UILabel *getOnLabel;
 @property (strong, nonatomic) IBOutlet UILabel *getOffLabel;

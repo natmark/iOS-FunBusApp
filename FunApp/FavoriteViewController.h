@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RouteSearchManager.h"
+#import "SearchRouteViewController.h"
+@interface FavoriteViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
+    NSArray* arrayList;
+}
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
-@interface FavoriteViewController : UIViewController
 
 @end

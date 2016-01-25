@@ -14,6 +14,13 @@
 @end
 
 @implementation SearchRouteViewController
+typedef enum
+{
+    MapButtonTagNoConnection = 0,
+    MapButtonTagConnection1,
+    MapButtonTagConnection2
+} MapButtonTag;
+
 #pragma mark TODO-LIST
 //TODO:バスの情報を、アプリを落としても確認できるクリップボード機能(検索結果画面・メイン画面(できればガジェットも)からコピー、保存したバス情報から確認)
 //TODO:登録した路線(上下線)の直近情報を、アプリを開いて&ガジェットですぐ確認できる機能
@@ -60,9 +67,24 @@
     [self.view addSubview:noConnectionView];
     noConnectionView.hidden = true;
     
+    [noConnectionView.mapButton addTarget:self action:@selector(tapMap:) forControlEvents:UIControlEventTouchUpInside];
+    noConnectionView.mapButton.tag = MapButtonTagNoConnection;
+    [noConnectionView.twitter addTarget:self action:@selector(tweet:) forControlEvents:UIControlEventTouchUpInside];
+    [noConnectionView.timerList addTarget:self action:@selector(showTimerList:) forControlEvents:UIControlEventTouchUpInside];
+    [noConnectionView.bookmark addTarget:self action:@selector(addBookmark:) forControlEvents:UIControlEventTouchUpInside];
+    
     connectionView = [[ConnectionView alloc]initWithFrame:CGRectMake(10, 190, self.view.frame.size.width - 20, self.view.frame.size.width - 20)];
     [self.view addSubview:connectionView];
     connectionView.hidden = true;
+
+    [connectionView.mapButton1 addTarget:self action:@selector(tapMap:) forControlEvents:UIControlEventTouchUpInside];
+    connectionView.mapButton1.tag = MapButtonTagConnection1;
+    [connectionView.mapButton2 addTarget:self action:@selector(tapMap:) forControlEvents:UIControlEventTouchUpInside];
+    connectionView.mapButton2.tag = MapButtonTagConnection2;
+    [connectionView.twitter addTarget:self action:@selector(tweet:) forControlEvents:UIControlEventTouchUpInside];
+    [connectionView.timerList addTarget:self action:@selector(showTimerList:) forControlEvents:UIControlEventTouchUpInside];
+    [connectionView.bookmark addTarget:self action:@selector(addBookmark:) forControlEvents:UIControlEventTouchUpInside];
+
     
     leftButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 150, 90, 30)];
     [leftButton setTitle:@"◀︎前の便" forState:UIControlStateNormal];
@@ -108,6 +130,136 @@
     self.navigationItem.title = [NSString stringWithFormat:@"更新[%@]",result];
 
     [self routeSearch];
+}
+#pragma mark UI部品タッチハンドラ
+-(void)tapMap:(UIButton*)sender{
+    if((RouteType)[[dataDictionary objectForKey:@"type"]intValue] == RouteTypeComplex){
+        NSDictionary* dict = [dataDictionary objectForKey:@"data"];
+        NSArray* firstArray = [dict objectForKey:@"first"];
+        NSArray* secondArray = [dict objectForKey:@"second"];
+        NSDictionary* via = [dict objectForKey:@"via"];
+    }else{
+        NSArray* searchResultArray = [dataDictionary objectForKey:@"data"];
+    }
+}
+-(void)tweet:(UIButton*)sender{
+    /*
+     connectionView.getOnLabel1.text = [info objectForKey:@"firstName"];
+     connectionView.getOffLabel1.text = [info objectForKey:@"secondName"];
+     connectionView.departureLabel1.text = [info objectForKey:@"firstDeparturesTime"];
+     connectionView.destinationLabel1.text = [NSString stringWithFormat:@"%@ 行き",[info objectForKey:@"firstDestination"]];
+     connectionView.detailLabel1.text = [info objectForKey:@"firstDetail"];
+     connectionView.arrivalLabel1.text = [info objectForKey:@"firstArraivalTime"];
+
+     */
+    if((RouteType)[[dataDictionary objectForKey:@"type"]intValue] == RouteTypeComplex){
+        NSString* setText = [NSString stringWithFormat:@"%@(%@)→%@(%@)\n%@\n\n%@(%@)→%@(%@)\n%@\n\n#はこバス",connectionView.getOnLabel1.text,connectionView.departureLabel1.text,connectionView.getOffLabel1.text,connectionView.arrivalLabel1.text, [connectionView.detailLabel1.text stringByReplacingOccurrencesOfString:@"*****" withString:@"遅延情報はありません。"],connectionView.getOnLabel2.text,connectionView.departureLabel2.text,connectionView.getOffLabel2.text,connectionView.arrivalLabel2.text,[connectionView.detailLabel2.text stringByReplacingOccurrencesOfString:@"*****" withString:@"遅延情報はありません。"]];
+        
+        //投稿用画面のインスタンスを作成
+        SLComposeViewController* composeController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        
+        [composeController setInitialText:setText]; //コメントのセット
+        
+        //投稿が完了したかの確認
+        [composeController setCompletionHandler:^(SLComposeViewControllerResult result) {
+            if (result == SLComposeViewControllerResultCancelled) {
+                // キャンセルした場合
+                NSLog(@"キャンセルしました");
+            } else if (result == SLComposeViewControllerResultDone) {
+                // 投稿に成功した場合
+                NSLog(@"投稿しました");
+            }
+            //serviceTypeがtwitterの場合
+            //Twitterの画面だと戻るボタンを押しても前の画面に遷移しない為、このメソッドを入れる。
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
+        [self presentViewController:composeController animated:YES completion:nil];
+    }else{
+        NSString* setText = [NSString stringWithFormat:@"%@(%@)→%@(%@)\n%@\n\n#はこバス",noConnectionView.getOnLabel.text,noConnectionView.departureLabel.text,noConnectionView.getOffLabel.text,noConnectionView.arrivalLabel.text,[noConnectionView.detailLabel.text stringByReplacingOccurrencesOfString:@"*****" withString:@"遅延情報はありません。"]];
+        
+        //投稿用画面のインスタンスを作成
+        SLComposeViewController* composeController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        
+        [composeController setInitialText:setText]; //コメントのセット
+        
+        //投稿が完了したかの確認
+        [composeController setCompletionHandler:^(SLComposeViewControllerResult result) {
+            if (result == SLComposeViewControllerResultCancelled) {
+                // キャンセルした場合
+                NSLog(@"キャンセルしました");
+            } else if (result == SLComposeViewControllerResultDone) {
+                // 投稿に成功した場合
+                NSLog(@"投稿しました");
+            }
+            //serviceTypeがtwitterの場合
+            //Twitterの画面だと戻るボタンを押しても前の画面に遷移しない為、このメソッドを入れる。
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
+        [self presentViewController:composeController animated:YES completion:nil];
+    }
+}
+-(void)showTimerList:(UIButton*)sender{
+    if((RouteType)[[dataDictionary objectForKey:@"type"]intValue] == RouteTypeComplex){
+        NSDictionary* dict = [dataDictionary objectForKey:@"data"];
+        NSArray* firstArray = [dict objectForKey:@"first"];
+        NSArray* secondArray = [dict objectForKey:@"second"];
+        NSDictionary* via = [dict objectForKey:@"via"];
+    }else{
+        NSArray* searchResultArray = [dataDictionary objectForKey:@"data"];
+    }
+}
+-(void)addBookmark:(UIButton*)sender{
+    if((RouteType)[[dataDictionary objectForKey:@"type"]intValue] == RouteTypeComplex){
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        // NSArrayの保存
+        NSMutableArray* array = [NSMutableArray array];
+        array = [[defaults objectForKey:@"Favorite"]mutableCopy];
+        if(!array){
+            array = [NSMutableArray array];
+        }
+        NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:[BusSearchManager sharedManager].GetOffBusStop,@"getOff",[BusSearchManager sharedManager].GetOnBusStop,@"getOn",[BusSearchManager sharedManager].viaBusStop,@"via",nil];
+        
+        NSDictionary* dict = [[NSDictionary alloc]initWithObjectsAndKeys:[NSNumber numberWithInt:RouteTypeComplex],@"type",data,@"data",nil];
+        
+        [array addObject:dict];
+        if([array count] > 100){
+            [array removeObject:[array firstObject]];
+        }
+        [defaults setObject:array forKey:@"Favorite"];
+
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"ブックマーク" message:@"路線をブックマークに登録しました。" preferredStyle:UIAlertControllerStyleAlert];
+        // addActionした順に左から右にボタンが配置されます
+        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }else{
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        // NSArrayの保存
+        NSMutableArray* array = [NSMutableArray array];
+        array = [[defaults objectForKey:@"Favorite"]mutableCopy];
+        if(!array){
+            array = [NSMutableArray array];
+        }
+        
+        NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:[BusSearchManager sharedManager].GetOffBusStop,@"getOff",[BusSearchManager sharedManager].GetOnBusStop,@"getOn",nil];
+        
+        NSDictionary* dict = [[NSDictionary alloc]initWithObjectsAndKeys:[NSNumber numberWithInt:RouteTypeSimple],@"type",data,@"data",nil];
+        
+        [array addObject:dict];
+        if([array count] > 100){
+            [array removeObject:[array firstObject]];
+        }
+        [defaults setObject:array forKey:@"Favorite"];    
+
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"ブックマーク" message:@"路線をブックマークに登録しました。" preferredStyle:UIAlertControllerStyleAlert];
+        // addActionした順に左から右にボタンが配置されます
+        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+
+    }
 }
 -(void)viewDidLayoutSubviews{
     self.switchButton.clipsToBounds = YES;
@@ -320,12 +472,14 @@
                                  [dict2 objectForKey:@"time"],@"firstArraivalTime",
                                  [[firstArray objectAtIndex:showCnt] objectForKey:@"detail"],@"firstDetail",
                                  [[firstArray objectAtIndex:showCnt] objectForKey:@"url"],@"firstURL",
+                                 [[firstArray objectAtIndex:showCnt] objectForKey:@"map"],@"firstMap",
                                  [[secondArray objectAtIndex:cnt] objectForKey:@"destination"],@"secondDestination",
                                  [dict2 objectForKey:@"name"],@"secondName",
                                  [[secondArray objectAtIndex:cnt] objectForKey:@"time"],@"secondDeparturesTime",
                                  [dict3 objectForKey:@"time"],@"secondArraivalTime",
                                  [[secondArray objectAtIndex:cnt] objectForKey:@"detail"],@"secondDetail",
                                  [[secondArray objectAtIndex:cnt] objectForKey:@"url"],@"secondURL",
+                                 [[secondArray objectAtIndex:cnt] objectForKey:@"map"],@"secndMap",
                                  [getOff objectForKey:@"name"],@"getOff",nil];
                                 
                                  timeLabel.text = [NSString stringWithFormat:@"%@発",[info objectForKey:@"firstDeparturesTime"]];
@@ -335,13 +489,25 @@
                                  connectionView.destinationLabel1.text = [NSString stringWithFormat:@"%@ 行き",[info objectForKey:@"firstDestination"]];
                                  connectionView.detailLabel1.text = [info objectForKey:@"firstDetail"];
                                  connectionView.arrivalLabel1.text = [info objectForKey:@"firstArraivalTime"];
+                                //[[firstArray objectAtIndex:showCnt] objectForKey:@"url"]
+                                //[[secondArray objectAtIndex:cnt] objectForKey:@"url"]
+                                if([[info objectForKey:@"firstMap"] isEqualToString:@""]){
+                                    connectionView.mapButton1.hidden = true;
+                                }else{
+                                    connectionView.mapButton1.hidden = false;
+                                }
                                  connectionView.getOnLabel2.text = [info objectForKey:@"secondName"];
                                  connectionView.getOffLabel2.text = [info objectForKey:@"getOff"];
                                  connectionView.departureLabel2.text = [info objectForKey:@"secondDeparturesTime"];
                                  connectionView.destinationLabel2.text = [NSString stringWithFormat:@"%@ 行き",[info objectForKey:@"secondDestination"]];
                                  connectionView.detailLabel2.text = [info objectForKey:@"secondDetail"];
                                  connectionView.arrivalLabel2.text = [info objectForKey:@"secondArraivalTime"];
-                                 
+                                if([[info objectForKey:@"secondMap"] isEqualToString:@""]){
+                                    connectionView.mapButton2.hidden = true;
+                                }else{
+                                    connectionView.mapButton2.hidden = false;
+                                }
+                                
                                  if(showCnt == 0){
                                      leftButton.hidden = true;
                                  }
@@ -430,7 +596,11 @@
                     noConnectionView.destinationLabel.text = [NSString stringWithFormat:@"%@ 行き",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"destination"]];
                     noConnectionView.detailLabel.text = [NSString stringWithFormat:@"%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"detail"]];
                     noConnectionView.arrivalLabel.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"time"]];
-                    
+                    if([[[searchResultArray objectAtIndex:showCnt]objectForKey:@"map"] isEqualToString:@""]){
+                        noConnectionView.mapButton.hidden = true;
+                    }else{
+                        noConnectionView.mapButton.hidden = false;
+                    }
                     if(showCnt == 0){
                         leftButton.hidden = true;
                     }
