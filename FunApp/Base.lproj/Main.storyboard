@@ -585,7 +585,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="ブックマーク" id="NcX-Ox-iBs">
                         <barButtonItem key="backBarButtonItem" title="ブックマーク" id="raP-r9-x6w"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="ono-kY-FtT"/>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="4Zk-ul-YKr" id="obg-D4-7Jy"/>
@@ -676,7 +675,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="検索履歴" id="gQW-96-Qzc">
                         <barButtonItem key="backBarButtonItem" title="履歴" id="kov-ms-EIu"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="6kF-ku-s0l"/>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="OoI-1W-6SA" id="Eu3-I5-YHN"/>
