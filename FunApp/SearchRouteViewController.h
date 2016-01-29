@@ -11,8 +11,8 @@
 #import "RouteSearchManager.h"
 #import "NoConnectionView.h"
 #import "ConnectionView.h"
+#import "ShowMapViewController.h"
 #import <Social/Social.h>
-
 @interface SearchRouteViewController : UIViewController{
     UILabel *errorLabel;
     UIActivityIndicatorView* indicator;

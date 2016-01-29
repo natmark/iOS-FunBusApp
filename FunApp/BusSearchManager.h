@@ -33,6 +33,6 @@
 #pragma mark システムメンテナンスかどうかの関数
 -(void)isSystemMeintenanceWithcompletionHandler:(void (^)(BOOL flg,NSError *error))handler;
 #pragma mark マップ画像取得関数
--(void)GETMapImageWithURL:(NSString*)url completionHandler:(void (^)(UIImage* image,NSError *error))handler;
+-(void)GETMapImageWithURL:(NSString*)url imageView:(UIImageView*)imageView completionHandler:(void (^)(NSError *error))handler;
 
 @end

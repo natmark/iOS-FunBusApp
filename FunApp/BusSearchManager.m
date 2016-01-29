@@ -356,7 +356,7 @@ static BusSearchManager *sharedData_ = nil;
     return array;
 }
 #pragma mark マップ画像取得関数
--(void)GETMapImageWithURL:(NSString*)url completionHandler:(void (^)(UIImage* image,NSError *error))handler{
+-(void)GETMapImageWithURL:(NSString*)url imageView:(UIImageView*)imageView completionHandler:(void (^)(NSError *error))handler{
     /*=======================*/
     //データ読み込み
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
@@ -370,15 +370,31 @@ static BusSearchManager *sharedData_ = nil;
         NSLog(@"%f分", since/60);
         if(since/60 < CONFIRM_ROUTE_CACHE){
             NSLog(@">>USE CACHE");
-            UIImage* image = [loadData objectForKey:@"data"];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                handler(image,nil);
-            });
+            NSData* data = [loadData objectForKey:@"data"];
+            NSString* str = [[NSString alloc] initWithData:data encoding:NSShiftJISStringEncoding];
+            NSString* urlString = [[self HTMLParserWithString:str pattern:@"(<p align=\"center\"><img src=\"(.*?)\" alt=\".*?\" width=\"396\" height=\"460\"></p>)"] firstObject];
+            
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",GET_MAP_IMAGE_URL,urlString]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+            
+            NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+            
+            [[session downloadTaskWithRequest:request completionHandler:^(NSURL *location,
+                                                                          NSURLResponse *response,
+                                                                          NSError *error){
+                if(error){
+                    handler(error);
+                }
+                UIImage *downloadedImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    imageView.image = downloadedImage;
+                    handler(error);
+                });
+            }] resume];
             return;
         }
     }
     /*=======================*/
-    
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",GET_MAP_IMAGE_URL,url]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
@@ -388,35 +404,34 @@ static BusSearchManager *sharedData_ = nil;
                                                               NSURLResponse *response,
                                                               NSError *error){
         if(error){
-            handler(nil,error);
+            handler(error);
         }
-        NSString* str = [[NSString alloc] initWithData:data encoding:NSShiftJISStringEncoding];
-        NSString* urlString = [[self HTMLParserWithString:str pattern:@"(<p align=\"center\"><img src=\"(.*?)\"alt=\".*?\" width=\"396\" height=\"460\"></p>)"] firstObject];
+        /*=======================*/
+        //データ保存
+        NSDate* now = [NSDate date];
+        NSDictionary* saveData = [NSDictionary dictionaryWithObjectsAndKeys:now,@"date",data,@"data",nil];
+        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];  // 取得
+        [userDefault setObject:saveData forKey:[response.URL absoluteString]];
+        /*=======================*/
         
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+        NSString* str = [[NSString alloc] initWithData:data encoding:NSShiftJISStringEncoding];
+        NSString* urlString = [[self HTMLParserWithString:str pattern:@"(<p align=\"center\"><img src=\"(.*?)\" alt=\".*?\" width=\"396\" height=\"460\"></p>)"] firstObject];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",GET_MAP_IMAGE_URL,urlString]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
         
         NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
         
         [[session downloadTaskWithRequest:request completionHandler:^(NSURL *location,
                                                                      NSURLResponse *response,
                                                                      NSError *error){
-            //<p align="center"><img src="plat/14013.gif" alt="亀田支所前案内" width="396" height="460"></p>
-            //url http://www.hakobus.jp/plat.php?stopmasterkey=155
-            //map plat.php?stopmasterkey=155
-            //image http://www.hakobus.jp/plat/14013.gif
-
+            if(error){
+                handler(error);
+            }
             UIImage *downloadedImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
             
-            //*==================*
-            NSDate* now = [NSDate date];
-            NSDictionary* saveData = [NSDictionary dictionaryWithObjectsAndKeys:now,@"date",downloadedImage,@"data",nil];
-            NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];  // 取得
-            [userDefault setObject:saveData forKey:[response.URL absoluteString]];
-            //*==================*
-
-            
             dispatch_async(dispatch_get_main_queue(), ^{
-                handler(downloadedImage,error);
+                imageView.image = downloadedImage;
+                handler(error);
             });
         }] resume];
     }] resume];

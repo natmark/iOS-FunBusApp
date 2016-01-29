@@ -137,16 +137,23 @@ typedef enum
 }
 #pragma mark UI部品タッチハンドラ
 -(void)tapMap:(UIButton*)sender{
+    NSString* map = @"";
+    NSString* boarding = @"";
+
     if(sender.tag == MapButtonTagNoConnection){
-        NSString* map = [mapURLNoConnection objectForKey:@"map"];
-        NSString* boarding = [mapURLNoConnection objectForKey:@"boarding"];
+        map = [mapURLNoConnection objectForKey:@"map"];
+        boarding = [mapURLNoConnection objectForKey:@"boarding"];
     }else if(sender.tag == MapButtonTagConnection1){
-        NSString* map = [mapURLConnection1 objectForKey:@"map"];
-        NSString* boarding = [mapURLConnection1 objectForKey:@"boarding"];
+        map = [mapURLConnection1 objectForKey:@"map"];
+        boarding = [mapURLConnection1 objectForKey:@"boarding"];
     }else if(sender.tag == MapButtonTagConnection2){
-        NSString* map = [mapURLConnection2 objectForKey:@"map"];
-        NSString* boarding = [mapURLConnection2 objectForKey:@"boarding"];
+        map = [mapURLConnection2 objectForKey:@"map"];
+        boarding = [mapURLConnection2 objectForKey:@"boarding"];
     }
+    ShowMapViewController* viewController = [[ShowMapViewController alloc]init];
+    viewController.mapURL = map;
+    viewController.boarding = boarding;
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 -(void)tweet:(UIButton*)sender{
     /*

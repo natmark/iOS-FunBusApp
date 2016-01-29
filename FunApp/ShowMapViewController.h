@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "BusSearchManager.h"
 @interface ShowMapViewController : UIViewController
-
+@property(nonatomic,assign)NSString* boarding;
+@property(nonatomic,assign)NSString* mapURL;
+@property (strong, nonatomic) IBOutlet UINavigationItem *titleView;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
+@property (strong, nonatomic) IBOutlet UIImageView *mapView;
 @end
