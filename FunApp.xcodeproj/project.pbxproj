@@ -109,6 +109,8 @@
 		F7687E9F1C5341A2006968A7 /* bookmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookmark.png; sourceTree = "<group>"; };
 		F7687EA01C5341A2006968A7 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		F7687EA11C5341A2006968A7 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = "<group>"; };
+		F772173F1C5B3C20002714B3 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
+		F77217401C5B3C21002714B3 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		F7C625831BF2F6E60016C86D /* bus_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bus_data.plist; sourceTree = "<group>"; };
 		F7E2118F1B3E8E2E0035AF3A /* FunApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7E211931B3E8E2F0035AF3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F7E2119D1B3E8E2F0035AF3A /* Base */,
+				F772173F1C5B3C20002714B3 /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F7E211A21B3E8E2F0035AF3A /* Base */,
+				F77217401C5B3C21002714B3 /* ja */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";

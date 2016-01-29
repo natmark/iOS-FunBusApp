@@ -1,0 +1,114 @@
+
+/* Class = "UINavigationItem"; title = "経由地選択"; ObjectID = "0cE-hd-w48"; */
+"0cE-hd-w48.title" = "経由地選択";
+
+/* Class = "UIButton"; normalTitle = "検索"; ObjectID = "1R2-Oe-boT"; */
+"1R2-Oe-boT.normalTitle" = "検索";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "1w5-eg-d6s"; */
+"1w5-eg-d6s.text" = "Subtitle";
+
+/* Class = "UITabBarItem"; title = "履歴"; ObjectID = "2Pg-1d-86G"; */
+"2Pg-1d-86G.title" = "履歴";
+
+/* Class = "UINavigationItem"; title = "乗車バス停入力"; ObjectID = "57Q-Lv-J0L"; */
+"57Q-Lv-J0L.title" = "乗車バス停入力";
+
+/* Class = "UINavigationItem"; title = "設定"; ObjectID = "5h2-J7-xlJ"; */
+"5h2-J7-xlJ.title" = "設定";
+
+/* Class = "UITabBarItem"; title = "ブックマーク"; ObjectID = "Bee-15-4WF"; */
+"Bee-15-4WF.title" = "ブックマーク";
+
+/* Class = "UIBarButtonItem"; title = "トップ"; ObjectID = "C7c-wT-v1T"; */
+"C7c-wT-v1T.title" = "トップ";
+
+/* Class = "UITextField"; placeholder = "バス停名を入力してください"; ObjectID = "D5p-jF-7HT"; */
+"D5p-jF-7HT.placeholder" = "バス停名を入力してください";
+
+/* Class = "UITabBarItem"; title = "ホーム"; ObjectID = "E5U-ZD-Ja5"; */
+"E5U-ZD-Ja5.title" = "ホーム";
+
+/* Class = "UILabel"; text = "乗車バス停"; ObjectID = "FvO-t1-4eR"; */
+"FvO-t1-4eR.text" = "乗車バス停";
+
+/* Class = "UIBarButtonItem"; title = "乗車"; ObjectID = "GAK-qe-Yqt"; */
+"GAK-qe-Yqt.title" = "乗車";
+
+/* Class = "UILabel"; text = "亀田支所前"; ObjectID = "GLm-CS-VtD"; */
+"GLm-CS-VtD.text" = "亀田支所前";
+
+/* Class = "UILabel"; text = "で検索します"; ObjectID = "GcV-bI-796"; */
+"GcV-bI-796.text" = "で検索します";
+
+/* Class = "UIBarButtonItem"; title = "経由"; ObjectID = "Gsa-Tg-7zZ"; */
+"Gsa-Tg-7zZ.title" = "経由";
+
+/* Class = "UITabBarItem"; title = "設定"; ObjectID = "Hcq-Lh-RBn"; */
+"Hcq-Lh-RBn.title" = "設定";
+
+/* Class = "UILabel"; text = "乗車バス停"; ObjectID = "L6K-dB-596"; */
+"L6K-dB-596.text" = "乗車バス停";
+
+/* Class = "UINavigationItem"; title = "ブックマーク"; ObjectID = "NcX-Ox-iBs"; */
+"NcX-Ox-iBs.title" = "ブックマーク";
+
+/* Class = "UILabel"; text = "バス停名"; ObjectID = "RBt-5y-tVT"; */
+"RBt-5y-tVT.text" = "バス停名";
+
+/* Class = "UIBarButtonItem"; title = "降車"; ObjectID = "Yjt-Vv-eoK"; */
+"Yjt-Vv-eoK.title" = "降車";
+
+/* Class = "UILabel"; text = "降車バス停"; ObjectID = "aDO-kh-bJV"; */
+"aDO-kh-bJV.text" = "降車バス停";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "d16-nW-Ogi"; */
+"d16-nW-Ogi.text" = "Title";
+
+/* Class = "UILabel"; text = "バス停名"; ObjectID = "fDj-gc-ryr"; */
+"fDj-gc-ryr.text" = "バス停名";
+
+/* Class = "UINavigationItem"; title = "検索履歴"; ObjectID = "gQW-96-Qzc"; */
+"gQW-96-Qzc.title" = "検索履歴";
+
+/* Class = "UILabel"; text = "で検索します"; ObjectID = "gWh-zZ-rwS"; */
+"gWh-zZ-rwS.text" = "で検索します";
+
+/* Class = "UINavigationItem"; title = "降車バス停検索"; ObjectID = "hag-XN-gnq"; */
+"hag-XN-gnq.title" = "降車バス停検索";
+
+/* Class = "UITextField"; placeholder = "バス停名を入力してください"; ObjectID = "ijn-2v-VG4"; */
+"ijn-2v-VG4.placeholder" = "バス停名を入力してください";
+
+/* Class = "UIBarButtonItem"; title = "履歴"; ObjectID = "kov-ms-EIu"; */
+"kov-ms-EIu.title" = "履歴";
+
+/* Class = "UIBarButtonItem"; title = "設定"; ObjectID = "m1E-mk-JD1"; */
+"m1E-mk-JD1.title" = "設定";
+
+/* Class = "UITabBarItem"; title = "検索"; ObjectID = "nNO-hE-mpj"; */
+"nNO-hE-mpj.title" = "検索";
+
+/* Class = "UINavigationItem"; title = "はこバス"; ObjectID = "pGr-EV-0uC"; */
+"pGr-EV-0uC.title" = "はこバス";
+
+/* Class = "UIBarButtonItem"; title = "ブックマーク"; ObjectID = "raP-r9-x6w"; */
+"raP-r9-x6w.title" = "ブックマーク";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "uSg-7t-uYc"; */
+"uSg-7t-uYc.text" = "Title";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "vCQ-co-xA7"; */
+"vCQ-co-xA7.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "亀田支所前"; ObjectID = "wrR-2f-uS1"; */
+"wrR-2f-uS1.text" = "亀田支所前";
+
+/* Class = "UIButton"; normalTitle = "⇄"; ObjectID = "wyh-4M-Zh5"; */
+"wyh-4M-Zh5.normalTitle" = "⇄";
+
+/* Class = "UIButton"; normalTitle = "次へ"; ObjectID = "x6g-ks-g6Y"; */
+"x6g-ks-g6Y.normalTitle" = "次へ";
+
+/* Class = "UILabel"; text = "降車バス停"; ObjectID = "xx4-hD-mCQ"; */
+"xx4-hD-mCQ.text" = "降車バス停";
