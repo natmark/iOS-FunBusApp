@@ -465,9 +465,9 @@ typedef enum
                         [indicator stopAnimating];
                         indicator.hidden = true;
                         leftButton.hidden = true;
-                        rightButton.hidden = false;
+                        rightButton.hidden = true;
                         leftButton.enabled = false;
-                        rightButton.enabled = true;
+                        rightButton.enabled = false;
                         timeLabel.hidden = false;
                         
                         return;
