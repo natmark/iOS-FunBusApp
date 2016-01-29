@@ -12,6 +12,7 @@
 #import "NoConnectionView.h"
 #import "ConnectionView.h"
 #import "ShowMapViewController.h"
+#import "ShowPassingTimeViewController.h"
 #import <Social/Social.h>
 @interface SearchRouteViewController : UIViewController{
     UILabel *errorLabel;
@@ -26,7 +27,10 @@
     NSDictionary* mapURLNoConnection;
     NSDictionary* mapURLConnection1;
     NSDictionary* mapURLConnection2;
-    
+
+    NSString* noConnectionPassingURL;
+    NSString* connection1PassingURL;
+    NSString* connection2PassingURL;
 }
 
 @property (strong, nonatomic) IBOutlet UIButton *switchButton;

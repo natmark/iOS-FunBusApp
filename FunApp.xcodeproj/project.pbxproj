@@ -31,6 +31,10 @@
 		F7687EA41C5341A2006968A7 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = F7687EA11C5341A2006968A7 /* list.png */; };
 		F77217441C5B57BA002714B3 /* ShowMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77217421C5B57BA002714B3 /* ShowMapViewController.m */; };
 		F77217451C5B57BA002714B3 /* ShowMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F77217431C5B57BA002714B3 /* ShowMapViewController.xib */; };
+		F77217491C5B68BD002714B3 /* ShowPassingTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77217471C5B68BD002714B3 /* ShowPassingTimeViewController.m */; };
+		F772174A1C5B68BD002714B3 /* ShowPassingTimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F77217481C5B68BD002714B3 /* ShowPassingTimeViewController.xib */; };
+		F772174E1C5B701C002714B3 /* PassingTimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F772174C1C5B701C002714B3 /* PassingTimeTableViewCell.m */; };
+		F772174F1C5B701C002714B3 /* PassingTimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F772174D1C5B701C002714B3 /* PassingTimeTableViewCell.xib */; };
 		F773ADA41C267BE90071EA77 /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F7E211BC1B3E8FF90035AF3A /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F7C625871BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
 		F7C625881BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
@@ -116,6 +120,12 @@
 		F77217411C5B57BA002714B3 /* ShowMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowMapViewController.h; sourceTree = "<group>"; };
 		F77217421C5B57BA002714B3 /* ShowMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowMapViewController.m; sourceTree = "<group>"; };
 		F77217431C5B57BA002714B3 /* ShowMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowMapViewController.xib; sourceTree = "<group>"; };
+		F77217461C5B68BD002714B3 /* ShowPassingTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowPassingTimeViewController.h; sourceTree = "<group>"; };
+		F77217471C5B68BD002714B3 /* ShowPassingTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowPassingTimeViewController.m; sourceTree = "<group>"; };
+		F77217481C5B68BD002714B3 /* ShowPassingTimeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowPassingTimeViewController.xib; sourceTree = "<group>"; };
+		F772174B1C5B701C002714B3 /* PassingTimeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassingTimeTableViewCell.h; sourceTree = "<group>"; };
+		F772174C1C5B701C002714B3 /* PassingTimeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassingTimeTableViewCell.m; sourceTree = "<group>"; };
+		F772174D1C5B701C002714B3 /* PassingTimeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PassingTimeTableViewCell.xib; sourceTree = "<group>"; };
 		F7C625831BF2F6E60016C86D /* bus_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bus_data.plist; sourceTree = "<group>"; };
 		F7E2118F1B3E8E2E0035AF3A /* FunApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7E211931B3E8E2F0035AF3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -207,6 +217,12 @@
 				F77217411C5B57BA002714B3 /* ShowMapViewController.h */,
 				F77217421C5B57BA002714B3 /* ShowMapViewController.m */,
 				F77217431C5B57BA002714B3 /* ShowMapViewController.xib */,
+				F77217461C5B68BD002714B3 /* ShowPassingTimeViewController.h */,
+				F77217471C5B68BD002714B3 /* ShowPassingTimeViewController.m */,
+				F77217481C5B68BD002714B3 /* ShowPassingTimeViewController.xib */,
+				F772174B1C5B701C002714B3 /* PassingTimeTableViewCell.h */,
+				F772174C1C5B701C002714B3 /* PassingTimeTableViewCell.m */,
+				F772174D1C5B701C002714B3 /* PassingTimeTableViewCell.xib */,
 				F7687E8E1C52CD07006968A7 /* HistoryViewController.h */,
 				F7687E8F1C52CD07006968A7 /* HistoryViewController.m */,
 				F7687E941C52CD1E006968A7 /* SettingViewController.h */,
@@ -398,6 +414,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F772174F1C5B701C002714B3 /* PassingTimeTableViewCell.xib in Resources */,
 				F7E2119E1B3E8E2F0035AF3A /* Main.storyboard in Resources */,
 				F7687EA41C5341A2006968A7 /* list.png in Resources */,
 				F77217451C5B57BA002714B3 /* ShowMapViewController.xib in Resources */,
@@ -408,6 +425,7 @@
 				F7687EA21C5341A2006968A7 /* bookmark.png in Resources */,
 				F7687EA31C5341A2006968A7 /* twitter.png in Resources */,
 				F7E211A31B3E8E2F0035AF3A /* LaunchScreen.xib in Resources */,
+				F772174A1C5B68BD002714B3 /* ShowPassingTimeViewController.xib in Resources */,
 				F7E211A01B3E8E2F0035AF3A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,6 +474,8 @@
 			files = (
 				F77217441C5B57BA002714B3 /* ShowMapViewController.m in Sources */,
 				F7687E931C52CD15006968A7 /* FavoriteViewController.m in Sources */,
+				F772174E1C5B701C002714B3 /* PassingTimeTableViewCell.m in Sources */,
+				F77217491C5B68BD002714B3 /* ShowPassingTimeViewController.m in Sources */,
 				F7048C5B1BF3854500B2EA72 /* InputGetOnBusStopViewController.m in Sources */,
 				F7193A181C081D2B00819FF9 /* ConnectionView.m in Sources */,
 				F7048C671BF460AA00B2EA72 /* SearchRouteViewController.m in Sources */,

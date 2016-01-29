@@ -132,7 +132,11 @@ typedef enum
     mapURLNoConnection = [NSDictionary dictionary];
     mapURLConnection1 = [NSDictionary dictionary];
     mapURLConnection2 = [NSDictionary dictionary];
-    
+
+    noConnectionPassingURL = @"";
+    connection1PassingURL = @"";
+    connection2PassingURL = @"";
+
     [self routeSearch];
 }
 #pragma mark UI部品タッチハンドラ
@@ -215,13 +219,17 @@ typedef enum
 }
 -(void)showTimerList:(UIButton*)sender{
     if((RouteType)[[dataDictionary objectForKey:@"type"]intValue] == RouteTypeComplex){
-        NSDictionary* dict = [dataDictionary objectForKey:@"data"];
-        NSArray* firstArray = [dict objectForKey:@"first"];
-        NSArray* secondArray = [dict objectForKey:@"second"];
-        NSDictionary* via = [dict objectForKey:@"via"];
-
+        NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:connection1PassingURL,@"url1",connection2PassingURL,@"url2", nil];
+        NSDictionary* urlData = [[NSDictionary alloc]initWithObjectsAndKeys:[NSNumber numberWithInt:RouteTypeComplex ],@"type",data,@"data",nil];
+        ShowPassingTimeViewController* viewController = [[ShowPassingTimeViewController alloc]init];
+        viewController.data = urlData;
+        [self presentViewController:viewController animated:YES completion:nil];
     }else{
-        NSArray* searchResultArray = [dataDictionary objectForKey:@"data"];
+        NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:noConnectionPassingURL,@"url", nil];
+        NSDictionary* urlData = [[NSDictionary alloc]initWithObjectsAndKeys:[NSNumber numberWithInt:RouteTypeSimple],@"type",data,@"data",nil];
+        ShowPassingTimeViewController* viewController = [[ShowPassingTimeViewController alloc]init];
+        viewController.data = urlData;
+        [self presentViewController:viewController animated:YES completion:nil];
     }
 }
 -(void)addBookmark:(UIButton*)sender{
@@ -516,6 +524,8 @@ typedef enum
                                  [[secondArray objectAtIndex:cnt] objectForKey:@"boarding"],@"secondBoarding",
                                  [getOff objectForKey:@"name"],@"getOff",nil];
                                 
+                                connection1PassingURL = [info objectForKey:@"firstURL"];
+                                connection2PassingURL = [info objectForKey:@"secondURL"];
                                  timeLabel.text = [NSString stringWithFormat:@"%@発",[info objectForKey:@"firstDeparturesTime"]];
                                  connectionView.getOnLabel1.text = [info objectForKey:@"firstName"];
                                  connectionView.getOffLabel1.text = [info objectForKey:@"secondName"];
@@ -629,6 +639,7 @@ typedef enum
                     NSLog(@"降車バス停:%@",[getOff objectForKey:@"name"]);
                     NSLog(@"降車バス停到着時間:%@",[dict objectForKey:@"time"]);
                     NSLog(@"/*===================================*/");
+                    noConnectionPassingURL = [[searchResultArray objectAtIndex:showCnt]objectForKey:@"url"];
                     noConnectionView.getOnLabel.text = [getOn objectForKey:@"name"];
                     noConnectionView.getOffLabel.text = [getOff objectForKey:@"name"];
                     noConnectionView.departureLabel.text = [NSString stringWithFormat:@"%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"time"]];
