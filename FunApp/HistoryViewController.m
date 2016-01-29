@@ -38,7 +38,6 @@
         [BusSearchManager sharedManager].GetOffBusStop = [[[arrayList objectAtIndex:indexPath.row]objectForKey:@"data"]objectForKey:@"getOff"];
         [BusSearchManager sharedManager].GetOnBusStop = [[[arrayList objectAtIndex:indexPath.row]objectForKey:@"data"]objectForKey:@"getOn"];
         [BusSearchManager sharedManager].viaBusStop = nil;
-
     }else{
         [BusSearchManager sharedManager].viaBusStop = [[[arrayList objectAtIndex:indexPath.row]objectForKey:@"data"]objectForKey:@"via"];
         [BusSearchManager sharedManager].GetOffBusStop = [[[arrayList objectAtIndex:indexPath.row]objectForKey:@"data"]objectForKey:@"getOff"];
