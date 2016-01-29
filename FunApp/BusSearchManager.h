@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 @interface BusSearchManager : NSObject<NSURLSessionDelegate>{
     NSArray* busInfo;
 }
@@ -32,4 +32,7 @@
 -(void)GETArrivedTimeWithURL:(NSString*)url completionHandler:(void (^)(NSArray *array,NSError *error))handler;
 #pragma mark システムメンテナンスかどうかの関数
 -(void)isSystemMeintenanceWithcompletionHandler:(void (^)(BOOL flg,NSError *error))handler;
+#pragma mark マップ画像取得関数
+-(void)GETMapImageWithURL:(NSString*)url completionHandler:(void (^)(UIImage* image,NSError *error))handler;
+
 @end

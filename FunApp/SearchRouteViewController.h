@@ -23,6 +23,10 @@
     UIButton* rightButton;
     UILabel* timeLabel;
     NSDictionary* dataDictionary;
+    NSDictionary* mapURLNoConnection;
+    NSDictionary* mapURLConnection1;
+    NSDictionary* mapURLConnection2;
+    
 }
 
 @property (strong, nonatomic) IBOutlet UIButton *switchButton;

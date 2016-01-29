@@ -9,9 +9,12 @@
 #import "BusSearchManager.h"
 #define SYSTEM_MAINTENANCE_URL @"http://www.hakobus.jp/search01.php"
 #define ROUTE_SEARCH_URL @"http://www.hakobus.jp/result.php"
+#define GET_MAP_IMAGE_URL @"http://www.hakobus.jp/"
+
 #define CONFIRM_ROUTE_CACHE 60*24//min
 #define ROUTE_SEARCH_CACHE 1//min
 #define GET_ARRIVED_TIME_CACHE 60*24//min
+#define GET_MAP_IMAGE 60*24*7//min
 
 
 @implementation BusSearchManager
@@ -351,6 +354,72 @@ static BusSearchManager *sharedData_ = nil;
         }
     }
     return array;
+}
+#pragma mark マップ画像取得関数
+-(void)GETMapImageWithURL:(NSString*)url completionHandler:(void (^)(UIImage* image,NSError *error))handler{
+    /*=======================*/
+    //データ読み込み
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
+    NSDictionary* loadData = [ud objectForKey:[NSString stringWithFormat:@"%@%@",GET_MAP_IMAGE_URL,url]];
+    if(loadData){
+        NSDate* saveDate = [loadData objectForKey:@"date"];
+        NSDate* nowDate = [NSDate date];
+        NSTimeInterval since;
+        // dateBとdateAの時間の間隔を取得(dateB - dateAなイメージ)
+        since = [nowDate timeIntervalSinceDate:saveDate];
+        NSLog(@"%f分", since/60);
+        if(since/60 < CONFIRM_ROUTE_CACHE){
+            NSLog(@">>USE CACHE");
+            UIImage* image = [loadData objectForKey:@"data"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(image,nil);
+            });
+            return;
+        }
+    }
+    /*=======================*/
+    
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",GET_MAP_IMAGE_URL,url]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+    
+    [[session dataTaskWithRequest:request completionHandler:^(NSData *data,
+                                                              NSURLResponse *response,
+                                                              NSError *error){
+        if(error){
+            handler(nil,error);
+        }
+        NSString* str = [[NSString alloc] initWithData:data encoding:NSShiftJISStringEncoding];
+        NSString* urlString = [[self HTMLParserWithString:str pattern:@"(<p align=\"center\"><img src=\"(.*?)\"alt=\".*?\" width=\"396\" height=\"460\"></p>)"] firstObject];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+        
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+        
+        [[session downloadTaskWithRequest:request completionHandler:^(NSURL *location,
+                                                                     NSURLResponse *response,
+                                                                     NSError *error){
+            //<p align="center"><img src="plat/14013.gif" alt="亀田支所前案内" width="396" height="460"></p>
+            //url http://www.hakobus.jp/plat.php?stopmasterkey=155
+            //map plat.php?stopmasterkey=155
+            //image http://www.hakobus.jp/plat/14013.gif
+
+            UIImage *downloadedImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
+            
+            //*==================*
+            NSDate* now = [NSDate date];
+            NSDictionary* saveData = [NSDictionary dictionaryWithObjectsAndKeys:now,@"date",downloadedImage,@"data",nil];
+            NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];  // 取得
+            [userDefault setObject:saveData forKey:[response.URL absoluteString]];
+            //*==================*
+
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(downloadedImage,error);
+            });
+        }] resume];
+    }] resume];
 }
 - (id)init
 {

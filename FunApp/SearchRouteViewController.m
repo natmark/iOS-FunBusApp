@@ -129,17 +129,23 @@ typedef enum
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.navigationItem.title = [NSString stringWithFormat:@"更新[%@]",result];
 
+    mapURLNoConnection = [NSDictionary dictionary];
+    mapURLConnection1 = [NSDictionary dictionary];
+    mapURLConnection2 = [NSDictionary dictionary];
+    
     [self routeSearch];
 }
 #pragma mark UI部品タッチハンドラ
 -(void)tapMap:(UIButton*)sender{
-    if((RouteType)[[dataDictionary objectForKey:@"type"]intValue] == RouteTypeComplex){
-        NSDictionary* dict = [dataDictionary objectForKey:@"data"];
-        NSArray* firstArray = [dict objectForKey:@"first"];
-        NSArray* secondArray = [dict objectForKey:@"second"];
-        NSDictionary* via = [dict objectForKey:@"via"];
-    }else{
-        NSArray* searchResultArray = [dataDictionary objectForKey:@"data"];
+    if(sender.tag == MapButtonTagNoConnection){
+        NSString* map = [mapURLNoConnection objectForKey:@"map"];
+        NSString* boarding = [mapURLNoConnection objectForKey:@"boarding"];
+    }else if(sender.tag == MapButtonTagConnection1){
+        NSString* map = [mapURLConnection1 objectForKey:@"map"];
+        NSString* boarding = [mapURLConnection1 objectForKey:@"boarding"];
+    }else if(sender.tag == MapButtonTagConnection2){
+        NSString* map = [mapURLConnection2 objectForKey:@"map"];
+        NSString* boarding = [mapURLConnection2 objectForKey:@"boarding"];
     }
 }
 -(void)tweet:(UIButton*)sender{
@@ -206,6 +212,7 @@ typedef enum
         NSArray* firstArray = [dict objectForKey:@"first"];
         NSArray* secondArray = [dict objectForKey:@"second"];
         NSDictionary* via = [dict objectForKey:@"via"];
+
     }else{
         NSArray* searchResultArray = [dataDictionary objectForKey:@"data"];
     }
@@ -491,13 +498,15 @@ typedef enum
                                  [[firstArray objectAtIndex:showCnt] objectForKey:@"detail"],@"firstDetail",
                                  [[firstArray objectAtIndex:showCnt] objectForKey:@"url"],@"firstURL",
                                  [[firstArray objectAtIndex:showCnt] objectForKey:@"map"],@"firstMap",
+                                 [[firstArray objectAtIndex:showCnt] objectForKey:@"boarding"],@"firstBoarding",
                                  [[secondArray objectAtIndex:cnt] objectForKey:@"destination"],@"secondDestination",
                                  [dict2 objectForKey:@"name"],@"secondName",
                                  [[secondArray objectAtIndex:cnt] objectForKey:@"time"],@"secondDeparturesTime",
                                  [dict3 objectForKey:@"time"],@"secondArraivalTime",
                                  [[secondArray objectAtIndex:cnt] objectForKey:@"detail"],@"secondDetail",
                                  [[secondArray objectAtIndex:cnt] objectForKey:@"url"],@"secondURL",
-                                 [[secondArray objectAtIndex:cnt] objectForKey:@"map"],@"secndMap",
+                                 [[secondArray objectAtIndex:cnt] objectForKey:@"map"],@"secondMap",
+                                 [[secondArray objectAtIndex:cnt] objectForKey:@"boarding"],@"secondBoarding",
                                  [getOff objectForKey:@"name"],@"getOff",nil];
                                 
                                  timeLabel.text = [NSString stringWithFormat:@"%@発",[info objectForKey:@"firstDeparturesTime"]];
@@ -507,8 +516,9 @@ typedef enum
                                  connectionView.destinationLabel1.text = [NSString stringWithFormat:@"%@ 行き",[info objectForKey:@"firstDestination"]];
                                  connectionView.detailLabel1.text = [info objectForKey:@"firstDetail"];
                                  connectionView.arrivalLabel1.text = [info objectForKey:@"firstArraivalTime"];
-                                //[[firstArray objectAtIndex:showCnt] objectForKey:@"url"]
-                                //[[secondArray objectAtIndex:cnt] objectForKey:@"url"]
+                                NSDictionary *mapURL1 = [NSDictionary dictionaryWithObjectsAndKeys:[info objectForKey:@"firstMap"],@"map",[info objectForKey:@"firstBoarding"],@"boarding", nil];
+                                
+                                mapURLConnection1 = mapURL1;
                                 if([[info objectForKey:@"firstMap"] isEqualToString:@""]){
                                     connectionView.mapButton1.hidden = true;
                                 }else{
@@ -520,6 +530,10 @@ typedef enum
                                  connectionView.destinationLabel2.text = [NSString stringWithFormat:@"%@ 行き",[info objectForKey:@"secondDestination"]];
                                  connectionView.detailLabel2.text = [info objectForKey:@"secondDetail"];
                                  connectionView.arrivalLabel2.text = [info objectForKey:@"secondArraivalTime"];
+                                
+                                NSDictionary *mapURL2 = [NSDictionary dictionaryWithObjectsAndKeys:[info objectForKey:@"secondMap"],@"map",[info objectForKey:@"secondBoarding"],@"boarding", nil];
+                                
+                                mapURLConnection2 = mapURL2;
                                 if([[info objectForKey:@"secondMap"] isEqualToString:@""]){
                                     connectionView.mapButton2.hidden = true;
                                 }else{
@@ -614,6 +628,13 @@ typedef enum
                     noConnectionView.destinationLabel.text = [NSString stringWithFormat:@"%@ 行き",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"destination"]];
                     noConnectionView.detailLabel.text = [NSString stringWithFormat:@"%@",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"detail"]];
                     noConnectionView.arrivalLabel.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"time"]];
+                    mapURLNoConnection = [[searchResultArray objectAtIndex:showCnt]objectForKey:@"map"];
+                    
+                    NSDictionary *mapURL = [NSDictionary dictionaryWithObjectsAndKeys:[[searchResultArray objectAtIndex:showCnt]objectForKey:@"map"],@"map",[[searchResultArray objectAtIndex:showCnt]objectForKey:@"boarding"],@"boarding", nil];
+                    
+                    mapURLNoConnection = mapURL;
+
+                    
                     if([[[searchResultArray objectAtIndex:showCnt]objectForKey:@"map"] isEqualToString:@""]){
                         noConnectionView.mapButton.hidden = true;
                     }else{

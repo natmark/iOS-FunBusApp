@@ -29,6 +29,8 @@
 		F7687EA21C5341A2006968A7 /* bookmark.png in Resources */ = {isa = PBXBuildFile; fileRef = F7687E9F1C5341A2006968A7 /* bookmark.png */; };
 		F7687EA31C5341A2006968A7 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = F7687EA01C5341A2006968A7 /* twitter.png */; };
 		F7687EA41C5341A2006968A7 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = F7687EA11C5341A2006968A7 /* list.png */; };
+		F77217441C5B57BA002714B3 /* ShowMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77217421C5B57BA002714B3 /* ShowMapViewController.m */; };
+		F77217451C5B57BA002714B3 /* ShowMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F77217431C5B57BA002714B3 /* ShowMapViewController.xib */; };
 		F773ADA41C267BE90071EA77 /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F7E211BC1B3E8FF90035AF3A /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F7C625871BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
 		F7C625881BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
@@ -111,6 +113,9 @@
 		F7687EA11C5341A2006968A7 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = "<group>"; };
 		F772173F1C5B3C20002714B3 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		F77217401C5B3C21002714B3 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		F77217411C5B57BA002714B3 /* ShowMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowMapViewController.h; sourceTree = "<group>"; };
+		F77217421C5B57BA002714B3 /* ShowMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowMapViewController.m; sourceTree = "<group>"; };
+		F77217431C5B57BA002714B3 /* ShowMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowMapViewController.xib; sourceTree = "<group>"; };
 		F7C625831BF2F6E60016C86D /* bus_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bus_data.plist; sourceTree = "<group>"; };
 		F7E2118F1B3E8E2E0035AF3A /* FunApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7E211931B3E8E2F0035AF3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -199,6 +204,9 @@
 				F701CB9B1C51C6FC00AC51D7 /* RouteSearchManager.h */,
 				F701CB9C1C51C6FC00AC51D7 /* RouteSearchManager.m */,
 				F7E2119C1B3E8E2F0035AF3A /* Main.storyboard */,
+				F77217411C5B57BA002714B3 /* ShowMapViewController.h */,
+				F77217421C5B57BA002714B3 /* ShowMapViewController.m */,
+				F77217431C5B57BA002714B3 /* ShowMapViewController.xib */,
 				F7687E8E1C52CD07006968A7 /* HistoryViewController.h */,
 				F7687E8F1C52CD07006968A7 /* HistoryViewController.m */,
 				F7687E941C52CD1E006968A7 /* SettingViewController.h */,
@@ -392,6 +400,7 @@
 			files = (
 				F7E2119E1B3E8E2F0035AF3A /* Main.storyboard in Resources */,
 				F7687EA41C5341A2006968A7 /* list.png in Resources */,
+				F77217451C5B57BA002714B3 /* ShowMapViewController.xib in Resources */,
 				F7687E9C1C533C9A006968A7 /* pin.png in Resources */,
 				F7C625871BF2F6E60016C86D /* bus_data.plist in Resources */,
 				F701CBA41C528FBA00AC51D7 /* icon.png in Resources */,
@@ -445,6 +454,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F77217441C5B57BA002714B3 /* ShowMapViewController.m in Sources */,
 				F7687E931C52CD15006968A7 /* FavoriteViewController.m in Sources */,
 				F7048C5B1BF3854500B2EA72 /* InputGetOnBusStopViewController.m in Sources */,
 				F7193A181C081D2B00819FF9 /* ConnectionView.m in Sources */,
