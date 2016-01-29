@@ -22,7 +22,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    arrayList = [defaults objectForKey:@"Favorite"];
+    arrayList = [[[defaults objectForKey:@"Favorite"] reverseObjectEnumerator]allObjects];
     
     [self.tableView reloadData];
 }
@@ -38,11 +38,47 @@
         [BusSearchManager sharedManager].GetOffBusStop = [[[arrayList objectAtIndex:indexPath.row]objectForKey:@"data"]objectForKey:@"getOff"];
         [BusSearchManager sharedManager].GetOnBusStop = [[[arrayList objectAtIndex:indexPath.row]objectForKey:@"data"]objectForKey:@"getOn"];
         [BusSearchManager sharedManager].viaBusStop = nil;
+        
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        // NSArrayの保存
+        NSMutableArray* array = [NSMutableArray array];
+        array = [[defaults objectForKey:@"History"]mutableCopy];
+        if(!array){
+            array = [NSMutableArray array];
+        }
+        
+        NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:[BusSearchManager sharedManager].GetOffBusStop,@"getOff",[BusSearchManager sharedManager].GetOnBusStop,@"getOn",nil];
+        
+        NSDictionary* dict = [[NSDictionary alloc]initWithObjectsAndKeys:[NSNumber numberWithInt:RouteTypeSimple],@"type",data,@"data",nil];
+        
+        [array addObject:dict];
+        if([array count] > 100){
+            [array removeObject:[array firstObject]];
+        }
+        [defaults setObject:array forKey:@"History"];
 
     }else{
         [BusSearchManager sharedManager].viaBusStop = [[[arrayList objectAtIndex:indexPath.row]objectForKey:@"data"]objectForKey:@"via"];
         [BusSearchManager sharedManager].GetOffBusStop = [[[arrayList objectAtIndex:indexPath.row]objectForKey:@"data"]objectForKey:@"getOff"];
         [BusSearchManager sharedManager].GetOnBusStop = [[[arrayList objectAtIndex:indexPath.row]objectForKey:@"data"]objectForKey:@"getOn"];
+        
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        // NSArrayの保存
+        NSMutableArray* array = [NSMutableArray array];
+        array = [[defaults objectForKey:@"History"]mutableCopy];
+        if(!array){
+            array = [NSMutableArray array];
+        }
+        NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:[BusSearchManager sharedManager].GetOffBusStop,@"getOff",[BusSearchManager sharedManager].GetOnBusStop,@"getOn",[BusSearchManager sharedManager].viaBusStop,@"via",nil];
+        
+        NSDictionary* dict = [[NSDictionary alloc]initWithObjectsAndKeys:[NSNumber numberWithInt:RouteTypeComplex],@"type",data,@"data",nil];
+        
+        [array addObject:dict];
+        if([array count] > 100){
+            [array removeObject:[array firstObject]];
+        }
+        [defaults setObject:array forKey:@"History"];
+
     }
     
     SearchRouteViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchRouteViewController"];

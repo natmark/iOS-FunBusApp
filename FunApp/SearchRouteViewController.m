@@ -223,17 +223,26 @@ typedef enum
         
         NSDictionary* dict = [[NSDictionary alloc]initWithObjectsAndKeys:[NSNumber numberWithInt:RouteTypeComplex],@"type",data,@"data",nil];
         
-        [array addObject:dict];
-        if([array count] > 100){
-            [array removeObject:[array firstObject]];
+        if([array containsObject:dict]){
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"ブックマーク" message:@"既にブックマークに登録されています。" preferredStyle:UIAlertControllerStyleAlert];
+            // addActionした順に左から右にボタンが配置されます
+            [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            }]];
+            [self presentViewController:alertController animated:YES completion:nil];
+            
+        }else{
+            [array addObject:dict];
+            if([array count] > 100){
+                [array removeObject:[array firstObject]];
+            }
+            [defaults setObject:array forKey:@"Favorite"];
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"ブックマーク" message:@"路線をブックマークに登録しました。" preferredStyle:UIAlertControllerStyleAlert];
+            // addActionした順に左から右にボタンが配置されます
+            [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            }]];
+            [self presentViewController:alertController animated:YES completion:nil];
         }
-        [defaults setObject:array forKey:@"Favorite"];
-
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"ブックマーク" message:@"路線をブックマークに登録しました。" preferredStyle:UIAlertControllerStyleAlert];
-        // addActionした順に左から右にボタンが配置されます
-        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        }]];
-        [self presentViewController:alertController animated:YES completion:nil];
     }else{
         NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
         // NSArrayの保存
@@ -247,17 +256,26 @@ typedef enum
         
         NSDictionary* dict = [[NSDictionary alloc]initWithObjectsAndKeys:[NSNumber numberWithInt:RouteTypeSimple],@"type",data,@"data",nil];
         
-        [array addObject:dict];
-        if([array count] > 100){
-            [array removeObject:[array firstObject]];
+        if([array containsObject:dict]){
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"ブックマーク" message:@"既にブックマークに登録されています。" preferredStyle:UIAlertControllerStyleAlert];
+            // addActionした順に左から右にボタンが配置されます
+            [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            }]];
+            [self presentViewController:alertController animated:YES completion:nil];
+            
+        }else{
+            [array addObject:dict];
+            if([array count] > 100){
+                [array removeObject:[array firstObject]];
+            }
+            [defaults setObject:array forKey:@"Favorite"];
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"ブックマーク" message:@"路線をブックマークに登録しました。" preferredStyle:UIAlertControllerStyleAlert];
+            // addActionした順に左から右にボタンが配置されます
+            [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            }]];
+            [self presentViewController:alertController animated:YES completion:nil];
         }
-        [defaults setObject:array forKey:@"Favorite"];    
-
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"ブックマーク" message:@"路線をブックマークに登録しました。" preferredStyle:UIAlertControllerStyleAlert];
-        // addActionした順に左から右にボタンが配置されます
-        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        }]];
-        [self presentViewController:alertController animated:YES completion:nil];
 
     }
 }

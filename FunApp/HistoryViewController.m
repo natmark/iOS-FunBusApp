@@ -22,7 +22,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    arrayList = [defaults objectForKey:@"History"];
+    arrayList = [[[defaults objectForKey:@"History"] reverseObjectEnumerator]allObjects];
 
     [self.tableView reloadData];
 }
