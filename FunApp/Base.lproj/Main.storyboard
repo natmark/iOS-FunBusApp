@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -105,15 +106,123 @@
                     <view key="view" contentMode="scaleToFill" id="v8h-dI-NRp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TE7-Db-gGc">
+                                <rect key="frame" x="20" y="104" width="560" height="40"/>
+                                <color key="backgroundColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="ZRR-P6-ZYT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="クラッシュレポート・お問い合わせ">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="E7C-4h-fSE" kind="push" id="dfd-rm-Twc"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TE7-Db-gGc" firstAttribute="trailing" secondItem="v8h-dI-NRp" secondAttribute="trailingMargin" id="7qE-YS-pb1"/>
+                            <constraint firstItem="TE7-Db-gGc" firstAttribute="leading" secondItem="v8h-dI-NRp" secondAttribute="leadingMargin" id="TJU-ki-rXB"/>
+                            <constraint firstItem="TE7-Db-gGc" firstAttribute="top" secondItem="DI9-i7-EHU" secondAttribute="bottom" constant="40" id="WCB-TF-t35"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="設定" id="5h2-J7-xlJ">
                         <barButtonItem key="backBarButtonItem" title="設定" id="m1E-mk-JD1"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="crashReportButton" destination="TE7-Db-gGc" id="hwI-JQ-RXB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bZv-kM-51n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1827" y="1901"/>
+        </scene>
+        <!--お問い合わせ-->
+        <scene sceneID="geh-zw-cQz">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="E7C-4h-fSE" customClass="InquiryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ruG-yN-H8a"/>
+                        <viewControllerLayoutGuide type="bottom" id="7dA-Ce-Wv3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="W62-M8-asP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kCM-BA-9m4">
+                                <rect key="frame" x="20" y="113" width="560" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="D0I-VW-9Fc"/>
+                                </constraints>
+                            </webView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="お問い合わせの種類" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qa-7G-9ql">
+                                <rect key="frame" x="20" y="84" width="560" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="jVk-I9-3ed"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="z5V-1j-rTc">
+                                <rect key="frame" x="20" y="151" width="560" height="342"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vlx-y9-xfK">
+                                <rect key="frame" x="250" y="501" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Vlx-y9-xfK" secondAttribute="height" multiplier="16:5" id="73b-Oz-4dB"/>
+                                    <constraint firstAttribute="height" constant="30" id="Awc-0V-zNT"/>
+                                    <constraint firstAttribute="width" constant="100" id="Lgb-Hf-U3a"/>
+                                    <constraint firstAttribute="width" constant="200" id="diA-m9-Wyj"/>
+                                    <constraint firstAttribute="height" constant="30" id="djU-oU-G76"/>
+                                </constraints>
+                                <state key="normal" title="送信">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="73b-Oz-4dB"/>
+                                        <exclude reference="Awc-0V-zNT"/>
+                                        <exclude reference="diA-m9-Wyj"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="pushSendButton:" destination="E7C-4h-fSE" eventType="touchUpInside" id="7Fv-Ys-qc5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="z5V-1j-rTc" firstAttribute="trailing" secondItem="W62-M8-asP" secondAttribute="trailingMargin" id="3Lq-tQ-WTc"/>
+                            <constraint firstItem="Vlx-y9-xfK" firstAttribute="centerX" secondItem="W62-M8-asP" secondAttribute="centerX" id="6Qd-gs-pA1"/>
+                            <constraint firstItem="kCM-BA-9m4" firstAttribute="leading" secondItem="W62-M8-asP" secondAttribute="leadingMargin" id="KdH-Do-0yW"/>
+                            <constraint firstItem="kCM-BA-9m4" firstAttribute="top" secondItem="4qa-7G-9ql" secondAttribute="bottom" constant="8" id="MI4-Cz-BJc"/>
+                            <constraint firstItem="4qa-7G-9ql" firstAttribute="top" secondItem="ruG-yN-H8a" secondAttribute="bottom" constant="20" id="Mx1-uq-aRk"/>
+                            <constraint firstItem="4qa-7G-9ql" firstAttribute="trailing" secondItem="W62-M8-asP" secondAttribute="trailingMargin" id="ZPo-AT-giG"/>
+                            <constraint firstItem="z5V-1j-rTc" firstAttribute="leading" secondItem="W62-M8-asP" secondAttribute="leadingMargin" id="bJC-SM-86K"/>
+                            <constraint firstItem="kCM-BA-9m4" firstAttribute="trailing" secondItem="W62-M8-asP" secondAttribute="trailingMargin" id="hBr-hI-1Le"/>
+                            <constraint firstItem="z5V-1j-rTc" firstAttribute="top" secondItem="kCM-BA-9m4" secondAttribute="bottom" constant="8" id="pOb-RT-ntN"/>
+                            <constraint firstItem="4qa-7G-9ql" firstAttribute="leading" secondItem="W62-M8-asP" secondAttribute="leadingMargin" id="s8O-5v-uQr"/>
+                            <constraint firstItem="Vlx-y9-xfK" firstAttribute="top" secondItem="z5V-1j-rTc" secondAttribute="bottom" constant="8" id="vNg-yF-zIW"/>
+                            <constraint firstItem="7dA-Ce-Wv3" firstAttribute="top" secondItem="Vlx-y9-xfK" secondAttribute="bottom" constant="20" id="vlx-9d-hku"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="お問い合わせ" id="efg-8s-T3O"/>
+                    <connections>
+                        <outlet property="textView" destination="z5V-1j-rTc" id="XJq-3M-zn4"/>
+                        <outlet property="webView" destination="kCM-BA-9m4" id="gMD-Cg-O5j"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZRk-mS-Zjz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1111" y="1900"/>
         </scene>
         <!--乗車バス停入力-->
         <scene sceneID="ufC-wZ-h7g">
@@ -140,7 +249,6 @@
                             </label>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CpQ-qm-i8C">
                                 <rect key="frame" x="20" y="200" width="560" height="30"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="TBN-Gn-Uzm"/>
                                 </constraints>

@@ -18,7 +18,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
+-(void)viewDidLayoutSubviews{
+    self.crashReportButton.layer.cornerRadius = self.crashReportButton.frame.size.height / 4;
+    self.crashReportButton.clipsToBounds = YES;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

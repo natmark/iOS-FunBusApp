@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SettingViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UIButton *crashReportButton;
 
 @end

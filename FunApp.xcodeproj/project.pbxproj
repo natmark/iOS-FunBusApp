@@ -35,6 +35,7 @@
 		F772174A1C5B68BD002714B3 /* ShowPassingTimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F77217481C5B68BD002714B3 /* ShowPassingTimeViewController.xib */; };
 		F772174E1C5B701C002714B3 /* PassingTimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F772174C1C5B701C002714B3 /* PassingTimeTableViewCell.m */; };
 		F772174F1C5B701C002714B3 /* PassingTimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F772174D1C5B701C002714B3 /* PassingTimeTableViewCell.xib */; };
+		F77217911C5C4AF7002714B3 /* InquiryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77217901C5C4AF7002714B3 /* InquiryViewController.m */; };
 		F773ADA41C267BE90071EA77 /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F7E211BC1B3E8FF90035AF3A /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F7C625871BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
 		F7C625881BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
@@ -126,6 +127,8 @@
 		F772174B1C5B701C002714B3 /* PassingTimeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassingTimeTableViewCell.h; sourceTree = "<group>"; };
 		F772174C1C5B701C002714B3 /* PassingTimeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassingTimeTableViewCell.m; sourceTree = "<group>"; };
 		F772174D1C5B701C002714B3 /* PassingTimeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PassingTimeTableViewCell.xib; sourceTree = "<group>"; };
+		F772178F1C5C4AF7002714B3 /* InquiryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InquiryViewController.h; sourceTree = "<group>"; };
+		F77217901C5C4AF7002714B3 /* InquiryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InquiryViewController.m; sourceTree = "<group>"; };
 		F7C625831BF2F6E60016C86D /* bus_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bus_data.plist; sourceTree = "<group>"; };
 		F7E2118F1B3E8E2E0035AF3A /* FunApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7E211931B3E8E2F0035AF3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -243,6 +246,8 @@
 				F71EC3361BF8210E000F9F1F /* NoConnectionView.m */,
 				F7193A161C081D2B00819FF9 /* ConnectionView.h */,
 				F7193A171C081D2B00819FF9 /* ConnectionView.m */,
+				F772178F1C5C4AF7002714B3 /* InquiryViewController.h */,
+				F77217901C5C4AF7002714B3 /* InquiryViewController.m */,
 				F7E2119F1B3E8E2F0035AF3A /* Images.xcassets */,
 				F7E211A11B3E8E2F0035AF3A /* LaunchScreen.xib */,
 				F7687E981C533C9A006968A7 /* pin.png */,
@@ -485,6 +490,7 @@
 				F7687E901C52CD07006968A7 /* HistoryViewController.m in Sources */,
 				F701CBA11C52700B00AC51D7 /* SelectViaViewController.m in Sources */,
 				F71EC3371BF8210E000F9F1F /* NoConnectionView.m in Sources */,
+				F77217911C5C4AF7002714B3 /* InquiryViewController.m in Sources */,
 				F701CB9D1C51C6FC00AC51D7 /* RouteSearchManager.m in Sources */,
 				F7687E8D1C52CCCE006968A7 /* BusTabBarViewController.m in Sources */,
 				F7E211951B3E8E2F0035AF3A /* main.m in Sources */,
