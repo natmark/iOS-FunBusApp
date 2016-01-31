@@ -118,6 +118,23 @@
     //削除
     return  UITableViewCellEditingStyleDelete;
 }
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+-(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+    if(fromIndexPath.section == toIndexPath.section) { // 移動元と移動先は同じセクションです。
+        if(arrayList && toIndexPath.row < [arrayList count]) {
+            id item = [arrayList objectAtIndex:fromIndexPath.row]; // 移動対象を保持します。
+            NSMutableArray* arr = [arrayList mutableCopy];
+            [arr removeObject:item]; // 配列から一度消します。
+            [arr insertObject:item atIndex:toIndexPath.row]; // 保持しておいた対象を挿入します。
+            arrayList = [[NSArray alloc]initWithArray:arr];
+            NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:[[arrayList reverseObjectEnumerator]allObjects] forKey:@"Favorite"];
+            
+        }
+    }
+}
 -(void)setEditing:(BOOL)editing animated:(BOOL)animated{
     [super setEditing:editing animated:animated];
     [self.tableView setEditing:editing animated:YES];
