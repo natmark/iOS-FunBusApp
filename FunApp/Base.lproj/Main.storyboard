@@ -145,7 +145,7 @@
         <!--乗車バス停入力-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="InputGetOnBusStopViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InputGetOnBusStopViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vXZ-lx-hvc" customClass="InputGetOnBusStopViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -242,7 +242,7 @@
         <!--降車バス停検索-->
         <scene sceneID="78K-TB-8ys">
             <objects>
-                <viewController id="7a3-Xi-qYA" customClass="InputGetOffBusStopViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InputGetOffBusStopViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7a3-Xi-qYA" customClass="InputGetOffBusStopViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KpN-0Z-5N6"/>
                         <viewControllerLayoutGuide type="bottom" id="Uzf-gl-7Qt"/>
@@ -772,6 +772,6 @@
         <image name="settingIcon" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="HbZ-XA-OKQ"/>
+        <segue reference="F8f-eO-iFC"/>
     </inferredMetricsTieBreakers>
 </document>

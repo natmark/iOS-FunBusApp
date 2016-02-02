@@ -20,6 +20,10 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     arrayList = [NSArray arrayWithObjects:@"My路線の設定",@"クラッシュレポート・お問い合わせ",nil];
+    InputGetOnBusStopViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"InputGetOnBusStopViewController"];
+    
+    transitionList = [NSArray arrayWithObjects:controller,controller, nil];
+    
 }
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -28,6 +32,7 @@
 // Cell が選択された時
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath*) indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.navigationController pushViewController:[transitionList objectAtIndex:indexPath.row] animated:YES];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

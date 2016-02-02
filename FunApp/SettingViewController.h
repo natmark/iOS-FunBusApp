@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "InputGetOnBusStopViewController.h"
 @interface SettingViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
     NSArray* arrayList;
+    NSArray* transitionList;
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
