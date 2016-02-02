@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingViewController : UIViewController
+@interface SettingViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
+    NSArray* arrayList;
+}
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end

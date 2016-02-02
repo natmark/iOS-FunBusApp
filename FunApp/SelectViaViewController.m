@@ -63,6 +63,8 @@
 }
 // Cell が選択された時
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath*) indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES]; // 選択状態の解除
+
     NSLog(@"%d",(int)indexPath.row);
     [BusSearchManager sharedManager].viaBusStop = [arrayList objectAtIndex:(int)indexPath.row];
     
