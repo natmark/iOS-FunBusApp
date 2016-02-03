@@ -129,6 +129,7 @@
     [sender resignFirstResponder];
     
     searchArray = [[BusSearchManager sharedManager]busSearch:sender.text];
+    self.busStopLabel.hidden = true;
     
     if([searchArray count] != 0){
         [indicator startAnimating];
@@ -159,6 +160,7 @@
     }else{
         self.webView.hidden = true;
         self.busStopLabel.text = @"検索結果がありません。";
+        self.busStopLabel.hidden = false;
         self.label1.hidden = true;
         self.searchButton.hidden = true;
     }
