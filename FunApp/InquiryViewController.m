@@ -22,6 +22,8 @@
     self.textView.layer.borderColor = [[UIColor grayColor]CGColor];
     self.textView.layer.borderWidth = 1.0;
     self.textView.delegate = self;
+    self.textView.inputAccessoryView = [self getAccessoryView];
+    
     self.webView.delegate = self;
     self.webView.hidden = true;
     
@@ -29,7 +31,7 @@
     UIDevice *device = [UIDevice currentDevice];
     NSLog(@"HWModel: %@", device.model);
     
-    NSString *body = @"＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝\n※件名と以下の情報は変更しないで下さい。\n";
+    NSString *body = @"＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝\n※以下の情報は変更しないで下さい。\n";
     
     body = [body stringByAppendingFormat:@"Device=%@\n",device.model];
     
@@ -44,18 +46,10 @@
     
     body = [body stringByAppendingFormat:@"SystemVer=%@\n",[[UIDevice currentDevice] systemVersion]];
     body = [body stringByAppendingFormat:@"AppVer=%@\n",[[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey]];
-    
-    NSUUID *uuid = [NSUUID UUID];
-    //このようにすることで、UUID を自動的に生成できます。
-    // インスタンスが保持している UUID の値を文字列で取得します。
-    NSString *string = uuid.UUIDString;
-    
-    body = [body stringByAppendingFormat:@"UserID=%@\n",string];
-    body = [body stringByAppendingString:@"＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝"];
-    
-    NSLog(@"%@",body);
 
-    self.textView.text = [NSString stringWithFormat:@"%@\n\n\n%@",subject,body];
+    body = [body stringByAppendingString:@"＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝"];
+
+    self.textView.text = [NSString stringWithFormat:@"%@\n\n\n\n\n\n%@",subject,body];
     
     searchArray = [NSArray arrayWithObjects:@"バグ報告:ホーム画面",@"バグ報告:バス停入力画面",@"バグ報告:経由選択画面",@"バグ報告:検索結果画面",@"バグ報告:地図表示画面",@"バグ報告:通過時間表示画面",@"バグ報告:ブックマーク画面",@"バグ報告:履歴画面",@"バグ報告:設定画面",@"バグ報告:その他",@"操作方法",@"その他",nil];
     
@@ -84,6 +78,26 @@
         
     }
 
+}
+- (UIView *)getAccessoryView
+{
+    UIView *accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 280.0f, 40.0f)];
+    accessoryView.backgroundColor = [UIColor whiteColor];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button.frame = CGRectMake(250.0f, 5.0f, 65.0f, 34.0f);
+    [button setTitle:@"閉じる" forState:UIControlStateNormal];
+    
+    // ボタンを押した時のイベント
+    [button addTarget:self action:@selector(closeKeyboard:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // View にボタン追加
+    [accessoryView addSubview:button];
+    
+    return accessoryView;
+}
+-(void)closeKeyboard:(UIButton*)sender{
+    [self.textView resignFirstResponder];
 }
 #pragma mark webViewが読み込み終わったとき
 -(void)webViewDidFinishLoad:(UIWebView *)webView{

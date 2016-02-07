@@ -167,7 +167,6 @@ typedef enum
      connectionView.destinationLabel1.text = [NSString stringWithFormat:@"%@ 行き",[info objectForKey:@"firstDestination"]];
      connectionView.detailLabel1.text = [info objectForKey:@"firstDetail"];
      connectionView.arrivalLabel1.text = [info objectForKey:@"firstArraivalTime"];
-
      */
     if((RouteType)[[dataDictionary objectForKey:@"type"]intValue] == RouteTypeComplex){
         NSString* setText = [NSString stringWithFormat:@"%@(%@)→%@(%@)\n%@\n\n%@(%@)→%@(%@)\n%@\n\n#はこバス",connectionView.getOnLabel1.text,connectionView.departureLabel1.text,connectionView.getOffLabel1.text,connectionView.arrivalLabel1.text, [connectionView.detailLabel1.text stringByReplacingOccurrencesOfString:@"*****" withString:@"遅延情報はありません。"],connectionView.getOnLabel2.text,connectionView.departureLabel2.text,connectionView.getOffLabel2.text,connectionView.arrivalLabel2.text,[connectionView.detailLabel2.text stringByReplacingOccurrencesOfString:@"*****" withString:@"遅延情報はありません。"]];
@@ -176,6 +175,18 @@ typedef enum
         SLComposeViewController* composeController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
         
         [composeController setInitialText:setText]; //コメントのセット
+       
+        UIWindow* window = [[UIApplication sharedApplication] keyWindow];
+        UIGraphicsBeginImageContextWithOptions(window.bounds.size, NO, 0);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        for (UIWindow* win in [[UIApplication sharedApplication] windows]) {
+            [win.layer renderInContext:context];
+        }
+        
+        UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+
+        [composeController addImage:image]; //写真のセット
         
         //投稿が完了したかの確認
         [composeController setCompletionHandler:^(SLComposeViewControllerResult result) {
@@ -199,7 +210,18 @@ typedef enum
         SLComposeViewController* composeController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
         
         [composeController setInitialText:setText]; //コメントのセット
+        UIWindow* window = [[UIApplication sharedApplication] keyWindow];
+        UIGraphicsBeginImageContextWithOptions(window.bounds.size, NO, 0);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        for (UIWindow* win in [[UIApplication sharedApplication] windows]) {
+            [win.layer renderInContext:context];
+        }
         
+        UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        [composeController addImage:image]; //写真のセット
+
         //投稿が完了したかの確認
         [composeController setCompletionHandler:^(SLComposeViewControllerResult result) {
             if (result == SLComposeViewControllerResultCancelled) {

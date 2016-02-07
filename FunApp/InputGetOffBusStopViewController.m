@@ -45,14 +45,18 @@
         [indicator startAnimating];
         indicator.hidden = false;
         [[BusSearchManager sharedManager]isExistRouteWithGetOn:[[[BusSearchManager sharedManager].GetOnBusStop objectForKey:@"code"]intValue] getOff:[[[BusSearchManager sharedManager].GetOffBusStop objectForKey:@"code"]intValue] completionHandler:^(BOOL flg,NSError *error){
-            [indicator stopAnimating];
-            indicator.hidden = true;
             
             if(error){
+                [indicator stopAnimating];
+                indicator.hidden = true;
+                
                 SearchRouteViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchRouteViewController"];
                 [self.navigationController pushViewController:viewController animated:YES];
             }else{
                 if(flg){
+                    [indicator stopAnimating];
+                    indicator.hidden = true;
+                    
                     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
                     // NSArrayの保存
                     NSMutableArray* array = [NSMutableArray array];
@@ -75,9 +79,42 @@
                     SearchRouteViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchRouteViewController"];
                     [self.navigationController pushViewController:viewController animated:YES];
                 }else{
-                    SelectViaViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectViaViewController"];
-                    [self.navigationController pushViewController:viewController animated:YES];
-                    
+                    [[RouteSearchManager sharedManager]getViaListWithGetOn:[BusSearchManager sharedManager].GetOnBusStop getOff:[BusSearchManager sharedManager].GetOffBusStop completionHandler:^(NSArray *arrayList,NSError *error){
+                        [indicator stopAnimating];
+                        indicator.hidden = true;
+                        
+                        if(error){
+                            SearchRouteViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchRouteViewController"];
+                            [self.navigationController pushViewController:viewController animated:YES];
+                        }else{
+                            if([arrayList count] == 0){
+                                NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+                                // NSArrayの保存
+                                NSMutableArray* array = [NSMutableArray array];
+                                array = [[defaults objectForKey:@"History"]mutableCopy];
+                                if(!array){
+                                    array = [NSMutableArray array];
+                                }
+                                NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:[BusSearchManager sharedManager].GetOffBusStop,@"getOff",[BusSearchManager sharedManager].GetOnBusStop,@"getOn",nil];
+                                
+                                NSDictionary* dict = [[NSDictionary alloc]initWithObjectsAndKeys:[NSNumber numberWithInt:RouteTypeSimple],@"type",data,@"data",nil];
+                                
+                                [array addObject:dict];
+                                if([array count] > 100){
+                                    [array removeObject:[array firstObject]];
+                                }
+                                [defaults setObject:array forKey:@"History"];
+                                
+                                
+                                SearchRouteViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchRouteViewController"];
+                                [self.navigationController pushViewController:viewController animated:YES];
+                                
+                            }else{
+                                SelectViaViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectViaViewController"];
+                                [self.navigationController pushViewController:viewController animated:YES];
+                            }
+                        }
+                    }];
                 }
             }
         }];
@@ -92,6 +129,7 @@
     [sender resignFirstResponder];
     
     searchArray = [[BusSearchManager sharedManager]busSearch:sender.text];
+    self.busStopLabel.hidden = true;
     
     if([searchArray count] != 0){
         [indicator startAnimating];
@@ -122,6 +160,7 @@
     }else{
         self.webView.hidden = true;
         self.busStopLabel.text = @"検索結果がありません。";
+        self.busStopLabel.hidden = false;
         self.label1.hidden = true;
         self.searchButton.hidden = true;
     }

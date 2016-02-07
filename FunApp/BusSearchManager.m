@@ -44,7 +44,33 @@ static BusSearchManager *sharedData_ = nil;
             [getArray addObject:dict];
         }
     }
+    getArray = [self arraySort:getArray];
     return getArray;
+}
+#pragma mark バス検索配列のソート
+-(NSMutableArray*)arraySort:(NSArray*)arr{
+    /*
+     ・函館駅前 id:3 code:3
+     ・五稜郭 id:144 code:149
+     ・湯倉神社前 id:454 code:465
+     ・テーオーデパート前 id:357 code:363
+     ・ガス会社前 id:7 code:7
+     ・深堀町 id:361 code:367
+     ・花園町 id:450 code:461
+     ・亀田支所前 id:150 code:155
+     */
+    NSMutableArray* candidateArray = [arr mutableCopy];
+    
+    int id_list[8] = {3,144,454,357,7,361,450,150};
+    
+    for(int i = 0;i < 8;i++){
+        NSDictionary* dict = [[BusSearchManager sharedManager]getBusInfo:id_list[i]];
+        if([candidateArray containsObject:dict]){
+            [candidateArray removeObject:dict];
+            [candidateArray insertObject:dict atIndex:0];
+        }
+    }
+    return candidateArray;
 }
 
 #pragma mark バス情報返信関数

@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface SettingViewController : UIViewController
-@property (strong, nonatomic) IBOutlet UIButton *crashReportButton;
-
+#import "InputGetOnBusStopViewController.h"
+#import "InquiryViewController.h"
+@interface SettingViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
+    NSArray* arrayList;
+    NSArray* transitionList;
+}
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @end
