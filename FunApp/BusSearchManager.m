@@ -37,11 +37,18 @@ static BusSearchManager *sharedData_ = nil;
 #pragma mark バス検索関数
 -(NSArray*)busSearch:(NSString *)str{
     NSMutableArray* getArray = [NSMutableArray new];
-    
+    int priority_counter = 0;
     for(NSDictionary* dict in busInfo){
         NSRange found = [[dict objectForKey:@"name"] rangeOfString:str];
+        
         if((int)found.location != -1){
-            [getArray addObject:dict];
+            if((int)found.location == 0){
+                //前方一致を優先表示&plistの順番優先
+                [getArray insertObject:dict atIndex:priority_counter];
+                priority_counter++;
+            }else if((int)found.location > 0){
+                [getArray addObject:dict];
+            }
         }
     }
     getArray = [self arraySort:getArray];
@@ -59,6 +66,7 @@ static BusSearchManager *sharedData_ = nil;
      ・花園町 id:450 code:461
      ・亀田支所前 id:150 code:155
      */
+    //乗り換えバス停を優先表示
     NSMutableArray* candidateArray = [arr mutableCopy];
     
     int id_list[8] = {3,144,454,357,7,361,450,150};
