@@ -25,6 +25,8 @@
     self.textView.inputAccessoryView = [self getAccessoryView];
     
     self.webView.delegate = self;
+}
+-(void)viewWillAppear:(BOOL)animated{
     self.webView.hidden = true;
     
     NSString *subject = @"■お問い合わせ「はこバス」に関して(以下に本文を記入してください。操作方法等の返信を希望する場合、メールアドレスを追記してください。)";
@@ -46,9 +48,9 @@
     
     body = [body stringByAppendingFormat:@"SystemVer=%@\n",[[UIDevice currentDevice] systemVersion]];
     body = [body stringByAppendingFormat:@"AppVer=%@\n",[[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey]];
-
+    
     body = [body stringByAppendingString:@"＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝"];
-
+    
     self.textView.text = [NSString stringWithFormat:@"%@\n\n\n\n\n\n%@",subject,body];
     
     searchArray = [NSArray arrayWithObjects:@"バグ報告:ホーム画面",@"バグ報告:バス停入力画面",@"バグ報告:経由選択画面",@"バグ報告:検索結果画面",@"バグ報告:地図表示画面",@"バグ報告:通過時間表示画面",@"バグ報告:ブックマーク画面",@"バグ報告:履歴画面",@"バグ報告:設定画面",@"バグ報告:その他",@"操作方法",@"その他",nil];
@@ -77,7 +79,6 @@
         [self.webView loadHTMLString:html baseURL:[[NSBundle mainBundle] resourceURL]];
         
     }
-
 }
 - (UIView *)getAccessoryView
 {
