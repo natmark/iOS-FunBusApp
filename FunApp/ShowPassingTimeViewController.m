@@ -20,7 +20,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([PassingTimeTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"PassingTimeTableViewCell"];
 
     arrayList = [NSArray array];
-    
+
     // Do any additional setup after loading the view from its nib.
     if((RouteType)[[self.data objectForKey:@"type"]intValue] == RouteTypeComplex){
         NSString* firstURL = [[self.data objectForKey:@"data"]objectForKey:@"url1"];
@@ -39,20 +39,24 @@
             }
             int getOnIndex = 0;
             int viaIndex1 = 0;
+            BOOL getOnFlg = NO;
+            BOOL viaFlg = NO;
             
             for(int i = 0;i < [array count];i++){
                 NSDictionary* dict = [array objectAtIndex:i];
-                if([[dict objectForKey:@"name"] isEqualToString:[[BusSearchManager sharedManager].GetOnBusStop objectForKey:@"name"]]
+                if([[dict objectForKey:@"name"] isEqualToString:[[BusSearchManager sharedManager].GetOnBusStop objectForKey:@"name"]] && !getOnFlg
                    ){
                     //ここから
                     getOnIndex = i;
                     NSLog(@"%@",[dict objectForKey:@"name"]);
+                    getOnFlg=YES;
                 }
-                if([[dict objectForKey:@"name"] isEqualToString:[[BusSearchManager sharedManager].viaBusStop objectForKey:@"name"]]
+                if([[dict objectForKey:@"name"] isEqualToString:[[BusSearchManager sharedManager].viaBusStop objectForKey:@"name"]] && !viaFlg
                    ){
                     NSLog(@"%@",[dict objectForKey:@"name"]);
                     //ここまで
                     viaIndex1 = i;
+                    viaFlg = YES;
                 }
             }
             NSIndexSet *indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(getOnIndex, viaIndex1 - getOnIndex + 1)];
@@ -161,6 +165,18 @@
     }
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 30.0;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UILabel *label = [UILabel new];
+    label.font = [UIFont systemFontOfSize:13.0];
+    label.backgroundColor = [UIColor colorWithRed:184/255.0 green:29/255.0 blue:31/255.0 alpha:1.0];
+    label.textColor = [UIColor whiteColor];
+    label.text = [NSString stringWithFormat:@"表示されている通過時間には遅延時間を含めています"];
+    label.textAlignment = NSTextAlignmentCenter;
+    return label;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
