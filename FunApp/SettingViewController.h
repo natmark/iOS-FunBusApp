@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "InputGetOnBusStopViewController.h"
 #import "InquiryViewController.h"
+#import "MyRouteViewController.h"
 @interface SettingViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
     NSArray* arrayList;
     NSArray* transitionList;

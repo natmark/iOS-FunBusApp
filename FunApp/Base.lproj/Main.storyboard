@@ -138,6 +138,7 @@
                     <connections>
                         <outlet property="tableView" destination="uq8-E3-mUg" id="Vg5-Ie-Pzd"/>
                         <segue destination="E7C-4h-fSE" kind="push" id="ZKv-8W-1Zj"/>
+                        <segue destination="oT0-Dg-66k" kind="push" id="U0m-Rh-5my"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bZv-kM-51n" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -228,6 +229,102 @@
             </objects>
             <point key="canvasLocation" x="-1111" y="1900"/>
         </scene>
+        <!--My路線の設定-->
+        <scene sceneID="yE9-gW-9nD">
+            <objects>
+                <viewController storyboardIdentifier="MyRouteViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="oT0-Dg-66k" customClass="MyRouteViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="I3V-2Z-njS"/>
+                        <viewControllerLayoutGuide type="bottom" id="E21-2Q-ssJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tig-6F-O0M">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="バス停名を入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="In3-bM-Krz">
+                                <rect key="frame" x="20" y="142" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="乗車バス停" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eup-Le-v77">
+                                <rect key="frame" x="20" y="104" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PWV-kw-OKR">
+                                <rect key="frame" x="20" y="180" width="560" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Gjj-tg-e85"/>
+                                </constraints>
+                            </webView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="バス停名を入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GzV-IN-oW2">
+                                <rect key="frame" x="20" y="288" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="降車バス停" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydb-Fa-TaB">
+                                <rect key="frame" x="20" y="250" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6H1-ax-ORN">
+                                <rect key="frame" x="20" y="326" width="560" height="30"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ZYW-EV-Wxa"/>
+                                </constraints>
+                            </webView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sRi-id-hP6">
+                                <rect key="frame" x="20" y="491" width="560" height="40"/>
+                                <color key="backgroundColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="p0E-tx-G8k"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="確定">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eup-Le-v77" firstAttribute="top" secondItem="I3V-2Z-njS" secondAttribute="bottom" constant="40" id="0V4-jB-MH8"/>
+                            <constraint firstItem="E21-2Q-ssJ" firstAttribute="top" secondItem="sRi-id-hP6" secondAttribute="bottom" constant="20" id="1Kv-zL-b4t"/>
+                            <constraint firstItem="Ydb-Fa-TaB" firstAttribute="top" secondItem="PWV-kw-OKR" secondAttribute="bottom" constant="40" id="2I3-aw-3GT"/>
+                            <constraint firstItem="PWV-kw-OKR" firstAttribute="trailing" secondItem="tig-6F-O0M" secondAttribute="trailingMargin" id="2cb-nJ-QZT"/>
+                            <constraint firstItem="Ydb-Fa-TaB" firstAttribute="leading" secondItem="tig-6F-O0M" secondAttribute="leadingMargin" id="5Ac-NR-BUd"/>
+                            <constraint firstItem="In3-bM-Krz" firstAttribute="trailing" secondItem="tig-6F-O0M" secondAttribute="trailingMargin" id="AOk-85-s1l"/>
+                            <constraint firstItem="GzV-IN-oW2" firstAttribute="leading" secondItem="tig-6F-O0M" secondAttribute="leadingMargin" id="Bhz-B6-W8G"/>
+                            <constraint firstItem="Ydb-Fa-TaB" firstAttribute="trailing" secondItem="tig-6F-O0M" secondAttribute="trailingMargin" id="FyH-X0-U3f"/>
+                            <constraint firstItem="eup-Le-v77" firstAttribute="leading" secondItem="tig-6F-O0M" secondAttribute="leadingMargin" id="GCk-mr-8zs"/>
+                            <constraint firstItem="6H1-ax-ORN" firstAttribute="trailing" secondItem="tig-6F-O0M" secondAttribute="trailingMargin" id="IaF-hU-zH0"/>
+                            <constraint firstItem="GzV-IN-oW2" firstAttribute="top" secondItem="Ydb-Fa-TaB" secondAttribute="bottom" constant="8" id="KJU-mo-psS"/>
+                            <constraint firstItem="6H1-ax-ORN" firstAttribute="top" secondItem="GzV-IN-oW2" secondAttribute="bottom" constant="8" id="MyY-PM-gxm"/>
+                            <constraint firstItem="GzV-IN-oW2" firstAttribute="trailing" secondItem="tig-6F-O0M" secondAttribute="trailingMargin" id="cqZ-i2-E9p"/>
+                            <constraint firstItem="In3-bM-Krz" firstAttribute="leading" secondItem="tig-6F-O0M" secondAttribute="leadingMargin" id="gY6-Ke-RKk"/>
+                            <constraint firstItem="sRi-id-hP6" firstAttribute="leading" secondItem="tig-6F-O0M" secondAttribute="leadingMargin" id="j6j-0c-4Fy"/>
+                            <constraint firstItem="In3-bM-Krz" firstAttribute="top" secondItem="eup-Le-v77" secondAttribute="bottom" constant="8" id="jec-vD-Msk"/>
+                            <constraint firstItem="PWV-kw-OKR" firstAttribute="leading" secondItem="tig-6F-O0M" secondAttribute="leadingMargin" id="pd5-Si-0u6"/>
+                            <constraint firstItem="eup-Le-v77" firstAttribute="trailing" secondItem="tig-6F-O0M" secondAttribute="trailingMargin" id="rOC-uI-478"/>
+                            <constraint firstItem="sRi-id-hP6" firstAttribute="trailing" secondItem="tig-6F-O0M" secondAttribute="trailingMargin" id="rYd-0o-Nk5"/>
+                            <constraint firstItem="6H1-ax-ORN" firstAttribute="leading" secondItem="tig-6F-O0M" secondAttribute="leadingMargin" id="s0A-lb-qr8"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="sRi-id-hP6" secondAttribute="bottom" constant="20" id="ttJ-pf-y4x"/>
+                            <constraint firstItem="PWV-kw-OKR" firstAttribute="top" secondItem="In3-bM-Krz" secondAttribute="bottom" constant="8" id="vKc-8u-mpP"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ttJ-pf-y4x"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="My路線の設定" id="vxH-j5-meV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iJT-yt-w21" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1111" y="2650"/>
+        </scene>
         <!--乗車バス停入力-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -272,8 +369,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6g-ks-g6Y">
-                                <rect key="frame" x="20" y="540" width="560" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6g-ks-g6Y">
+                                <rect key="frame" x="20" y="491" width="560" height="40"/>
                                 <color key="backgroundColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="OrR-gQ-nWe"/>
@@ -369,8 +466,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R2-Oe-boT">
-                                <rect key="frame" x="20" y="540" width="560" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R2-Oe-boT">
+                                <rect key="frame" x="20" y="491" width="560" height="40"/>
                                 <color key="backgroundColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Ie5-hH-HKd"/>

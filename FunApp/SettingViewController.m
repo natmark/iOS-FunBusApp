@@ -20,7 +20,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     arrayList = [NSArray arrayWithObjects:@"My路線の設定",@"クラッシュレポート・お問い合わせ",@"乗り継ぎ間隔の設定",nil];
-    InputGetOnBusStopViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"InputGetOnBusStopViewController"];
+    MyRouteViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"MyRouteViewController"];
 
     InquiryViewController *controller2 = [self.storyboard instantiateViewControllerWithIdentifier:@"InquiryViewController"];
     
