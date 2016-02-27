@@ -14,6 +14,10 @@
 #import "ShowMapViewController.h"
 #import "ShowPassingTimeViewController.h"
 #import <Social/Social.h>
+
+//乗り継ぎ時間
+#define CONNECTION_TIME 0
+
 @interface SearchRouteViewController : UIViewController{
     UILabel *errorLabel;
     UIActivityIndicatorView* indicator;

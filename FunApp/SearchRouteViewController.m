@@ -20,7 +20,6 @@ typedef enum
     MapButtonTagConnection1,
     MapButtonTagConnection2
 } MapButtonTag;
-
 #pragma mark TODO-LIST
 //TODO:バスの情報を、アプリを落としても確認できるクリップボード機能(検索結果画面・メイン画面(できればガジェットも)からコピー、保存したバス情報から確認)
 //TODO:登録した路線(上下線)の直近情報を、アプリを開いて&ガジェットですぐ確認できる機能
@@ -472,7 +471,7 @@ typedef enum
                     int cnt = 0;//カウンタ
                     for(NSDictionary* viaDict in secondArray){
                         NSDictionary* timeDic2 = [self strTimeToCalculableValueWithString:[viaDict objectForKey:@"time"]];
-                        if(([[timeDic objectForKey:@"hour"]intValue] * 60 + [[timeDic objectForKey:@"min"]intValue]) > ([[timeDic2 objectForKey:@"hour"]intValue] * 60 + [[timeDic2 objectForKey:@"min"]intValue])){
+                        if(([[timeDic objectForKey:@"hour"]intValue] * 60 + [[timeDic objectForKey:@"min"]intValue]) + CONNECTION_TIME > ([[timeDic2 objectForKey:@"hour"]intValue] * 60 + [[timeDic2 objectForKey:@"min"]intValue])){
                             cnt++;
                         }
                     }
@@ -593,7 +592,7 @@ typedef enum
                                                 int cnt2 = 0;//カウンタ
                                                 for(NSDictionary* viaDict2 in secondArray){
                                                     NSDictionary* timeDic4 = [self strTimeToCalculableValueWithString:[viaDict2 objectForKey:@"time"]];
-                                                    if(([[timeDic3 objectForKey:@"hour"]intValue] * 60 + [[timeDic3 objectForKey:@"min"]intValue]) > ([[timeDic4 objectForKey:@"hour"]intValue] * 60 + [[timeDic4 objectForKey:@"min"]intValue])){
+                                                    if(([[timeDic3 objectForKey:@"hour"]intValue] * 60 + [[timeDic3 objectForKey:@"min"]intValue]) + CONNECTION_TIME > ([[timeDic4 objectForKey:@"hour"]intValue] * 60 + [[timeDic4 objectForKey:@"min"]intValue])){
                                                         cnt2++;
                                                     }
                                                 }
