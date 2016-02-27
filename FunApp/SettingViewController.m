@@ -19,11 +19,14 @@
     // Do any additional setup after loading the view.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    arrayList = [NSArray arrayWithObjects:@"My路線の設定",@"クラッシュレポート・お問い合わせ",nil];
+    arrayList = [NSArray arrayWithObjects:@"My路線の設定",@"クラッシュレポート・お問い合わせ",@"乗り継ぎ間隔の設定",nil];
     InputGetOnBusStopViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"InputGetOnBusStopViewController"];
 
     InquiryViewController *controller2 = [self.storyboard instantiateViewControllerWithIdentifier:@"InquiryViewController"];
-    transitionList = [NSArray arrayWithObjects:controller,controller2, nil];
+    
+    InputGetOnBusStopViewController *controller3 = [self.storyboard instantiateViewControllerWithIdentifier:@"InputGetOnBusStopViewController"];
+    
+    transitionList = [NSArray arrayWithObjects:controller,controller2,controller3, nil];
     
 }
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
