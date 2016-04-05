@@ -185,6 +185,9 @@
                 indicator.hidden = true;
                 
                 NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+                NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:getOffBusStop,@"getOff",getOnBusStop,@"getOn",nil];
+                NSDictionary* dict = [[NSDictionary alloc]initWithObjectsAndKeys:[NSNumber numberWithInt:RouteTypeSimple],@"type",data,@"data",nil];
+                [defaults setObject:dict forKey:@"MyRoute"];
                 
                 //乗り換え無し
                 UIAlertView *alert =
@@ -230,8 +233,17 @@
 
                         }else{
                             //乗り継ぎ検索
+                            //SelectViaを開いてtypeComplexでMyRoute保存
+                            //この画面上で経由を表示できるようにしておく必要がある。
+                            /*
+                            NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+                            NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:getOffBusStop,@"getOff",getOnBusStop,@"getOn",nil];
+                            NSDictionary* dict = [[NSDictionary alloc]initWithObjectsAndKeys:[NSNumber numberWithInt:RouteTypeSimple],@"type",data,@"data",nil];
+                            [defaults setObject:dict forKey:@"MyRoute"];
+                            
                             SelectViaViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectViaViewController"];
                             [self.navigationController pushViewController:viewController animated:YES];
+                         */
                         }
                     }
                 }];
