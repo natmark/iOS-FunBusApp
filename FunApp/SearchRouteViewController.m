@@ -136,6 +136,8 @@ typedef enum
     connection1PassingURL = @"";
     connection2PassingURL = @"";
 
+    CONNECTION_TIME = ([[NSUserDefaults standardUserDefaults] objectForKey:@"ConnectionInterval"])?[[[NSUserDefaults standardUserDefaults] objectForKey:@"ConnectionInterval"]intValue]:(int)0;
+    
     [self routeSearch];
 }
 #pragma mark UI部品タッチハンドラ

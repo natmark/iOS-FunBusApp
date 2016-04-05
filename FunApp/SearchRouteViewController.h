@@ -15,13 +15,11 @@
 #import "ShowPassingTimeViewController.h"
 #import <Social/Social.h>
 
-//乗り継ぎ時間
-#define CONNECTION_TIME 0
-
 @interface SearchRouteViewController : UIViewController{
     UILabel *errorLabel;
     UIActivityIndicatorView* indicator;
     int showCnt;
+    int CONNECTION_TIME;
     NoConnectionView* noConnectionView;
     ConnectionView* connectionView;
     UIButton* leftButton;

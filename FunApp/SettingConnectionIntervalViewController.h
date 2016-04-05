@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingConnectionIntervalViewController : UIViewController
+@interface SettingConnectionIntervalViewController : UIViewController<UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate>
+@property (strong, nonatomic) IBOutlet UITextField *textField;
 
 @end
