@@ -53,6 +53,8 @@
 		F7E211BF1B3E8FF90035AF3A /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E211BE1B3E8FF90035AF3A /* NotificationCenter.framework */; };
 		F7E211C51B3E8FF90035AF3A /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E211C41B3E8FF90035AF3A /* TodayViewController.m */; };
 		F7E211C71B3E8FF90035AF3A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7E211C61B3E8FF90035AF3A /* MainInterface.storyboard */; };
+		F7E2E2401CB538E300183B44 /* MyRouteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E2E23E1CB538E300183B44 /* MyRouteTableViewCell.m */; };
+		F7E2E2411CB538E300183B44 /* MyRouteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E2E23F1CB538E300183B44 /* MyRouteTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +162,9 @@
 		F7E211C31B3E8FF90035AF3A /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
 		F7E211C41B3E8FF90035AF3A /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
 		F7E211C61B3E8FF90035AF3A /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
+		F7E2E23D1CB538E300183B44 /* MyRouteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRouteTableViewCell.h; sourceTree = "<group>"; };
+		F7E2E23E1CB538E300183B44 /* MyRouteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRouteTableViewCell.m; sourceTree = "<group>"; };
+		F7E2E23F1CB538E300183B44 /* MyRouteTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyRouteTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,6 +272,9 @@
 			children = (
 				F7E211991B3E8E2F0035AF3A /* ViewController.h */,
 				F7E2119A1B3E8E2F0035AF3A /* ViewController.m */,
+				F7E2E23D1CB538E300183B44 /* MyRouteTableViewCell.h */,
+				F7E2E23E1CB538E300183B44 /* MyRouteTableViewCell.m */,
+				F7E2E23F1CB538E300183B44 /* MyRouteTableViewCell.xib */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -530,6 +538,7 @@
 				F7048C561BF3032500B2EA72 /* bus_id.plist in Resources */,
 				F7687EA21C5341A2006968A7 /* bookmark.png in Resources */,
 				F7687EA31C5341A2006968A7 /* twitter.png in Resources */,
+				F7E2E2411CB538E300183B44 /* MyRouteTableViewCell.xib in Resources */,
 				F7E211A31B3E8E2F0035AF3A /* LaunchScreen.xib in Resources */,
 				F772174A1C5B68BD002714B3 /* ShowPassingTimeViewController.xib in Resources */,
 				F7E211A01B3E8E2F0035AF3A /* Images.xcassets in Resources */,
@@ -579,6 +588,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F77217441C5B57BA002714B3 /* ShowMapViewController.m in Sources */,
+				F7E2E2401CB538E300183B44 /* MyRouteTableViewCell.m in Sources */,
 				F7687E931C52CD15006968A7 /* FavoriteViewController.m in Sources */,
 				F73B301C1C819B6900886A79 /* MyRouteViewController.m in Sources */,
 				F772174E1C5B701C002714B3 /* PassingTimeTableViewCell.m in Sources */,

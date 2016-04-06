@@ -17,7 +17,38 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    UINib *nib = [UINib nibWithNibName:@"MyRouteTableViewCell" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"MyRouteTableViewCell"];
 }
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 4;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 100;
+}
+/**
+ テーブルに表示するセルを返します。（必須）
+ 
+ @return UITableViewCell : テーブルセル
+ */
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // 再利用できるセルがあれば再利用する
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyRouteTableViewCell"];
+    
+    if (!cell) {
+        // 再利用できない場合は新規で作成
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:@"MyRouteTableViewCell"];
+    }
+    MyRouteTableViewCell* customCell = (MyRouteTableViewCell*)cell;
+    
+    return customCell;
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     NSUserDefaults * defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.io.github.natmark.FunApp"];
     NSDictionary* dict = [defaults objectForKey:@"MyRoute"];

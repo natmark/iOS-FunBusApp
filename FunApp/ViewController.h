@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "SettingViewController.h"
-@interface ViewController : UIViewController
+#import "MyRouteTableViewCell.h"
+@interface ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
+    UIView* contentView;
+}
 @property (strong, nonatomic) IBOutlet UILabel *myRouteLabel;
 @property (strong, nonatomic) IBOutlet UIButton *myRouteButton;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
