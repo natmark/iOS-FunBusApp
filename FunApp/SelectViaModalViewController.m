@@ -66,7 +66,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES]; // 選択状態の解除
     
     NSLog(@"%d",(int)indexPath.row);
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults * defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.io.github.natmark.FunApp"];
     NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:self.getOffBusStop,@"getOff",self.getOnBusStop,@"getOn",[arrayList objectAtIndex:(int)indexPath.row],@"via",nil];
     NSDictionary* dict = [[NSDictionary alloc]initWithObjectsAndKeys:[NSNumber numberWithInt:RouteTypeComplex],@"type",data,@"data",nil];
     [defaults setObject:dict forKey:@"MyRoute"];

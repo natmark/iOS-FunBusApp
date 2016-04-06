@@ -17,8 +17,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+-(void)viewWillAppear:(BOOL)animated{
+    NSUserDefaults * defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.io.github.natmark.FunApp"];
+    NSDictionary* dict = [defaults objectForKey:@"MyRoute"];
     
-    
+    if(dict){
+        //データ有り
+        self.myRouteButton.hidden = YES;
+        self.myRouteLabel.hidden = YES;
+    }else{
+        //データ無し
+        self.myRouteButton.hidden = NO;
+        self.myRouteLabel.hidden = NO;
+    }
 }
 - (IBAction)gotoSetUpMyRoute:(id)sender {
     self.navigationController.tabBarController.selectedIndex = 4;

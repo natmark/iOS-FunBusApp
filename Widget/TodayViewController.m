@@ -17,6 +17,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSUserDefaults * defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.io.github.natmark.FunApp"];
+
     // 高さ変更
     self.preferredContentSize = CGSizeMake(0, 100);
     

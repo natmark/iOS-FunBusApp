@@ -57,11 +57,8 @@
    
 }
 -(void)viewWillAppear:(BOOL)animated{
-    [self reloadData];
-}
--(void)reloadData{
     self.viaLabel.text = @"";
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults * defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.io.github.natmark.FunApp"];
     NSDictionary* dict = [defaults objectForKey:@"MyRoute"];
     
     if(dict){
@@ -208,7 +205,7 @@
                 [indicator stopAnimating];
                 indicator.hidden = true;
                 
-                NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+                NSUserDefaults * defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.io.github.natmark.FunApp"];
                 NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:getOffBusStop,@"getOff",getOnBusStop,@"getOn",nil];
                 NSDictionary* dict = [[NSDictionary alloc]initWithObjectsAndKeys:[NSNumber numberWithInt:RouteTypeSimple],@"type",data,@"data",nil];
                 [defaults setObject:dict forKey:@"MyRoute"];
