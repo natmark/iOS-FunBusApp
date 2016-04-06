@@ -54,7 +54,31 @@
     indicator.hidden = true;
     [self.view addSubview:indicator];
     /*==========================*/
+   
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [self reloadData];
+}
+-(void)reloadData{
+    self.viaLabel.text = @"";
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary* dict = [defaults objectForKey:@"MyRoute"];
     
+    if(dict){
+        if([[dict objectForKey:@"type"]intValue] == RouteTypeComplex)self.viaLabel.text = [NSString stringWithFormat:@"経由:%@",[[[dict objectForKey:@"data"]objectForKey:@"via"]objectForKey:@"name"]];
+        
+        self.getOnLabel.text = [[[dict objectForKey:@"data"]objectForKey:@"getOn"]objectForKey:@"name"];
+        self.getOnTextField.text = [[[dict objectForKey:@"data"]objectForKey:@"getOn"]objectForKey:@"name"];
+        self.getOffLabel.text = [[[dict objectForKey:@"data"]objectForKey:@"getOff"]objectForKey:@"name"];
+        self.getOffTextField.text = [[[dict objectForKey:@"data"]objectForKey:@"getOff"]objectForKey:@"name"];
+        getOnBusStop = [[dict objectForKey:@"data"]objectForKey:@"getOn"];
+        getOffBusStop = [[dict objectForKey:@"data"]objectForKey:@"getOff"];
+    }
+    if(getOnBusStop && getOffBusStop){
+        if([getOnBusStop objectForKey:@"id"] != [getOffBusStop objectForKey:@"id"]){
+            self.doneButton.hidden = NO;
+        }
+    }
 }
 // UITextFieldのキーボード上の「Return」ボタンが押された時に呼ばれる処理
 - (BOOL)textFieldShouldReturn:(UITextField *)sender {
@@ -236,6 +260,9 @@
                             //SelectViaを開いてtypeComplexでMyRoute保存
                             //この画面上で経由を表示できるようにしておく必要がある。
                             SelectViaModalViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectViaModalViewController"];
+                            viewController.getOffBusStop = getOffBusStop;
+                            viewController.getOnBusStop = getOnBusStop;
+                            
                             [self presentViewController:viewController animated:YES completion:nil];
                             
                             /*

@@ -63,11 +63,50 @@
                     <view key="view" contentMode="scaleToFill" id="LrI-qp-NDK">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBD-mF-3br">
+                                <rect key="frame" x="20" y="300" width="560" height="40"/>
+                                <color key="backgroundColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="9zs-Tb-uH4"/>
+                                    <constraint firstAttribute="height" constant="40" id="izY-bN-nIx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="MyRouteを登録する">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneSetting:" destination="oT0-Dg-66k" eventType="touchUpInside" id="Uhm-gd-FUY"/>
+                                    <action selector="gotoSetUpMyRoute:" destination="hUT-Hx-HWe" eventType="touchUpInside" id="mCi-Zl-Kmn"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyRouteを登録することで、登録したルートの直近バスを表示できるようになります" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pkt-aQ-6pz">
+                                <rect key="frame" x="20" y="228" width="560" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="6Fd-S2-IxF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pkt-aQ-6pz" firstAttribute="trailing" secondItem="LrI-qp-NDK" secondAttribute="trailingMargin" id="Bct-tF-Wyg"/>
+                            <constraint firstItem="zBD-mF-3br" firstAttribute="centerY" secondItem="LrI-qp-NDK" secondAttribute="centerY" constant="20" id="Eql-8L-YQJ"/>
+                            <constraint firstItem="zBD-mF-3br" firstAttribute="top" secondItem="pkt-aQ-6pz" secondAttribute="bottom" constant="8" id="JpM-bN-TCh"/>
+                            <constraint firstItem="zBD-mF-3br" firstAttribute="leading" secondItem="LrI-qp-NDK" secondAttribute="leadingMargin" id="Z5A-V5-zUx"/>
+                            <constraint firstItem="zBD-mF-3br" firstAttribute="trailing" secondItem="LrI-qp-NDK" secondAttribute="trailingMargin" id="hDh-3z-CMJ"/>
+                            <constraint firstItem="pkt-aQ-6pz" firstAttribute="leading" secondItem="LrI-qp-NDK" secondAttribute="leadingMargin" id="yPz-MX-aDG"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="はこバス" id="pGr-EV-0uC">
                         <barButtonItem key="backBarButtonItem" title="トップ" id="C7c-wT-v1T"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="myRouteButton" destination="zBD-mF-3br" id="QOe-yQ-jM2"/>
+                        <outlet property="myRouteLabel" destination="pkt-aQ-6pz" id="bRK-bN-0u9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bL4-XR-GyU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -242,30 +281,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="バス停名を入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="In3-bM-Krz">
-                                <rect key="frame" x="20" y="187" width="560" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="バス停１" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eup-Le-v77">
-                                <rect key="frame" x="20" y="149" width="560" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <color key="textColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PWV-kw-OKR">
-                                <rect key="frame" x="20" y="225" width="560" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Gjj-tg-e85"/>
-                                </constraints>
-                            </webView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="バス停名を入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GzV-IN-oW2">
-                                <rect key="frame" x="20" y="333" width="560" height="30"/>
+                                <rect key="frame" x="20" y="358" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="search"/>
                             </textField>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6H1-ax-ORN">
-                                <rect key="frame" x="20" y="371" width="560" height="30"/>
+                                <rect key="frame" x="20" y="396" width="560" height="30"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ZYW-EV-Wxa"/>
@@ -342,13 +364,13 @@
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="バス停2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydb-Fa-TaB">
-                                <rect key="frame" x="20" y="295" width="560" height="30"/>
+                                <rect key="frame" x="20" y="320" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDb-RU-j2k">
-                                <rect key="frame" x="0.0" y="140" width="600" height="1"/>
+                                <rect key="frame" x="0.0" y="165" width="600" height="1"/>
                                 <color key="backgroundColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="qnp-6n-P1J"/>
@@ -363,6 +385,29 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="経由:なし" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mhp-WL-RBp">
+                                <rect key="frame" x="20" y="136" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="バス停名を入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="In3-bM-Krz">
+                                <rect key="frame" x="20" y="212" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="バス停１" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eup-Le-v77">
+                                <rect key="frame" x="20" y="174" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" red="0.72156862749999995" green="0.1137254902" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PWV-kw-OKR">
+                                <rect key="frame" x="20" y="250" width="560" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Gjj-tg-e85"/>
+                                </constraints>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -382,14 +427,16 @@
                             <constraint firstItem="eup-Le-v77" firstAttribute="leading" secondItem="tig-6F-O0M" secondAttribute="leadingMargin" id="GCk-mr-8zs"/>
                             <constraint firstItem="6H1-ax-ORN" firstAttribute="trailing" secondItem="tig-6F-O0M" secondAttribute="trailingMargin" id="IaF-hU-zH0"/>
                             <constraint firstItem="jVp-3i-s63" firstAttribute="leading" secondItem="tig-6F-O0M" secondAttribute="leadingMargin" id="Itx-o3-vt1"/>
+                            <constraint firstItem="Mhp-WL-RBp" firstAttribute="leading" secondItem="tig-6F-O0M" secondAttribute="leadingMargin" id="JTg-PJ-5UQ"/>
                             <constraint firstItem="GzV-IN-oW2" firstAttribute="top" secondItem="Ydb-Fa-TaB" secondAttribute="bottom" constant="8" id="KJU-mo-psS"/>
                             <constraint firstItem="gbg-0i-8h7" firstAttribute="leading" secondItem="jfL-Zu-EG3" secondAttribute="leading" id="MCm-Nn-D0K"/>
                             <constraint firstItem="6H1-ax-ORN" firstAttribute="top" secondItem="GzV-IN-oW2" secondAttribute="bottom" constant="8" id="MyY-PM-gxm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="JDb-RU-j2k" secondAttribute="trailing" constant="-20" id="RwN-QM-azy"/>
                             <constraint firstItem="fla-d3-xH6" firstAttribute="centerY" secondItem="jVp-3i-s63" secondAttribute="bottom" id="SzO-au-rZR"/>
                             <constraint firstItem="JDb-RU-j2k" firstAttribute="leading" secondItem="tig-6F-O0M" secondAttribute="leadingMargin" constant="-20" id="Ttz-t3-hwy"/>
+                            <constraint firstItem="JDb-RU-j2k" firstAttribute="top" secondItem="Mhp-WL-RBp" secondAttribute="bottom" constant="8" id="XHl-oy-cYh"/>
                             <constraint firstItem="gbg-0i-8h7" firstAttribute="trailing" secondItem="jfL-Zu-EG3" secondAttribute="trailing" id="Xap-au-Mta"/>
-                            <constraint firstItem="JDb-RU-j2k" firstAttribute="top" secondItem="gbg-0i-8h7" secondAttribute="bottom" constant="8" id="a6t-Nv-wGt"/>
+                            <constraint firstItem="JDb-RU-j2k" firstAttribute="top" secondItem="gbg-0i-8h7" secondAttribute="bottom" constant="20" id="a6t-Nv-wGt"/>
                             <constraint firstItem="jfL-Zu-EG3" firstAttribute="bottom" secondItem="fla-d3-xH6" secondAttribute="centerY" id="ce9-fa-g4f"/>
                             <constraint firstItem="GzV-IN-oW2" firstAttribute="trailing" secondItem="tig-6F-O0M" secondAttribute="trailingMargin" id="cqZ-i2-E9p"/>
                             <constraint firstItem="In3-bM-Krz" firstAttribute="leading" secondItem="tig-6F-O0M" secondAttribute="leadingMargin" id="gY6-Ke-RKk"/>
@@ -398,6 +445,7 @@
                             <constraint firstItem="In3-bM-Krz" firstAttribute="top" secondItem="eup-Le-v77" secondAttribute="bottom" constant="8" id="jec-vD-Msk"/>
                             <constraint firstItem="gbg-0i-8h7" firstAttribute="top" secondItem="jfL-Zu-EG3" secondAttribute="bottom" id="lMb-gi-8be"/>
                             <constraint firstItem="gbg-0i-8h7" firstAttribute="leading" secondItem="fla-d3-xH6" secondAttribute="trailing" constant="8" id="n8L-W9-p8c"/>
+                            <constraint firstItem="Mhp-WL-RBp" firstAttribute="trailing" secondItem="tig-6F-O0M" secondAttribute="trailingMargin" id="nr8-PW-K7D"/>
                             <constraint firstItem="fcw-5P-JQf" firstAttribute="trailing" secondItem="jVp-3i-s63" secondAttribute="trailing" id="pIS-mY-Uho"/>
                             <constraint firstItem="PWV-kw-OKR" firstAttribute="leading" secondItem="tig-6F-O0M" secondAttribute="leadingMargin" id="pd5-Si-0u6"/>
                             <constraint firstItem="eup-Le-v77" firstAttribute="trailing" secondItem="tig-6F-O0M" secondAttribute="trailingMargin" id="rOC-uI-478"/>
@@ -408,11 +456,13 @@
                             <constraint firstAttribute="bottomMargin" secondItem="sRi-id-hP6" secondAttribute="bottom" constant="20" id="ttJ-pf-y4x"/>
                             <constraint firstItem="PWV-kw-OKR" firstAttribute="top" secondItem="In3-bM-Krz" secondAttribute="bottom" constant="8" id="vKc-8u-mpP"/>
                             <constraint firstItem="jfL-Zu-EG3" firstAttribute="top" secondItem="I3V-2Z-njS" secondAttribute="bottom" constant="8" id="wDQ-4q-eIg"/>
+                            <constraint firstItem="Mhp-WL-RBp" firstAttribute="top" secondItem="gbg-0i-8h7" secondAttribute="bottom" constant="4" id="xm3-OF-o4Y"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="0V4-jB-MH8"/>
                                 <exclude reference="9kX-9C-ZAx"/>
+                                <exclude reference="a6t-Nv-wGt"/>
                                 <exclude reference="ttJ-pf-y4x"/>
                             </mask>
                         </variation>
@@ -426,6 +476,7 @@
                         <outlet property="getOnLabel" destination="fcw-5P-JQf" id="gJt-B6-grm"/>
                         <outlet property="getOnTextField" destination="In3-bM-Krz" id="MSA-Zw-4wv"/>
                         <outlet property="getOnWebView" destination="PWV-kw-OKR" id="z1i-IF-ro0"/>
+                        <outlet property="viaLabel" destination="Mhp-WL-RBp" id="P9X-62-0xg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iJT-yt-w21" userLabel="First Responder" sceneMemberID="firstResponder"/>

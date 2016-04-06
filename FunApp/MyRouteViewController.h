@@ -23,6 +23,7 @@
     NSDictionary* getOnBusStop;
     NSDictionary* getOffBusStop;
 }
+-(void)reloadData;
 @property (strong, nonatomic) IBOutlet UITextField *getOnTextField;
 @property (strong, nonatomic) IBOutlet UITextField *getOffTextField;
 @property (strong, nonatomic) IBOutlet UIWebView *getOnWebView;
@@ -30,5 +31,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *doneButton;
 @property (strong, nonatomic) IBOutlet UILabel *getOnLabel;
 @property (strong, nonatomic) IBOutlet UILabel *getOffLabel;
+@property (strong, nonatomic) IBOutlet UILabel *viaLabel;
 
 @end

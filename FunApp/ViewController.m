@@ -17,6 +17,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
+}
+- (IBAction)gotoSetUpMyRoute:(id)sender {
+    self.navigationController.tabBarController.selectedIndex = 4;
+    UINavigationController* viewController = [self.navigationController.tabBarController.viewControllers objectAtIndex:4];
+    
+     MyRouteViewController *nextController = [self.storyboard instantiateViewControllerWithIdentifier:@"MyRouteViewController"];
+    [viewController popToRootViewControllerAnimated:NO];
+    [viewController pushViewController:nextController animated:YES];
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

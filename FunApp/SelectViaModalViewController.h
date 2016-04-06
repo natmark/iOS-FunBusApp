@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "RouteSearchManager.h"
-
-@interface SelectViaModalViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
+#import "MyRouteViewController.h"
+@interface SelectViaModalViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>{
     UILabel *errorLabel;
     UIActivityIndicatorView* indicator;
     NSArray* arrayList;
 
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, assign) NSDictionary *getOnBusStop;
+@property (nonatomic, assign) NSDictionary *getOffBusStop;
 
 @end
