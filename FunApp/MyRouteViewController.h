@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RouteSearchManager.h"
 #import "BusSearchManager.h"
-#import "SelectViaViewController.h"
+#import "SelectViaModalViewController.h"
 @interface MyRouteViewController : UIViewController<UITextFieldDelegate,UIWebViewDelegate>{
     NSArray* getOnSearchArray;
     NSArray* getOffSearchArray;

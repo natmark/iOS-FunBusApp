@@ -39,6 +39,7 @@
 		F77217911C5C4AF7002714B3 /* InquiryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77217901C5C4AF7002714B3 /* InquiryViewController.m */; };
 		F773ADA41C267BE90071EA77 /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F7E211BC1B3E8FF90035AF3A /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F7C44C351CB3F61400428A82 /* SettingConnectionIntervalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C44C341CB3F61400428A82 /* SettingConnectionIntervalViewController.m */; };
+		F7C44C421CB49C5800428A82 /* SelectViaModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C44C411CB49C5800428A82 /* SelectViaModalViewController.m */; };
 		F7C625871BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
 		F7C625881BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
 		F7C625891BF2F6E60016C86D /* bus_data.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C625831BF2F6E60016C86D /* bus_data.plist */; };
@@ -135,6 +136,8 @@
 		F77217901C5C4AF7002714B3 /* InquiryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InquiryViewController.m; sourceTree = "<group>"; };
 		F7C44C331CB3F61400428A82 /* SettingConnectionIntervalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingConnectionIntervalViewController.h; sourceTree = "<group>"; };
 		F7C44C341CB3F61400428A82 /* SettingConnectionIntervalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingConnectionIntervalViewController.m; sourceTree = "<group>"; };
+		F7C44C401CB49C5800428A82 /* SelectViaModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViaModalViewController.h; sourceTree = "<group>"; };
+		F7C44C411CB49C5800428A82 /* SelectViaModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViaModalViewController.m; sourceTree = "<group>"; };
 		F7C625831BF2F6E60016C86D /* bus_data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bus_data.plist; sourceTree = "<group>"; };
 		F7E2118F1B3E8E2E0035AF3A /* FunApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7E211931B3E8E2F0035AF3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -203,6 +206,8 @@
 				F7687E951C52CD1E006968A7 /* SettingViewController.m */,
 				F73B301A1C819B6900886A79 /* MyRouteViewController.h */,
 				F73B301B1C819B6900886A79 /* MyRouteViewController.m */,
+				F7C44C401CB49C5800428A82 /* SelectViaModalViewController.h */,
+				F7C44C411CB49C5800428A82 /* SelectViaModalViewController.m */,
 				F7C44C331CB3F61400428A82 /* SettingConnectionIntervalViewController.h */,
 				F7C44C341CB3F61400428A82 /* SettingConnectionIntervalViewController.m */,
 				F772178F1C5C4AF7002714B3 /* InquiryViewController.h */,
@@ -572,6 +577,7 @@
 				F7048C611BF42F9600B2EA72 /* BusSearchManager.m in Sources */,
 				F7E211981B3E8E2F0035AF3A /* AppDelegate.m in Sources */,
 				F7687E901C52CD07006968A7 /* HistoryViewController.m in Sources */,
+				F7C44C421CB49C5800428A82 /* SelectViaModalViewController.m in Sources */,
 				F701CBA11C52700B00AC51D7 /* SelectViaViewController.m in Sources */,
 				F71EC3371BF8210E000F9F1F /* NoConnectionView.m in Sources */,
 				F77217911C5C4AF7002714B3 /* InquiryViewController.m in Sources */,

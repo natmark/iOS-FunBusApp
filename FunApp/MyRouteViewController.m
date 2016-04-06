@@ -201,7 +201,7 @@
                 [alert show];
 
             }else{
-                [[RouteSearchManager sharedManager]getViaListWithGetOn:[BusSearchManager sharedManager].GetOnBusStop getOff:[BusSearchManager sharedManager].GetOffBusStop completionHandler:^(NSArray *arrayList,NSError *error){
+                [[RouteSearchManager sharedManager]getViaListWithGetOn:getOnBusStop getOff:getOffBusStop completionHandler:^(NSArray *arrayList,NSError *error){
                     [indicator stopAnimating];
                     indicator.hidden = true;
                     
@@ -235,6 +235,9 @@
                             //乗り継ぎ検索
                             //SelectViaを開いてtypeComplexでMyRoute保存
                             //この画面上で経由を表示できるようにしておく必要がある。
+                            SelectViaModalViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectViaModalViewController"];
+                            [self presentViewController:viewController animated:YES completion:nil];
+                            
                             /*
                             NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
                             NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:getOffBusStop,@"getOff",getOnBusStop,@"getOn",nil];
