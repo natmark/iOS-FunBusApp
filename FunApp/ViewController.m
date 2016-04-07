@@ -63,7 +63,6 @@
     return customCell;
 }
 -(void)viewWillDisappear:(BOOL)animated{
-    
 }
 -(void)viewWillAppear:(BOOL)animated{
     if(!isLoaded) return;
@@ -150,6 +149,7 @@
         }
     }else{
         //データ無し
+        isLoaded = YES;
         self.myRouteButton.hidden = NO;
         self.myRouteLabel.hidden = NO;
     }
