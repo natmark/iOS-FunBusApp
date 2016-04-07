@@ -13,6 +13,7 @@
 @interface ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
     UIView* contentView;
     NSMutableArray* arrayList;
+    BOOL isLoaded;
 }
 @property (strong, nonatomic) IBOutlet UILabel *myRouteLabel;
 @property (strong, nonatomic) IBOutlet UIButton *myRouteButton;
