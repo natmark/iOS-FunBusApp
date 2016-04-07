@@ -21,6 +21,9 @@
     self.tableView.dataSource = self;
     UINib *nib = [UINib nibWithNibName:@"MyRouteTableViewCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"MyRouteTableViewCell"];
+    isLoaded = YES;
+    NSTimer* timer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(update:) userInfo:nil repeats:YES];
+    [timer fire];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -28,6 +31,9 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 120;
+}
+-(void)update:(NSTimer*)timer{
+    [self viewWillAppear:YES];
 }
 /**
  テーブルに表示するセルを返します。（必須）
@@ -56,13 +62,17 @@
     
     return customCell;
 }
-
--(void)viewWillAppear:(BOOL)animated{
-    arrayList = [NSMutableArray new];
+-(void)viewWillDisappear:(BOOL)animated{
     
+}
+-(void)viewWillAppear:(BOOL)animated{
+    if(!isLoaded) return;
+    
+    arrayList = [NSMutableArray new];
+    isLoaded = NO;
     NSUserDefaults * defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.io.github.natmark.FunApp"];
     NSDictionary* dict = [defaults objectForKey:@"MyRoute"];
-    
+
     if(dict){
         //データ有り
         self.myRouteButton.hidden = YES;
@@ -71,50 +81,72 @@
             //乗り継ぎ無し
             [[RouteSearchManager sharedManager]getRouteWithGetOn:[[dict objectForKey:@"data"]objectForKey:@"getOn"] getOff:[[dict objectForKey:@"data"]objectForKey:@"getOff"] completionHandler:^(NSDictionary* data,NSError* error){
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    if(!error){
                     NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:data,@"dict",[[dict objectForKey:@"data"]objectForKey:@"getOn"],@"getOn",[[dict objectForKey:@"data"]objectForKey:@"getOff"],@"getOff", nil];
                     [arrayList addObject:dictionary];
-                    [self.tableView reloadData];
+                    [[RouteSearchManager sharedManager]getRouteWithGetOn:[[dict objectForKey:@"data"]objectForKey:@"getOff"] getOff:[[dict objectForKey:@"data"]objectForKey:@"getOn"] completionHandler:^(NSDictionary* data,NSError* error){
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if(!error){
+                            NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:data,@"dict",[[dict objectForKey:@"data"]objectForKey:@"getOff"],@"getOn",[[dict objectForKey:@"data"]objectForKey:@"getOn"],@"getOff", nil];
+                            [arrayList addObject:dictionary];
+                            [self.tableView reloadData];
+                            isLoaded = YES;
+                            }else{
+                                isLoaded = YES;
+                            }
+                        });
+                    }];
+                    }else{
+                        isLoaded = YES;
+                    }
                 });
             }];
-            [[RouteSearchManager sharedManager]getRouteWithGetOn:[[dict objectForKey:@"data"]objectForKey:@"getOff"] getOff:[[dict objectForKey:@"data"]objectForKey:@"getOn"] completionHandler:^(NSDictionary* data,NSError* error){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:data,@"dict",[[dict objectForKey:@"data"]objectForKey:@"getOff"],@"getOn",[[dict objectForKey:@"data"]objectForKey:@"getOn"],@"getOff", nil];
-                    [arrayList addObject:dictionary];
-                    [self.tableView reloadData];
-                });
-            }];
-            
         }else{
             //乗り継ぎ有り
             [[RouteSearchManager sharedManager]getRouteWithGetOn:[[dict objectForKey:@"data"]objectForKey:@"getOn"] getOff:[[dict objectForKey:@"data"]objectForKey:@"via"] completionHandler:^(NSDictionary* data,NSError* error){
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    if(!error){
                     NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:data,@"dict",[[dict objectForKey:@"data"]objectForKey:@"getOn"],@"getOn",[[dict objectForKey:@"data"]objectForKey:@"via"],@"getOff", nil];
                     [arrayList addObject:dictionary];
-                    [self.tableView reloadData];
+                    [[RouteSearchManager sharedManager]getRouteWithGetOn:[[dict objectForKey:@"data"]objectForKey:@"via"] getOff:[[dict objectForKey:@"data"]objectForKey:@"getOff"] completionHandler:^(NSDictionary* data,NSError* error){
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if(!error){
+
+                            NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:data,@"dict",[[dict objectForKey:@"data"]objectForKey:@"via"],@"getOn",[[dict objectForKey:@"data"]objectForKey:@"getOff"],@"getOff", nil];
+                            [arrayList addObject:dictionary];
+                            [[RouteSearchManager sharedManager]getRouteWithGetOn:[[dict objectForKey:@"data"]objectForKey:@"getOff"] getOff:[[dict objectForKey:@"data"]objectForKey:@"via"] completionHandler:^(NSDictionary* data,NSError* error){
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    if(!error){
+
+                                    NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:data,@"dict",[[dict objectForKey:@"data"]objectForKey:@"getOff"],@"getOn",[[dict objectForKey:@"data"]objectForKey:@"via"],@"getOff", nil];
+                                    [arrayList addObject:dictionary];
+                                    [[RouteSearchManager sharedManager]getRouteWithGetOn:[[dict objectForKey:@"data"]objectForKey:@"via"] getOff:[[dict objectForKey:@"data"]objectForKey:@"getOn"] completionHandler:^(NSDictionary* data,NSError* error){
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            if(!error){
+                                            NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:data,@"dict",[[dict objectForKey:@"data"]objectForKey:@"via"],@"getOn",[[dict objectForKey:@"data"]objectForKey:@"getOn"],@"getOff", nil];
+                                            [arrayList addObject:dictionary];
+                                            isLoaded = YES;
+                                            [self.tableView reloadData];
+                                            }else{
+                                                isLoaded = YES;
+                                            }
+                                        });
+                                    }];
+                                    }else{
+                                        isLoaded = YES;
+                                    }
+                                });
+                            }];
+                            }else{
+                                isLoaded = YES;
+                            }
+                        });
+                    }];
+                    }else{
+                        isLoaded = YES;
+                    }
                 });
             }];
-            [[RouteSearchManager sharedManager]getRouteWithGetOn:[[dict objectForKey:@"data"]objectForKey:@"via"] getOff:[[dict objectForKey:@"data"]objectForKey:@"getOff"] completionHandler:^(NSDictionary* data,NSError* error){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:data,@"dict",[[dict objectForKey:@"data"]objectForKey:@"via"],@"getOn",[[dict objectForKey:@"data"]objectForKey:@"getOff"],@"getOff", nil];
-                    [arrayList addObject:dictionary];
-                    [self.tableView reloadData];
-                });
-            }];
-            [[RouteSearchManager sharedManager]getRouteWithGetOn:[[dict objectForKey:@"data"]objectForKey:@"getOff"] getOff:[[dict objectForKey:@"data"]objectForKey:@"via"] completionHandler:^(NSDictionary* data,NSError* error){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:data,@"dict",[[dict objectForKey:@"data"]objectForKey:@"getOff"],@"getOn",[[dict objectForKey:@"data"]objectForKey:@"via"],@"getOff", nil];
-                    [arrayList addObject:dictionary];
-                    [self.tableView reloadData];
-                });
-            }];
-            [[RouteSearchManager sharedManager]getRouteWithGetOn:[[dict objectForKey:@"data"]objectForKey:@"via"] getOff:[[dict objectForKey:@"data"]objectForKey:@"getOn"] completionHandler:^(NSDictionary* data,NSError* error){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:data,@"dict",[[dict objectForKey:@"data"]objectForKey:@"via"],@"getOn",[[dict objectForKey:@"data"]objectForKey:@"getOn"],@"getOff", nil];
-                    [arrayList addObject:dictionary];
-                    [self.tableView reloadData];
-                });
-            }];
-            
         }
     }else{
         //データ無し
