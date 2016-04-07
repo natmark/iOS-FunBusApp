@@ -150,6 +150,7 @@
         }
     }else{
         //データ無し
+        isLoaded = YES;
         self.myRouteButton.hidden = NO;
         self.myRouteLabel.hidden = NO;
     }
