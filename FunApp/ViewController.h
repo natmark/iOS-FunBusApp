@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RouteSearchManager.h"
 #import "SettingViewController.h"
 #import "MyRouteTableViewCell.h"
 @interface ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
     UIView* contentView;
+    NSMutableArray* arrayList;
 }
 @property (strong, nonatomic) IBOutlet UILabel *myRouteLabel;
 @property (strong, nonatomic) IBOutlet UIButton *myRouteButton;

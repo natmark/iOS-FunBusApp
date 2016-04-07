@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface MyRouteTableViewCell : UITableViewCell
+@property (strong, nonatomic) IBOutlet UILabel *destinationLabel;
+@property (strong, nonatomic) IBOutlet UILabel *departureLabel;
+@property (strong, nonatomic) IBOutlet UILabel *routeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *detailLabel;
 
 @end
