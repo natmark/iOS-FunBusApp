@@ -79,13 +79,18 @@
                                 <state key="normal" title="MyRouteを登録する">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="9zs-Tb-uH4"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="doneSetting:" destination="oT0-Dg-66k" eventType="touchUpInside" id="Uhm-gd-FUY"/>
                                     <action selector="gotoSetUpMyRoute:" destination="hUT-Hx-HWe" eventType="touchUpInside" id="mCi-Zl-Kmn"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyRouteを登録することで、登録したルートの直近バスを表示できるようになります" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pkt-aQ-6pz">
-                                <rect key="frame" x="20" y="228" width="560" height="64"/>
+                                <rect key="frame" x="0.0" y="228" width="600" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="6Fd-S2-IxF"/>
                                 </constraints>
@@ -96,17 +101,29 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="pkt-aQ-6pz" firstAttribute="trailing" secondItem="LrI-qp-NDK" secondAttribute="trailingMargin" id="Bct-tF-Wyg"/>
+                            <constraint firstItem="8Ii-7V-ROR" firstAttribute="top" secondItem="DUJ-QR-DrB" secondAttribute="bottom" id="1MH-zD-drk"/>
+                            <constraint firstItem="pkt-aQ-6pz" firstAttribute="leading" secondItem="LrI-qp-NDK" secondAttribute="leadingMargin" constant="-20" id="9yD-vB-jYh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="DUJ-QR-DrB" secondAttribute="trailing" constant="-20" id="EHK-E1-WGG"/>
                             <constraint firstItem="zBD-mF-3br" firstAttribute="centerY" secondItem="LrI-qp-NDK" secondAttribute="centerY" constant="20" id="Eql-8L-YQJ"/>
                             <constraint firstItem="8Ii-7V-ROR" firstAttribute="top" secondItem="DUJ-QR-DrB" secondAttribute="bottom" id="I4e-To-8sk"/>
-                            <constraint firstItem="zBD-mF-3br" firstAttribute="top" secondItem="pkt-aQ-6pz" secondAttribute="bottom" constant="8" id="JpM-bN-TCh"/>
                             <constraint firstItem="zBD-mF-3br" firstAttribute="leading" secondItem="LrI-qp-NDK" secondAttribute="leadingMargin" id="Z5A-V5-zUx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="DUJ-QR-DrB" secondAttribute="trailing" constant="-20" id="bIQ-kO-CX8"/>
                             <constraint firstItem="DUJ-QR-DrB" firstAttribute="leading" secondItem="LrI-qp-NDK" secondAttribute="leadingMargin" constant="-20" id="eJt-p2-mCZ"/>
+                            <constraint firstItem="DUJ-QR-DrB" firstAttribute="top" secondItem="WlJ-3b-eCo" secondAttribute="bottom" id="frS-dv-PrO"/>
                             <constraint firstItem="zBD-mF-3br" firstAttribute="trailing" secondItem="LrI-qp-NDK" secondAttribute="trailingMargin" id="hDh-3z-CMJ"/>
+                            <constraint firstItem="zBD-mF-3br" firstAttribute="top" secondItem="pkt-aQ-6pz" secondAttribute="bottom" constant="8" id="jep-mP-Wm4"/>
+                            <constraint firstItem="DUJ-QR-DrB" firstAttribute="leading" secondItem="LrI-qp-NDK" secondAttribute="leadingMargin" constant="-20" id="rSI-HB-pEM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pkt-aQ-6pz" secondAttribute="trailing" constant="-20" id="shG-q8-h78"/>
                             <constraint firstItem="DUJ-QR-DrB" firstAttribute="top" secondItem="WlJ-3b-eCo" secondAttribute="bottom" id="tHU-Mx-Yf9"/>
-                            <constraint firstItem="pkt-aQ-6pz" firstAttribute="leading" secondItem="LrI-qp-NDK" secondAttribute="leadingMargin" id="yPz-MX-aDG"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="bIQ-kO-CX8"/>
+                                <exclude reference="eJt-p2-mCZ"/>
+                                <exclude reference="tHU-Mx-Yf9"/>
+                                <exclude reference="I4e-To-8sk"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="はこバス" id="pGr-EV-0uC">
                         <barButtonItem key="backBarButtonItem" title="トップ" id="C7c-wT-v1T"/>
